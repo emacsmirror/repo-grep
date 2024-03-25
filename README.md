@@ -1,6 +1,6 @@
 # repo-grep
 
-**repo-grep** offers a recursive grep through the folder structure of your cloned git repository or svn working copy in Emacs. The default search term is the string under the current cursor position. Interactive modification of the search term is possible, and the search term can include regular expression.
+**repo-grep** offers a recursive grep through the folder structure of your cloned git repository or your svn working copy in Emacs. The default search term is the string under the current cursor position. Interactive modification of the search term is possible, and the search term can include regular expression.
 
 ## Install
 
