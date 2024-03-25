@@ -7,13 +7,14 @@
 Download the code
 
 ```
-git clone https://github.com/BHFock/repo-grep.git ~/YOUR_REPO_GREP_FOLDER
+mkdir YOUR_REPO_GREP_FOLDER
+git clone https://github.com/BHFock/repo-grep.git YOUR_REPO_GREP_FOLDER
 ```
 
 Adjust your Emacs configuration file ~/.emacs or ~/.emacs.d/init.el to include 
 
 ```
-(add-to-list 'load-path "~/YOUR_REPO_GREP_FOLDER")
+(add-to-list 'load-path "YOUR_REPO_GREP_FOLDER")
 (autoload 'repo-grep "repo-grep")
 (global-set-key [f12] 'repo-grep)
 ```
