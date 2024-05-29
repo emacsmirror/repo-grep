@@ -11,7 +11,7 @@ mkdir YOUR_REPO_GREP_FOLDER
 git clone https://github.com/BHFock/repo-grep.git YOUR_REPO_GREP_FOLDER
 ```
 
-Adjust your Emacs configuration file ~/.emacs or ~/.emacs.d/init.el to include 
+Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to include 
 
 ```
 (add-to-list 'load-path "YOUR_REPO_GREP_FOLDER")
