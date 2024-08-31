@@ -25,7 +25,7 @@
 
   ; folder from which the grep is executed
 
-  ; SVN - detect Subversion Working Copy Root Path
+  ; SVN - detect subversion working copy root path
   (setq folder (substring
 		(shell-command-to-string
 		 "svn info | grep 'Working Copy Root Path' | awk {'print $5'}"
@@ -48,13 +48,13 @@
 		 "svn info ../../.. | grep 'Working Copy Root Path' | awk {'print $5'}"
 		 ) 0 -1)))
 
-  ; PWD - no svn working directory search current directory (and subdirs)
+  ; PWD - not a svn working directory / use current working directory
   (if (string-match-p (regexp-quote "svn: E155007") folder) 
       (setq folder (substring
 		    (shell-command-to-string "pwd")
 		    0 -1)))
 
-  ; GIT - Detect top level from git if in git repository (overwrites svn and pwd)
+  ; GIT - detect top level from git if in git repository (overwrites svn and pwd)
   (setq gitfolder (substring
 		  (shell-command-to-string
 		   "git rev-parse --show-toplevel"
