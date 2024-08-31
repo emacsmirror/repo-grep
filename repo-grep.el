@@ -25,7 +25,7 @@
 
   ; folder from which the grep is executed
 
-  ; SVN - detect Subversion Working Copy Root Pat
+  ; SVN - detect Subversion Working Copy Root Path
   (setq folder (substring
 		(shell-command-to-string
 		 "svn info | grep 'Working Copy Root Path' | awk {'print $5'}"
