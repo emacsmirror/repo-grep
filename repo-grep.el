@@ -2,16 +2,14 @@
 
 ;; Author: Bjoern Hendrik Fock
 
-;; Install: 
-;; Add to .emacs or .emacs.d/init.el
+;; Install - add to .emacs or .emacs.d/init.el:
+;;
 ;; (add-to-list 'load-path "PATH_TO_FOLDER_CONTAINING repo_grep.el")
 ;; (autoload 'repo-grep "repo-grep" )
-;;
-;; Add some key bindings
-;;
-;; (global-set-key [f12] 'repo-grep) ; f12
+;; (global-set-key [f12] 'repo-grep)
 ;;
 ;; Use:
+;;
 ;; M-x repo-grep or just hit F12
 ;; to search the string under the cursor
 
