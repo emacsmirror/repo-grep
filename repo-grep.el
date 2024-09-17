@@ -5,7 +5,7 @@
 ;; Install - add to .emacs or .emacs.d/init.el:
 ;;
 ;; (add-to-list 'load-path "PATH_TO_FOLDER_CONTAINING repo_grep.el")
-;; (autoload 'repo-grep "repo-grep" )
+;; (autoload 'repo-grep "repo-grep")
 ;; (global-set-key [f12] 'repo-grep)
 ;;
 ;; Use:
