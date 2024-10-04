@@ -4,9 +4,16 @@
 
 ;; Install - add to .emacs or .emacs.d/init.el:
 ;;   (add-to-list 'load-path "PATH_TO_FOLDER_CONTAINING repo_grep.el")
-;;   (autoload 'repo-grep "repo-grep" )
+;;   (autoload 'repo-grep       "repo-grep")
+;;   (autoload 'repo-grep-multi "repo-grep")
 ;;   (global-set-key [f12]   'repo-grep)
 ;;   (global-set-key [C-f12] 'repo-grep-multi)
+;;
+;; Advanced configuration - adjust default search term with optional left/right-regex:
+;;   (global-set-key [f11]   (lambda () (interactive) (repo-grep "" ".*="))            ) ;; Search for SEARCH_VARIABLE.*=
+;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi "" ".*="))      )
+;;   (global-set-key [f10]   (lambda () (interactive) (repo-grep "CALL.*(.*" ""))      ) ;; Search for CALL.*(.*SEARCH_VARIABLE
+;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi "CALL.*(.*" "")))
 ;;
 ;; Use:
 ;;   M-x repo-grep or just hit F12
