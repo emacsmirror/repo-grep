@@ -34,6 +34,7 @@
   (let* ((default_term (format "\"%s\"" (thing-at-point 'symbol)))
          (search_string (or (read-string (concat "grep for (" default_term "): ")) default_term))
          (search_string (if (equal search_string "") default_term search_string))
+         (search_string (concat (or left-regex "") search_string (or right-regex "")))
          (folder (repo-grep-find-folder))
          (files "*"))
     (grep (format "cd %s && grep -nir %s %s " folder search_string files))))
