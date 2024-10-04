@@ -4,9 +4,16 @@
 
 ;; Install - add to .emacs or .emacs.d/init.el:
 ;;   (add-to-list 'load-path "PATH_TO_FOLDER_CONTAINING repo_grep.el")
-;;   (autoload 'repo-grep "repo-grep" )
+;;   (autoload 'repo-grep       "repo-grep")
+;;   (autoload 'repo-grep-multi "repo-grep")
 ;;   (global-set-key [f12]   'repo-grep)
 ;;   (global-set-key [C-f12] 'repo-grep-multi)
+;;
+;; Advanced configuration - adjust default search term with optional left/right-regex:
+;;   (global-set-key [f11]   (lambda () (interactive) (repo-grep "" ".*="))            ) ;; Search for SEARCH_VARIABLE.*=
+;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi "" ".*="))      )
+;;   (global-set-key [f10]   (lambda () (interactive) (repo-grep "CALL.*(.*" ""))      ) ;; Search for CALL.*(.*SEARCH_VARIABLE
+;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi "CALL.*(.*" "")))
 ;;
 ;; Use:
 ;;   M-x repo-grep or just hit F12
@@ -18,22 +25,23 @@
 (defvar repo-grep_from_folder_above nil
   "If non-nil, grep from one folder level above the top folder.")
 
-(defun repo-grep ()
+(defun repo-grep (&optional left-regex right-regex)
   "REPO-GREP: Grep code from top of svn/git working copy or current folder"
   (interactive)
-  (repo-grep-internal))
+  (repo-grep-internal left-regex right-regex))
 
-(defun repo-grep-multi ()
+(defun repo-grep-multi (&optional left-regex right-regex)
   "REPO-GREP-MULTI: Grep code from one folder level above the top folder"
   (interactive)
   (let ((repo-grep_from_folder_above t))
-    (repo-grep-internal)))
+    (repo-grep-internal left-regex right-regex)))
 
-(defun repo-grep-internal ()
+(defun repo-grep-internal (&optional left-regex right-regex)
   "Internal function to perform the grep"
   (let* ((default_term (format "\"%s\"" (thing-at-point 'symbol)))
-         (search_string (or (read-string (concat "grep for (" default_term "): ")) default_term))
+         (search_string (or (read-string (concat "grep for (" (concat (or left-regex) (thing-at-point 'symbol) (or right-regex) "): "))) default_term))
          (search_string (if (equal search_string "") default_term search_string))
+         (search_string (concat (or left-regex "") search_string (or right-regex "")))
          (folder (repo-grep-find-folder))
          (files "*"))
     (grep (format "cd %s && grep -nir %s %s " folder search_string files))))
