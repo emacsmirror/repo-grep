@@ -18,18 +18,18 @@
 (defvar repo-grep_from_folder_above nil
   "If non-nil, grep from one folder level above the top folder.")
 
-(defun repo-grep (&optional predefined-regex)
+(defun repo-grep (&optional left-regex rigth-regex)
   "REPO-GREP: Grep code from top of svn/git working copy or current folder"
   (interactive)
-  (repo-grep-internal predefined-regex))
+  (repo-grep-internal left-regex rigth-regex))
 
-(defun repo-grep-multi (&optional predefined-regex)
+(defun repo-grep-multi (&optional left-regex rigth-regex)
   "REPO-GREP-MULTI: Grep code from one folder level above the top folder"
   (interactive)
   (let ((repo-grep_from_folder_above t))
-    (repo-grep-internal predefined-regex)))
+    (repo-grep-internal left-regex rigth-regex)))
 
-(defun repo-grep-internal (&optional predefined-regex)()
+(defun repo-grep-internal (&optional left-regex rigth-regex)()
   "Internal function to perform the grep"
   (let* ((default_term (format "\"%s\"" (thing-at-point 'symbol)))
          (search_string (or (read-string (concat "grep for (" default_term "): ")) default_term))
