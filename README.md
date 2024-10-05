@@ -18,8 +18,23 @@ Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to inclu
 ```
 (add-to-list 'load-path "YOUR_REPO_GREP_FOLDER")
 (autoload 'repo-grep "repo-grep")
+(autoload 'repo-grep-multi "repo-grep")
 (global-set-key [f12] 'repo-grep)
 (global-set-key [C-f12] 'repo-grep-multi)
+```
+
+## Customisation 
+
+Modify your default search term (string under cursor) with suffixes to find variable assignments
+
+```
+(global-set-key [f11] (lambda () (interactive) (repo-grep "" ".*=")))
+```
+
+or prefixes, e.g. to search for FORTRAN function calls 
+
+```
+(global-set-key [f10] (lambda () (interactive) (repo-grep "CALL.*(.*" "")))"
 ```
 
 ## Use
