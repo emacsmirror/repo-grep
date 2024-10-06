@@ -31,7 +31,7 @@
   (repo-grep-internal left-regex right-regex))
 
 (defun repo-grep-multi (&optional left-regex right-regex)
-  "REPO-GREP-MULTI: Grep code from one folder level above the top folder"
+  "REPO-GREP-MULTI: Grep code from one folder level above the top folder."
   (interactive)
   (let ((repo-grep-from-folder-above t))
     (repo-grep-internal left-regex right-regex)))
