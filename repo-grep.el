@@ -10,15 +10,15 @@
 ;;   (global-set-key [C-f12] 'repo-grep-multi)
 ;;
 ;; Advanced configuration - exclude files ending ".pyc" and "~" from search
-;;   (global-set-key [f9] (lambda () (interactive) (repo-grep nil nil '(".pyc" "~"))))
-;;   (global-set-key [f9] (lambda () (interactive) (repo-grep-multi nil nil '(".pyc" "~"))))
+;;   (global-set-key [f9] (lambda () (interactive) (repo-grep :exclude-ext '(".pyc" "~"))))
+;;   (global-set-key [C-f9] (lambda () (interactive) (repo-grep-multi :exclude-ext '(".pyc" "~"))))
 ;;
 ;; Advanced configuration - adjust default search term with optional left/right-regex:
 ;;   ;; find variable assignments
-;;   (global-set-key [f11] (lambda () (interactive) (repo-grep "" ".*=")))
-;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi "" ".*=")))
+;;   (global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
+;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi :right-regex ".*=")))
 ;;   ;; find function calls
-;;   (global-set-key [f10] (lambda () (interactive) (repo-grep "CALL.*(.*" "")))
+;;   (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
 ;;
 ;; Use:
 ;;   M-x repo-grep or just hit F12
@@ -30,20 +30,23 @@
 (defvar repo-grep-from-folder-above nil
   "If non-nil, grep from one folder level above the top folder.")
 
-(defun repo-grep (&optional left-regex right-regex exclude-ext)
+(defun repo-grep (&rest args)
   "REPO-GREP: Grep code from top of svn/git working copy or current folder."
   (interactive)
-  (repo-grep-internal left-regex right-regex exclude-ext))
+  (apply 'repo-grep-internal args))
 
-(defun repo-grep-multi (&optional left-regex right-regex exclude-ext)
+(defun repo-grep-multi (&rest args)
   "REPO-GREP-MULTI: Grep code from one folder level above the top folder."
   (interactive)
   (let ((repo-grep-from-folder-above t))
-    (repo-grep-internal left-regex right-regex exclude-ext)))
+    (apply 'repo-grep-internal args)))
 
-(defun repo-grep-internal (&optional left-regex right-regex exclude-ext)
+(defun repo-grep-internal (&rest args)
   "Internal function to perform the grep."
-  (let* ((default-term (format "\"%s\"" (thing-at-point 'symbol)))
+  (let* ((exclude-ext (plist-get args :exclude-ext))
+         (left-regex (plist-get args :left-regex))
+         (right-regex (plist-get args :right-regex))
+         (default-term (format "\"%s\"" (thing-at-point 'symbol)))
          (search-string (or (read-string (concat "grep for ("
                                                  (concat (or left-regex)
                                                          (thing-at-point 'symbol)
