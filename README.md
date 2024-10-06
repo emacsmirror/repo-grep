@@ -25,25 +25,23 @@ Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to inclu
 
 ## Customisation 
 
+Exclude files ending ```.log``` and ```~``` from the search
+
+```
+(global-set-key [f9] (lambda () (interactive) (repo-grep :exclude-ext '(".pyc" "~"))))
+```
+
 Modify your default search term (string under cursor) with suffixes to find variable assignments
 
 ```
-(global-set-key [f11] (lambda () (interactive) (repo-grep "" ".*=")))
+(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
 ```
 
 or prefixes, e.g. to search for function calls 
 
 ```
-(global-set-key [f10] (lambda () (interactive) (repo-grep "CALL.*(.*" "")))"
+(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
 ```
-
-Exclude files ending ```.log``` and ```~``` from the search
-
-```
-(global-set-key [f9] (lambda () (interactive) (repo-grep nil nil '(".log" "~"))))
-```
-
-
 
 ## Use
 
