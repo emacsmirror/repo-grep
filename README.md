@@ -31,11 +31,19 @@ Modify your default search term (string under cursor) with suffixes to find vari
 (global-set-key [f11] (lambda () (interactive) (repo-grep "" ".*=")))
 ```
 
-or prefixes, e.g. to search for FORTRAN function calls 
+or prefixes, e.g. to search for function calls 
 
 ```
 (global-set-key [f10] (lambda () (interactive) (repo-grep "CALL.*(.*" "")))"
 ```
+
+Exclude files ending ```.log``` and ```~``` from the search
+
+```
+(global-set-key [f9] (lambda () (interactive) (repo-grep nil nil '(".log" "~"))))
+```
+
+
 
 ## Use
 
