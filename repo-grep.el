@@ -9,15 +9,16 @@
 ;;   (global-set-key [f12]   'repo-grep)
 ;;   (global-set-key [C-f12] 'repo-grep-multi)
 ;;
-;; Advanced configuration - adjust default search term with optional left/right-regex:
-;;   (global-set-key [f11]   (lambda () (interactive) (repo-grep "" ".*="))            ) ;; Search for SEARCH_VARIABLE.*=
-;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi "" ".*="))      )
-;;   (global-set-key [f10]   (lambda () (interactive) (repo-grep "CALL.*(.*" ""))      ) ;; Search for CALL.*(.*SEARCH_VARIABLE
-;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi "CALL.*(.*" "")))
-;;
 ;; Advanced configuration - exclude files ending ".pyc" and "~" from search
 ;;   (global-set-key [f9] (lambda () (interactive) (repo-grep nil nil '(".pyc" "~"))))
 ;;   (global-set-key [f9] (lambda () (interactive) (repo-grep-multi nil nil '(".pyc" "~"))))
+;;
+;; Advanced configuration - adjust default search term with optional left/right-regex:
+;;   ;; find variable assignments
+;;   (global-set-key [f11] (lambda () (interactive) (repo-grep "" ".*=")))
+;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi "" ".*=")))
+;;   ;; find function calls
+;;   (global-set-key [f10] (lambda () (interactive) (repo-grep "CALL.*(.*" "")))
 ;;
 ;; Use:
 ;;   M-x repo-grep or just hit F12
@@ -43,7 +44,11 @@
 (defun repo-grep-internal (&optional left-regex right-regex exclude-ext)
   "Internal function to perform the grep."
   (let* ((default-term (format "\"%s\"" (thing-at-point 'symbol)))
-         (search-string (or (read-string (concat "grep for (" (concat (or left-regex) (thing-at-point 'symbol) (or right-regex) "): "))) default-term))
+         (search-string (or (read-string (concat "grep for ("
+                                                 (concat (or left-regex)
+                                                         (thing-at-point 'symbol)
+                                                         (or right-regex) "): ")
+                                                 )) default-term))
          (search-string (if (equal search-string "") default-term search-string))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
