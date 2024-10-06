@@ -15,6 +15,10 @@
 ;;   (global-set-key [f10]   (lambda () (interactive) (repo-grep "CALL.*(.*" ""))      ) ;; Search for CALL.*(.*SEARCH_VARIABLE
 ;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi "CALL.*(.*" "")))
 ;;
+;; Advanced configuration - exclude files ending ".pyc" and "~" from search
+;;   (global-set-key [f9] (lambda () (interactive) (repo-grep nil nil '(".pyc" "~"))))
+;;   (global-set-key [f9] (lambda () (interactive) (repo-grep-multi nil nil '(".pyc" "~"))))
+;;
 ;; Use:
 ;;   M-x repo-grep or just hit F12
 ;;   to search the string under the cursor
@@ -25,26 +29,33 @@
 (defvar repo-grep-from-folder-above nil
   "If non-nil, grep from one folder level above the top folder.")
 
-(defun repo-grep (&optional left-regex right-regex)
+(defun repo-grep (&optional left-regex right-regex exclude-ext)
   "REPO-GREP: Grep code from top of svn/git working copy or current folder."
   (interactive)
-  (repo-grep-internal left-regex right-regex))
+  (repo-grep-internal left-regex right-regex exclude-ext))
 
-(defun repo-grep-multi (&optional left-regex right-regex)
+(defun repo-grep-multi (&optional left-regex right-regex exclude-ext)
   "REPO-GREP-MULTI: Grep code from one folder level above the top folder."
   (interactive)
   (let ((repo-grep-from-folder-above t))
-    (repo-grep-internal left-regex right-regex)))
+    (repo-grep-internal left-regex right-regex exclude-ext)))
 
-(defun repo-grep-internal (&optional left-regex right-regex)
+(defun repo-grep-internal (&optional left-regex right-regex exclude-ext)
   "Internal function to perform the grep."
   (let* ((default-term (format "\"%s\"" (thing-at-point 'symbol)))
          (search-string (or (read-string (concat "grep for (" (concat (or left-regex) (thing-at-point 'symbol) (or right-regex) "): "))) default-term))
          (search-string (if (equal search-string "") default-term search-string))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
-         (files "*"))
-    (grep (format "cd %s && grep -nir %s %s " folder search-string files))))
+         (files (repo-grep-build-file-pattern exclude-ext)))
+    (grep (format "cd %s && grep -nir %s %s" folder search-string files))))
+
+(defun repo-grep-build-file-pattern (exclude-ext)
+  "Build the file pattern for grep based on exclusion extensions."
+  (let ((exclude-pattern (if exclude-ext
+                             (mapconcat (lambda (ext) (format "--exclude=*%s" ext)) exclude-ext " ")
+                           "")))
+    (concat "*" " " exclude-pattern)))
 
 (defun repo-grep-find-folder ()
   "Find the folder from which to execute the grep command."
