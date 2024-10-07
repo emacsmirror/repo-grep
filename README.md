@@ -28,7 +28,7 @@ Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to inclu
 Exclude files ending ```.log``` and ```~``` from the search
 
 ```
-(global-set-key [f12] (lambda () (interactive) (repo-grep :exclude-ext '(".pyc" "~"))))
+(global-set-key [f12] (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
 ```
 
 Modify your default search term (string under cursor) with suffixes to find variable assignments
