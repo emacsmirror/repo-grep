@@ -34,13 +34,13 @@ Exclude files ending ```.log``` and ```~``` from the search
 Modify your default search term (string under cursor) with suffixes to find variable assignments
 
 ```
-(global-set-key [f12] (lambda () (interactive) (repo-grep :right-regex ".*=")))
+(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
 ```
 
 or prefixes, e.g. to search for function calls 
 
 ```
-(global-set-key [f12] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
+(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
 ```
 
 ## Use
