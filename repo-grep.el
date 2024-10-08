@@ -17,7 +17,7 @@
 ;;   ;; find variable assignments
 ;;   (global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
 ;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi :right-regex ".*=")))
-;;   ;; find function calls
+;;   ;; find subroutine calls
 ;;   (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
 ;;
 ;; Use:
