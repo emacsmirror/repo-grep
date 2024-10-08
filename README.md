@@ -37,7 +37,7 @@ Modify your default search term (string under cursor) with suffixes to find vari
 (global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*="))) ;; assignment grep
 ```
 
-or prefixes, e.g. to search for function calls 
+or prefixes, e.g. to search for subroutine calls 
 
 ```
 (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))) ;; call grep
