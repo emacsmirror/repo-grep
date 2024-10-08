@@ -9,14 +9,14 @@
 ;;   (global-set-key [f12]   'repo-grep)
 ;;   (global-set-key [C-f12] 'repo-grep-multi)
 ;;
-;; Advanced configuration - exclude files ending ".pyc" and "~" from search
-;;   (global-set-key [f9] (lambda () (interactive) (repo-grep :exclude-ext '(".pyc" "~"))))
-;;   (global-set-key [C-f9] (lambda () (interactive) (repo-grep-multi :exclude-ext '(".pyc" "~"))))
+;; Advanced configuration - exclude files ending ".log" and "~" from search
+;;   (global-set-key [f12] (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
+;;   (global-set-key [C-f12] (lambda () (interactive) (repo-grep-multi :exclude-ext '(".log" "~"))))
 ;;
 ;; Advanced configuration - adjust default search term with optional left/right-regex:
 ;;   ;; find variable assignments
 ;;   (global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
-;;   (global-set-key [C-f11] (lambda () (interactive) (repo-grep-multi :right-regex ".*=")))
+;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi :right-regex ".*=")))
 ;;   ;; find function calls
 ;;   (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
 ;;
@@ -26,6 +26,8 @@
 ;;
 ;;   M-x repo-grep-multi or hit Ctrl+F12
 ;;   to search across multiple repositories
+;;
+;;   Use F11 for your "assignment grep" and F10 for your "call grep".  
 
 (defvar repo-grep-from-folder-above nil
   "If non-nil, grep from one folder level above the top folder.")
