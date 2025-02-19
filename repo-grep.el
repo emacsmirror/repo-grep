@@ -58,7 +58,9 @@
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
          (files (repo-grep-build-file-pattern exclude-ext)))
-    (grep (format "cd %s && grep -nir %s %s" folder search-string files))))
+    ; (grep (format "cd %s && grep -nir %s %s" folder search-string files))
+      (grep (format "cd %s && grep -nr %s %s" folder search-string files))
+  ))
 
 (defun repo-grep-build-file-pattern (exclude-ext)
   "Build the file pattern for grep based on exclusion extensions."
