@@ -66,7 +66,7 @@
          (folder (repo-grep-find-folder))
          (files (repo-grep-build-file-pattern exclude-ext))
          (case-flag (if repo-grep-case-sensitive "" "-i")))
-    (grep (format "cd %s && grep -nr %s %s %s" folder case-flag search-string files))))
+    (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files))))
 
 (defun repo-grep-build-file-pattern (exclude-ext)
   "Build the file pattern for grep based on exclusion extensions."
