@@ -36,7 +36,7 @@
 (defvar repo-grep-from-folder-above nil
   "If non-nil, grep from one folder level above the top folder.")
 
-(defvar repo-grep-case-sensitive t
+(defvar repo-grep-case-sensitive nil
   "If non-nil, grep will be case-sensitive. If nil, grep will be case-insensitive.")
 
 (defun repo-grep (&rest args)
