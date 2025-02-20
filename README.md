@@ -25,6 +25,12 @@ Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to inclu
 
 ## Customisation 
 
+Change to case-sensitive search
+
+```
+(setq repo-grep-case-sensitive t) 
+```
+
 Exclude files ending ```.log``` and ```~``` from the search
 
 ```
@@ -43,12 +49,7 @@ or prefixes, e.g. to search for subroutine calls
 (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))) ;; call grep
 ```
 
-Control case-sensitive behavior via variable:
 
-```
-(setq repo-grep-case-sensitive t)  ;; Case-sensitive search
-(setq repo-grep-case-sensitive nil) ;; Case-insensitive search
-```
 
 ## Use
 
