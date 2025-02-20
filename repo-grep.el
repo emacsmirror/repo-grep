@@ -20,6 +20,10 @@
 ;;   ;; find subroutine calls
 ;;   (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
 ;;
+;; Advanced configuration - case-sensitive or case-insensitive search
+;;   (setq repo-grep-case-sensitive t)  ;; Case-sensitive search
+;;   (setq repo-grep-case-sensitive nil) ;; Case-insensitive search
+;;
 ;; Use:
 ;;   M-x repo-grep or just hit F12
 ;;   to search the string under the cursor
@@ -31,6 +35,9 @@
 
 (defvar repo-grep-from-folder-above nil
   "If non-nil, grep from one folder level above the top folder.")
+
+(defvar repo-grep-case-sensitive nil
+  "If non-nil, grep will be case-sensitive. If nil, grep will be case-insensitive.")
 
 (defun repo-grep (&rest args)
   "REPO-GREP: Grep code from top of svn/git working copy or current folder."
@@ -57,8 +64,9 @@
          (search-string (if (equal search-string "") default-term search-string))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
-         (files (repo-grep-build-file-pattern exclude-ext)))
-    (grep (format "cd %s && grep --color -nir %s %s" folder search-string files))))
+         (files (repo-grep-build-file-pattern exclude-ext))
+         (case-flag (if repo-grep-case-sensitive "" "-i")))
+    (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files))))
 
 (defun repo-grep-build-file-pattern (exclude-ext)
   "Build the file pattern for grep based on exclusion extensions."
