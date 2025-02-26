@@ -1,5 +1,4 @@
 # repo-grep
-![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg) ![Language](https://img.shields.io/badge/language-Emacs%20Lisp-orange.svg) ![Platform](https://img.shields.io/badge/platform-Unix%20Only-red.svg)
 
 **repo-grep** offers a recursive grep through the folder structure of your cloned git repository or your svn working copy in Emacs. The default search term is the string under the current cursor position. Interactive modification of the search term is possible, and the search term can include regular expression. Regular expressions can also be configured as pre/suffix for the default search term.
 
