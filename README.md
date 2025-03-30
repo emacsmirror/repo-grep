@@ -4,10 +4,6 @@
 
 **repo-grep-multi** offers a recursive grep across multiple repositories/folders contained in the same directory as the repository in which the search is initiated.
 
-[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](LICENSE)
-[![Language](https://img.shields.io/badge/language-Emacs%20Lisp-orange.svg)](https://www.gnu.org/software/emacs/manual/eintr.html)
-[![Platform](https://img.shields.io/badge/platform-Unix%20Only-red.svg)](https://en.wikipedia.org/wiki/Unix)
-
 ## Install
 
 Download the code
