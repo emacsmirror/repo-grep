@@ -10,18 +10,20 @@ Download the code
 
 ```
 mkdir YOUR_REPO_GREP_FOLDER
-git clone https://github.com/BHFock/repo-grep.git YOUR_REPO_GREP_FOLDER
+git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
 Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to include 
 
 ```
-(add-to-list 'load-path "YOUR_REPO_GREP_FOLDER")
+(add-to-list 'load-path "~/repo-grep")
 (autoload 'repo-grep "repo-grep")
 (autoload 'repo-grep-multi "repo-grep")
 (global-set-key [f12] 'repo-grep)
 (global-set-key [C-f12] 'repo-grep-multi)
 ```
+
+You can change `~/repo-grep` to any folder you prefer, just update the load-path accordingly.
 
 ## Customisation 
 
