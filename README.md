@@ -9,7 +9,6 @@
 Download the code
 
 ```
-mkdir YOUR_REPO_GREP_FOLDER
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
