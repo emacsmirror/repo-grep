@@ -31,9 +31,59 @@ Search for the word under the cursor or specify a custom query.
 
 ## 2. Installation & Setup
 
-- Step-by-step guide on installing and configuring repo-grep in Emacs.
-- Explain how to modify .emacs or init.el to integrate it properly.
-- Show how to bind keys for quick access.
+### Prerequisites
+
+Before installing repo-grep, ensure you have:
+
+* Emacs installed.
+* Git or SVN (optional, but enhances functionality).
+* AWK (pre-installed on most Unix-based systems).
+
+### Installing repo-grep
+
+#### Clone the Repository
+
+Open a terminal and run:
+
+```sh
+git clone https://github.com/BHFock/repo-grep.git
+```
+This will download the latest version of repo-grep to your local machine.
+
+#### Load repo-grep in Emacs
+
+Add the following line to your Emacs configuration file (init.el or .emacs):
+
+```elsip
+(load "/path/to/repo-grep/repo-grep.el")
+```
+
+Replace `/path/to/repo-grep/` with the actual path where you cloned the repository.
+
+#### Defining Keybindings
+
+One of *repo-grep*'s core features is the ability to search the string under the cursor with a **single keystroke**, making it extremely fast and efficient.
+
+##### Primary Keybinding: One-Keystroke Search
+Assign `F12` to immediately trigger *repo-grep* and search for the string under the cursor:
+
+```elisp
+(global-set-key [f12] 'repo-grep)
+```
+
+##### Multi-Repository Search Keybinding
+
+For broader searches across multiple repositories, use `Ctrl + F12`
+
+```elisp
+(global-set-key [C-f12] 'repo-grep-multi)
+```
+
+This allows rapid multi-repository searches without manual directory selection.
+
+##### Reloading Keybindings
+
+After adding these lines to your configuration file, reload Emacs to apply the changes. With these keybindings, repo-grep enables instant searching with minimal effort, making code navigation seamless and efficient.
 
 ## 3. Basic Usage
  
