@@ -1,27 +1,27 @@
 # Repo-Grep Tutorial
 
-## 1. Introduction to Repo-Grep
+## 1. Introduction to repo-grep
 
 Navigating large codebases is hard — especially when working across disconnected tools. repo-grep brings project-wide search directly into Emacs, eliminating the need to jump into the terminal or external tools. It’s fast, flexible, and designed to fit naturally into your Emacs workflow.
 
-### Why Repo-Grep?
+### Why repo-grep?
 
-- **Automatic Project Root Detection:**  
+- **Automatic project root detection:**  
   Repo-grep automatically locates your project root using Git or SVN. For larger setups with multiple repositories, use `repo-grep-multi` to search all of them from a shared parent directory.
 
-- **Comprehensive File Search:**  
+- **Comprehensive file search:**  
   All files under the root — including those not tracked by version control — are scanned recursively.
 
-- **Powerful Regex Support:**  
+- **Powerful regex support:**  
   Use regular expressions for advanced, precise search patterns.
 
-- **Instant Search with One Keystroke:**   
+- **Instant search with one keystroke:**   
   Hit a key (like `F12`) and instantly search for the symbol under your cursor — no prompts, no friction.
 
-- **Customisable Patterns, File Exclusion, and Case Sensitivity:**  
+- **Customisable patterns, file exclusion, and case sensitivity:**  
   Easily refine your search with regex prefixes and suffixes, exclude specific file types (like `.log` files or backups), and toggle between case-sensitive and case-insensitive searches.
 
-### Automatic Folder Selection
+### Automatic folder selection
 
 One of repo-grep's key features is its ability to intelligently determine the search scope based on the repository type:
 
@@ -29,7 +29,7 @@ One of repo-grep's key features is its ability to intelligently determine the se
 * **Git:** For Git repositories, it uses `git rev-parse --show-toplevel` to find the root and searches all files from there.
 * **No VCS:** If no Git or SVN metadata is found, it simply searches from the current directory down — useful for standalone folders.
 
-### How Repo-Grep Works
+### How repo-grep works
 
 Under the hood, repo-grep uses standard search tools like grep, but wraps them in Emacs-friendly workflows.
 With a single command, you can:
@@ -41,7 +41,7 @@ With a single command, you can:
 
 This tutorial will walk you through installation, configuration, and key use cases so you can make repo-grep a seamless part of your Emacs setup
 
-## 2. Installation & Setup
+## 2. Installation & setup
 
 ### Prerequisites
 
@@ -55,7 +55,7 @@ No external dependencies like `ripgrep` are required.
 
 ### Installing repo-grep
 
-#### Clone the Repository
+#### Clone the repository
 
 Open a terminal and run:
 
@@ -76,11 +76,11 @@ Add the following line to your Emacs configuration file (init.el or .emacs):
 
 Replace `/path/to/repo-grep/` with the actual path where you cloned the repository.
 
-#### Defining Keybindings
+#### Defining keybindings
 
 One of *repo-grep*'s core features is the ability to search the string under the cursor with a **single keystroke**, making it extremely fast and efficient.
 
-##### Primary Keybinding: One-Keystroke Search
+##### Primary keybinding: one-keystroke search
 
 To bind `repo-grep` to the `F12` key for instant search of the symbol at point:
 
@@ -88,7 +88,7 @@ To bind `repo-grep` to the `F12` key for instant search of the symbol at point:
 (global-set-key [f12] 'repo-grep)
 ```
 
-##### Multi-Repository Search Keybinding
+##### Multi-repository search keybinding
 
 To bind multi-repository search to `Ctrl + F12`:
 
@@ -98,25 +98,25 @@ To bind multi-repository search to `Ctrl + F12`:
 
 This allows you to search across multiple repositories under a shared parent folder.
 
-##### Reloading Keybindings
+##### Reloading keybindings
 
 After saving these changes, reload your Emacs config or restart Emacs for the keybindings to take effect. You're now ready to start searching with repo-grep using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
 
-## 3. Basic Usage
+## 3. Basic usage
 
-### Triggering the Search
+### Triggering the search
 
 To start a search, place your cursor (point) over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). `repo-grep` will automatically detect the symbol under the cursor and use it as the default search term.
 
-### Interactive Query 
+### Interactive query 
 
 A prompt displays the default search term at the bottom. Modify it if needed, then press `Enter` to confirm. For example, use regular expressions like `variable.*=` as your modified search term to find variable assignments.
 
-### Interactive Query
+### Interactive query
 
 You'll be prompted in the minibuffer with the detected symbol pre-filled. You can press `Enter` to search as-is, or edit the term before confirming. This prompt supports regular expressions, so you can write more flexible patterns — for example `variable.*=` to match lines where a variable is assigned.
 
-### Executing the Search
+### Executing the search
 
 Once confirmed, `repo-grep` locates the appropriate search root:
 
@@ -124,16 +124,16 @@ Once confirmed, `repo-grep` locates the appropriate search root:
 * If you're in an SVN checkout, it uses the SVN structure.
 * Otherwise, it defaults to the current directory.
 
-### Reviewing Results
+### Reviewing results
 
 Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. This makes it easy to quickly inspect multiple matches across your project.
 
 With just one keystroke, `repo-grep` turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
 
-## 4. Advanced Features
+## 4. Advanced features
 
 
-### Multi-Repository Search
+### Multi-repository search
 
 If your projects are structured as multiple repositories under a common folder, `repo-grep-multi` can search them all in one go. It works by shifting the search root one directory above the Git/SVN root, allowing you to include sibling repositories.
 
@@ -145,7 +145,7 @@ If your projects are structured as multiple repositories under a common folder, 
 
 Now pressing `Ctrl + F12` triggers a recursive search across all sibling directories — no manual navigation needed.
 
-### Regex Prefixes and Suffixes
+### Regex prefixes and suffixes
 
 You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These let you “wrap” the search term in regex — useful for targeting things like assignments, function calls, or declarations.
 
@@ -175,8 +175,7 @@ gravity_at_sea_level = 9.81
 
 This matches lines where the symbol is preceded by CALL, e.g. to understand the call tree of a Fortran programme.
 
-
-### Exclude Noisy File Types
+### Exclude unwanted file types
 
 To keep your results clean, you can tell `repo-grep` to ignore specific file extensions — such as logs, compiled outputs, or Emacs backups.
 
@@ -191,10 +190,9 @@ To keep your results clean, you can tell `repo-grep` to ignore specific file ext
 This ensures that temporary or irrelevant files don’t clutter your search output.
 
 
-### Toggle Case Sensitivity
+### Toggle case sensitivity
 
-By default, `repo-grep` performs **case-insensitive** searches — which is often useful in general-purpose code scanning. If you want to enforce case-sensitive matching:
-
+By default, `repo-grep` performs case-insensitive searches — which is often useful in general-purpose code scanning. If you want to enforce case-sensitive matching:
 
 ```elisp
 (setq repo-grep-case-sensitive t)
@@ -202,13 +200,11 @@ By default, `repo-grep` performs **case-insensitive** searches — which is ofte
 
 To restore the default (case-insensitive):
 
-
 ```elisp
 (setq repo-grep-case-sensitive nil)
 ```
 
 Each of these features can be customised in your Emacs config to fit your workflow — from targeted regex searches to ignoring unwanted files.
-
 
 ## 4. Summary
 
@@ -220,4 +216,3 @@ Each of these features can be customised in your Emacs config to fit your workfl
 * Navigate large projects efficiently — all without leaving Emacs.
 
 By combining regex power, version control awareness, and one-keystroke convenience, repo-grep brings intuitive, project-wide search to your fingertips.
-
