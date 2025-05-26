@@ -2,7 +2,7 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases is hard — especially when working across disconnected tools. *Repo-grep* brings project-wide search directly into Emacs, eliminating the need to jump into the terminal or external tools. It’s fast, flexible, and designed to fit naturally into your Emacs workflow.
+Navigating large codebases can be difficult — especially when working across disconnected tools. *Repo-grep* brings project-wide search directly into Emacs, eliminating the need to jump into the terminal or external tools. It’s fast, flexible, and designed to fit naturally into your Emacs workflow.
 
 ### Why repo-grep?
 
@@ -52,7 +52,7 @@ Before installing *repo-grep*, make sure the following tools are available:
 - **Git or SVN** (optional): Enables automatic project root detection.
 - **awk**: Used internally for text parsing; usually preinstalled on Unix-based systems (Linux, macOS).
 
-No additional tools like `ripgrep`, `projectile`, or other external search utilities are needed. This makes setup simple.
+No additional dependencies like `ripgrep` or `projectile` are required. This makes setup simple.
 
 ### Installing repo-grep
 
