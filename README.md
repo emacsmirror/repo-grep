@@ -60,4 +60,4 @@ Enjoy!
 
 ## Documentation
 
-For a more detailed guide on how to use repo-grep, check out the [Repo-Grep Tutorial](docs/repo-grep-tutorial.md).
+For a more detailed guide on how to use repo-grep, check out the [repo-grep tutorial](docs/repo-grep-tutorial.md).
