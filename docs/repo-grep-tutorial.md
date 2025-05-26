@@ -60,8 +60,8 @@ No additional dependencies like `ripgrep` or `projectile` are required. This mak
 
 Open a terminal and run:
 
-```sh
-git clone https://github.com/BHFock/repo-grep.git
+```
+git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
 This clones the latest version of *repo-grep* to your system. You can place it anywhere, but a common location is `~/.emacs.d/lisp/`
@@ -72,7 +72,12 @@ This clones the latest version of *repo-grep* to your system. You can place it a
 Add the following line to your Emacs configuration file (init.el or .emacs):
 
 ```elisp
-(load "/path/to/repo-grep/repo-grep.el")
+;; Add repo-grep to your Emacs load path
+(add-to-list 'load-path "~/repo-grep")
+
+;; Autoload repo-grep functions for efficient project-wide search
+(autoload 'repo-grep "repo-grep")
+(autoload 'repo-grep-multi "repo-grep")
 ```
 
 Replace `/path/to/repo-grep/` with the actual path where you cloned the repository.
