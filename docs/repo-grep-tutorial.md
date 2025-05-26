@@ -2,7 +2,7 @@
 
 ## 1. Introduction to Repo-Grep
 
-Navigating large codebases can be challenging. Repo-grep offers a seamless, Emacs-integrated search experience that keeps you focused on your code by eliminating the need to switch between tools.
+Navigating large codebases is hard — especially when working across disconnected tools. repo-grep brings project-wide search directly into Emacs, eliminating the need to jump into the terminal or external tools. It’s fast, flexible, and designed to fit naturally into your Emacs workflow.
 
 ### Why Repo-Grep?
 
