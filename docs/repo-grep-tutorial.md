@@ -210,10 +210,14 @@ To restore the default (case-insensitive):
 Each of these features can be customised in your Emacs config to fit your workflow — from targeted regex searches to ignoring unwanted files.
 
 
-## 5. Practical Examples
+## 4. Summary
 
-* **Searching for Function Definitions:** Place your cursor on a function name and trigger a search to see all occurrences in your codebase.
-* **Finding Variable Assignments:** Use regex customization (e.g., adding :right-regex ".*=") to locate lines where variables are assigned values.
-* **Debugging Log Searches:** Optionally exclude log files from your search results or include them selectively to track down issues.
+`repo-grep` is a versatile tool that enhances how you:
 
-Repo-grep's versatility makes it an invaluable tool for debugging, refactoring, and exploring large codebases—all without leaving the Emacs environment.
+* Explore unfamiliar codebases
+* Debug across multiple files
+* Refactor consistently
+* Navigate large projects efficiently — all without leaving Emacs.
+
+By combining regex power, version control awareness, and one-keystroke convenience, repo-grep brings intuitive, project-wide search to your fingertips.
+
