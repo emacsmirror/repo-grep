@@ -7,8 +7,8 @@ Navigating large codebases can be challenging. Repo-grep offers a seamless, Emac
 ### Why Repo-Grep?
 
 - **Automatic Folder Detection:**  
-  It automatically finds your repository root using Git or SVN, ensuring you search in the correct directory.
-
+  It automatically finds your repository root using Git or SVN, ensuring you search in the correct directory. If needed, `repo-grep-multi` can shift the search context one level up to cover multiple repositories in a common parent directory.
+  
 - **Recursive File Search:**  
   Repo-grep scans every file in the folder structure, including those not tracked by version control.
 
