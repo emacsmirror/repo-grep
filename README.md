@@ -16,7 +16,7 @@ git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 
 Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to include 
 
-```
+```elisp
 (add-to-list 'load-path "~/repo-grep")
 (autoload 'repo-grep "repo-grep")
 (autoload 'repo-grep-multi "repo-grep")
@@ -30,26 +30,28 @@ You can change `~/repo-grep` to any folder you prefer, just update the load-path
 
 Change to case-sensitive search
 
-```
+```elisp
 (setq repo-grep-case-sensitive t) 
 ```
 
 Exclude files ending ```.log``` and ```~``` from the search
 
-```
+```elisp
 (global-set-key [f12] (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
 ```
 
 Modify your default search term (string under cursor) with suffixes to find variable assignments
 
-```
-(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*="))) ;; assignment grep
+```elisp
+;; assignment grep
+(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*="))) 
 ```
 
 or prefixes, e.g. to search for subroutine calls 
 
-```
-(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))) ;; call grep
+```elisp
+;; call grep
+(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))) 
 ```
 
 ## Use
