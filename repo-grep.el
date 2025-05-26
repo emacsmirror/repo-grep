@@ -1,6 +1,9 @@
-;;; repo-grep.el
+;;; repo-grep.el --- Fast project-wide search for Emacs 
 
-;; Author: Bjoern Hendrik Fock
+;; Author:  Bjoern Hendrik Fock
+;; Version: 1.0
+;; Keywords: search, grep, emacs-tools
+;; URL: https://github.com/BHFock/repo-grep
 
 ;; Install - add to .emacs or .emacs.d/init.el:
 ;;   (add-to-list 'load-path "PATH_TO_FOLDER_CONTAINING repo_grep.el")
