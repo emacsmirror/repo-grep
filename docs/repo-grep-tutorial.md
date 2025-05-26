@@ -6,6 +6,8 @@ Navigating large codebases is hard — especially when working across disconnect
 
 ### Why repo-grep?
 
+Repo-grep is designed to enhance developer productivity by providing instant, seamless search with minimal setup—helping engineers work more efficiently, navigate large codebases with ease, and stay focused on writing high-quality code. Core features include:
+
 - **Automatic project root detection:**  
   Repo-grep automatically locates your project root using Git or SVN. For larger setups with multiple repositories, use `repo-grep-multi` to search all of them from a shared parent directory.
 
