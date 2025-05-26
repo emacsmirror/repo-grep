@@ -87,9 +87,20 @@ After adding these lines to your configuration file, reload Emacs to apply the c
 
 ## 3. Basic Usage
  
-- Demonstrate how to search using the default behavior (string under cursor).
-- Explain interactive modification of search terms.
-- Show how to use regular expressions for more refined searches.
+- **Triggering the Search:**  
+  Place your cursor over a symbol like a variable or function name you want to search for and press `F12` (or run `M-x repo-grep`). The command automatically captures that symbol as the default search term.
+
+- **Interactive Query:**  
+  A prompt displays the default search term at the bottom. Modify it if needed, then press `Enter` to confirm. For example, use regular expressions like `variable.*=` as your modified search term to find variable assignments.
+
+- **Executing the Search:**  
+  Repo-grep determines the repository root (via SVN or Git) and recursively searches all files in that folder structure.
+
+- **Reviewing Results:**  
+  The grep results appear in a dedicated buffer containing clickable links. Clicking a link takes you directly to the corresponding match in your code.
+
+This concise workflow lets you quickly navigate your code with interactive searches and direct result navigation.
+
 
 ## 4. Advanced Features
 
