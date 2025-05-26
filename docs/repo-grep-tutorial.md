@@ -132,50 +132,82 @@ With just one keystroke, `repo-grep` turns symbol lookup into a fast, interactiv
 
 ## 4. Advanced Features
 
-### Multi-Repository Searches with repo-grep-multi
 
-For broader searches across multiple repositories or folders, use `repo-grep-multi`. This command shifts the search directory one level up from the repository root. To activate it, add the following to your Emacs configuration file (init.el or .emacs):
+### Multi-Repository Search
+
+If your projects are structured as multiple repositories under a common folder, `repo-grep-multi` can search them all in one go. It works by shifting the search root **one directory above** the Git/SVN root, allowing you to include sibling repositories.
+
+#### Example: Bind to `Ctrl + F12`
 
 ```elisp
 (global-set-key [C-f12] 'repo-grep-multi)
 ```
 
-This binding lets you perform multi-repository searches with a single keystroke.
+Now pressing `Ctrl + F12` triggers a recursive search across all sibling directories — no manual navigation needed.
 
-### Customizing Searches with Regex Prefixes and Suffixes
+### Regex Prefixes and Suffixes
 
-Tailor your search queries by adding regular expression prefixes or suffixes. For example, if you want to search for variable assignments or subroutine calls, modify the search term by configuring your keybindings as follows:
- 
-```elisp
-;; For searching variable assignments
-(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
+You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These let you “wrap” the search term in regex — useful for targeting things like assignments, function calls, or declarations.
 
-;; For searching subroutine calls
-(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
-```
-
-These adjustments allow you to predefine search patterns directly in your Emacs configuration.
-
-### Excluding Certain File Types
-
-Filter out irrelevant results by excluding files with specific extensions, such as log files or backups. To implement this, add the following to your Emacs config:
+#### Example 1: Match variable assignments
 
 ```elisp
-(global-set-key [f12] 
-  (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
+(global-set-key [f11]
+  (lambda () (interactive)
+    (repo-grep :right-regex ".*=")))
 ```
 
-This setting ensures that unwanted file types do not clutter your search results.
+This searches for lines where the symbol is followed by an equals sign — useful for finding assignments like:
 
-### Making Searches Case-Sensitive
 
-By default repo-grep is case-insensitive. Control the sensitivity of your searches by setting the repo-grep-case-sensitive variable. To perform case-sensitive searches, include this in your configuration:
+```
+gravity_at_sea_level = 9.81
+```
+
+#### Example 2: Match subroutine calls
+
+
+```elisp
+(global-set-key [f10]
+  (lambda () (interactive)
+    (repo-grep :left-regex "CALL.*")))
+```
+
+This matches lines where the symbol is preceded by CALL, e.g. to understand the call tree of a Fortran programme.
+
+
+### Exclude Noisy File Types
+
+To keep your results clean, you can tell `repo-grep` to ignore specific file extensions — such as logs, compiled outputs, or Emacs backups.
+
+#### Example: Exclude `.log` and `~` files
+
+```elisp
+(global-set-key [f9]
+  (lambda () (interactive)
+    (repo-grep :exclude-ext '(".log" "~"))))
+```
+
+This ensures that temporary or irrelevant files don’t clutter your search output.
+
+
+### Toggle Case Sensitivity
+
+By default, `repo-grep` performs **case-insensitive** searches — which is often useful in general-purpose code scanning. If you want to enforce case-sensitive matching:
+
 
 ```elisp
 (setq repo-grep-case-sensitive t)
 ```
 
-Each of these advanced features is configurable through your Emacs config file, giving you the flexibility to fine-tune repo-grep to match your development needs.
+To restore the default (case-insensitive):
+
+
+```elisp
+(setq repo-grep-case-sensitive nil)
+```
+
+Each of these features can be customised in your Emacs config to fit your workflow — from targeted regex searches to ignoring unwanted files.
 
 
 ## 5. Practical Examples
