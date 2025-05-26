@@ -9,13 +9,13 @@ Navigating large codebases is hard — especially when working across disconnect
 - **Automatic Project Root Detection:**  
   Repo-grep automatically locates your project root using Git or SVN. For larger setups with multiple repositories, use `repo-grep-multi` to search all of them from a shared parent directory.
 
-- **Comprehensive File Search:**
+- **Comprehensive File Search:**  
   All files under the root — including those not tracked by version control — are scanned recursively.
 
 - **Powerful Regex Support:**  
   Use regular expressions for advanced, precise search patterns.
 
-- **Instant Search with One Keystroke:**
+- **Instant Search with One Keystroke:**   
   Hit a key (like `F12`) and instantly search for the symbol under your cursor — no prompts, no friction.
 
 - **Customisable Patterns, File Exclusion, and Case Sensitivity:**  
