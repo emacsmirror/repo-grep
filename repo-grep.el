@@ -2,6 +2,7 @@
 
 ;; Author:  Bjoern Hendrik Fock
 ;; Version: 1.0
+;; License: BSD-3-Clause
 ;; Keywords: search, grep, emacs-tools
 ;; URL: https://github.com/BHFock/repo-grep
 
