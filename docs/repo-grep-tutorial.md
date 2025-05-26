@@ -8,6 +8,9 @@ Navigating large codebases can be difficult — especially when working across d
 
 *Repo-grep* is designed to enhance developer productivity by providing instant, seamless search with minimal setup—helping engineers work more efficiently, navigate large codebases with ease, and stay focused on writing high-quality code. Core features include:
 
+- **Instant search with one keystroke:**   
+  Press a key (like `F12`) and instantly search for the symbol under your cursor — no prompts, no friction.
+
 - **Automatic project root detection:**  
   *Repo-grep* automatically locates your project root using Git or SVN. For larger setups with multiple repositories, use *repo-grep-multi* to search all of them from a shared parent directory.
 
@@ -16,9 +19,6 @@ Navigating large codebases can be difficult — especially when working across d
 
 - **Powerful regex support:**  
   Use regular expressions for advanced, precise search patterns.
-
-- **Instant search with one keystroke:**   
-  Press a key (like `F12`) and instantly search for the symbol under your cursor — no prompts, no friction.
 
 - **Customisable patterns, file exclusion, and case sensitivity:**  
   Easily refine your search with regex prefixes and suffixes, exclude specific file types (like `.log` files or backups), and toggle between case-sensitive and case-insensitive searches.
