@@ -1,4 +1,4 @@
-# Repo-Grep Tutorial
+# repo-grep tutorial
 
 ## 1. Introduction to repo-grep
 
