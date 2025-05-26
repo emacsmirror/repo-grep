@@ -2,15 +2,22 @@
 
 ## 1. Introduction to Repo-Grep
 
-Navigating large codebases can be tedious, especially when searching for specific functions, variables, or patterns across multiple files. While tools like grep provide powerful search capabilities, repo-grep offers a streamlined approach tailored for Emacs users working within version-controlled repositories
+Navigating large codebases can be challenging. Repo-grep offers a seamless, Emacs-integrated search experience that keeps you focused on your code by eliminating the need to switch between tools.
 
 ### Why Repo-Grep?
 
-Repo-grep is designed to integrate seamlessly with Emacs, allowing users to quickly search through a repository without leaving their editor. Whether you're debugging, refactoring, or exploring unfamiliar code, repo-grep simplifies the process by:
+- **Automatic Folder Detection:**  
+  It automatically finds your repository root using Git or SVN, ensuring you search in the correct directory.
 
-* Automatically detecting the repository root.
-* Searching efficiently across all files in your folder structure.
-* Providing an interactive interface for refining search queries.
+- **Recursive File Search:**  
+  Repo-grep scans every file in the folder structure, including those not tracked by version control.
+
+- **Powerful Regex Support:**  
+  Use regular expressions for advanced, precise search patterns.
+
+- **One-Keystroke Search:**  
+  A single keystroke (e.g., `F12`) runs an interactive search using the symbol under your cursor.
+
 
 ### Automatic Folder Selection
 
