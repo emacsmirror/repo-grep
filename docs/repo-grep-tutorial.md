@@ -104,10 +104,50 @@ This concise workflow lets you quickly navigate your code with interactive searc
 
 ## 4. Advanced Features
 
-- Using repo-grep-multi to search across multiple repositories.
-- Customizing searches with regex prefixes and suffixes.
-- Excluding certain file types (e.g., .log or backup files).
-- Making searches case-sensitive or case-insensitive.
+### Multi-Repository Searches with repo-grep-multi
+
+For broader searches across multiple repositories or folders, use `repo-grep-multi`. This command shifts the search directory one level up from the repository root. To activate it, add the following to your Emacs configuration file (init.el or .emacs):
+
+```elisp
+(global-set-key [C-f12] 'repo-grep-multi)
+```
+
+This binding lets you perform multi-repository searches with a single keystroke.
+
+### Customizing Searches with Regex Prefixes and Suffixes
+
+Tailor your search queries by adding regular expression prefixes or suffixes. For example, if you want to search for variable assignments or subroutine calls, modify the search term by configuring your keybindings as follows:
+ 
+```elisp
+;; For searching variable assignments
+(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
+
+;; For searching subroutine calls
+(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
+```
+
+These adjustments allow you to predefine search patterns directly in your Emacs configuration.
+
+### Excluding Certain File Types
+
+Filter out irrelevant results by excluding files with specific extensions, such as log files or backups. To implement this, add the following to your Emacs config:
+
+```elisp
+(global-set-key [f12] 
+  (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
+```
+
+This setting ensures that unwanted file types do not clutter your search results.
+
+### Making Searches Case-Sensitive
+
+By default repo-grep is case-insensitive. Control the sensitivity of your searches by setting the repo-grep-case-sensitive variable. To perform case-sensitive searches, include this in your configuration:
+
+```elisp
+(setq repo-grep-case-sensitive t)
+```
+
+Each of these advanced features is configurable through your Emacs config file, giving you the flexibility to fine-tune repo-grep to match your development needs.
 
 ## 5. Practical Examples
 - Walk through real-world examples of searching for function definitions, variable assignments, or debugging logs.
