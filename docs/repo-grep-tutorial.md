@@ -135,7 +135,7 @@ With just one keystroke, `repo-grep` turns symbol lookup into a fast, interactiv
 
 ### Multi-Repository Search
 
-If your projects are structured as multiple repositories under a common folder, `repo-grep-multi` can search them all in one go. It works by shifting the search root **one directory above** the Git/SVN root, allowing you to include sibling repositories.
+If your projects are structured as multiple repositories under a common folder, `repo-grep-multi` can search them all in one go. It works by shifting the search root one directory above the Git/SVN root, allowing you to include sibling repositories.
 
 #### Example: Bind to `Ctrl + F12`
 
