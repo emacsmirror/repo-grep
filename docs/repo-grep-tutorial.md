@@ -17,7 +17,7 @@ Repo-grep is designed to integrate seamlessly with Emacs, allowing users to quic
 One of repo-grep's key features is its ability to intelligently determine the search scope based on the repository type:
 
 * If the current directory is part of an SVN working copy, repo-grep searches all folders within the SVN structure.
-* If the directory is part of a Git repository, Git takes precedence, and the search is performed across all tracked files.
+* If the directory is part of a Git repository, Git takes precedence. Repo-grep uses git rev-parse --show-toplevel to locate the repository root, then recursively searches all files within that directory.
 * If neither SVN nor Git is detected, repo-grep defaults to searching all subdirectories from the current folder, making it useful even for non-version-controlled projects.
 
 ### How Repo-Grep Works
