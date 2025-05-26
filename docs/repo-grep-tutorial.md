@@ -53,7 +53,7 @@ Before installing `repo-grep`, make sure the following tools are available:
 - **Git or SVN** (optional): Enables automatic project root detection.
 - **awk**: Used internally for text parsing; usually preinstalled on Unix-based systems (Linux, macOS).
 
-No external dependencies like `ripgrep` are required.
+No additional tools like `ripgrep`, `projectile`, or other external search utilities are needed. This makes setup simple.
 
 ### Installing repo-grep
 
