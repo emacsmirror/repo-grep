@@ -4,6 +4,8 @@
 
 **repo-grep-multi** provides a recursive grep across multiple repositories or folders that reside in the same directory as the repository where the search is initiated.
 
+For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
+
 ## Install
 
 Download the code
@@ -57,7 +59,3 @@ or prefixes, e.g. to search for subroutine calls
 Once you completed above installation you can open your cloned (or checked out) code, position the cursor over a term of interest in Emacs, press the F12 key, and confirm the default search term by pressing enter. Press "ctrl F12" to search across multiple repositories in the same directory. To modify the search term, type in your new search term before pressing enter or customise the default search term as demonstrated above.
 
 Enjoy!
-
-## Documentation
-
-For a more detailed guide on how to use repo-grep, check out the [repo-grep tutorial](docs/repo-grep-tutorial.md).
