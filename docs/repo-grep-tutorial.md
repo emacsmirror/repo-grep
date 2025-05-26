@@ -18,6 +18,8 @@ Navigating large codebases can be challenging. Repo-grep offers a seamless, Emac
 - **One-Keystroke Search:**  
   A single keystroke (e.g., `F12`) runs an interactive search using the symbol under your cursor.
 
+- **Customisable Patterns, File Exclusion, and Case Sensitivity:**  
+  Easily refine your search with regex prefixes and suffixes, exclude specific file types (like `.log` files or backups), and toggle between case-sensitive and case-insensitive searches.
 
 ### Automatic Folder Selection
 
