@@ -156,7 +156,3 @@ By default repo-grep is case-insensitive. Control the sensitivity of your search
 ```
 
 Each of these advanced features is configurable through your Emacs config file, giving you the flexibility to fine-tune repo-grep to match your development needs.
-
-## 5. Practical Examples
-- Walk through real-world examples of searching for function definitions, variable assignments, or debugging logs.
-- Show how repo-grep can be integrated into workflows for faster code navigation.
