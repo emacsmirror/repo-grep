@@ -70,7 +70,7 @@ This clones the latest version of `repo-grep` to your system. You can place it a
 
 Add the following line to your Emacs configuration file (init.el or .emacs):
 
-```elsip
+```elisp
 (load "/path/to/repo-grep/repo-grep.el")
 ```
 
