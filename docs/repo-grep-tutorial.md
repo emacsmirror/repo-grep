@@ -214,4 +214,4 @@ Each of these features can be customised in your Emacs config to fit your workfl
 * Refactor consistently
 * Navigate large projects efficiently — all without leaving Emacs.
 
-By combining regex power, version control awareness, and one-keystroke convenience, *repo-grep* brings intuitive, project-wide search to your fingertips.
+By combining one-keystroke convenience, version control awareness, and regex power *repo-grep* brings intuitive, project-wide search to your fingertips.
