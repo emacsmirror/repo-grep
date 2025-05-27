@@ -207,7 +207,7 @@ Each of these features can be customised in your Emacs config to fit your workfl
 
 ## 5. Summary
 
-*Repo-grep* is a versatile tool that enhances how you:
+*Repo-grep* is a versatile Emacs tool that enhances how you:
 
 * Explore unfamiliar codebases
 * Debug across multiple files
