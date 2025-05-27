@@ -205,7 +205,7 @@ To restore the default (case-insensitive):
 
 Each of these features can be customised in your Emacs config to fit your workflow — from targeted regex searches to ignoring unwanted files.
 
-## 4. Summary
+## 5. Summary
 
 *Repo-grep* is a versatile tool that enhances how you:
 
