@@ -1,4 +1,4 @@
-;;; repo-grep.el --- Fast project-wide search for Emacs 
+;;; repo-grep.el --- Instant project-wide search for Emacs
 
 ;; Author:  Bjoern Hendrik Fock
 ;; Version: 1.0
