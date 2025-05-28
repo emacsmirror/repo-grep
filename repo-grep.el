@@ -28,19 +28,22 @@
 ;; Add autoload cookies for quicker loading.
 ;;;###autoload
 (defun repo-grep (&rest args)
-  "REPO-GREP: Grep code from top of svn/git working copy or current folder."
+  "REPO-GREP: Grep code from the top of an SVN/Git working copy or the current folder.
+Accepts additional keyword arguments for customization."
   (interactive)
   (apply 'repo-grep-internal args))
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
-  "REPO-GREP-MULTI: Grep code from one folder level above the top folder."
+  "REPO-GREP-MULTI: Grep code from one folder level above the top folder.
+Accepts additional keyword arguments for customization."
   (interactive)
   (let ((repo-grep-from-folder-above t))
     (apply 'repo-grep-internal args)))
 
 (defun repo-grep-internal (&rest args)
-  "Internal function to perform the grep."
+  "Internal function to perform the grep.
+Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right-regex."
   (let* ((exclude-ext (plist-get args :exclude-ext))
          (left-regex  (plist-get args :left-regex))
          (right-regex (plist-get args :right-regex))
@@ -58,14 +61,16 @@
     (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files))))
 
 (defun repo-grep-build-file-pattern (exclude-ext)
-  "Build the file pattern for grep based on exclusion extensions."
+  "Build the file pattern for grep based on the list of exclusion extensions provided in EXCLUDE-EXT.
+Returns a string that can be appended to the grep command."
   (let ((exclude-pattern (if exclude-ext
                              (mapconcat (lambda (ext) (format "--exclude=*%s" ext)) exclude-ext " ")
                            "")))
     (concat "*" " " exclude-pattern)))
 
 (defun repo-grep-find-folder ()
-  "Find the folder from which to execute the grep command."
+  "Determine the appropriate folder to run grep in.
+Tries SVN first, falls back to PWD, and then overrides with Git if found."
   (let ((folder (substring
                  (shell-command-to-string
                   "svn info | grep 'Working Copy Root Path' | awk {'print $5'}") 0 -1)))
