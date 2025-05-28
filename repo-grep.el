@@ -39,7 +39,7 @@
 (defun repo-grep-internal (&rest args)
   "Internal function to perform the grep."
   (let* ((exclude-ext (plist-get args :exclude-ext))
-         (left-regex (plist-get args :left-regex))
+         (left-regex  (plist-get args :left-regex))
          (right-regex (plist-get args :right-regex))
          (default-term (format "\"%s\"" (thing-at-point 'symbol)))
          (search-string (or (read-string (concat "grep for ("
