@@ -5,37 +5,19 @@
 ;; License: BSD-3-Clause
 ;; Keywords: search, grep, emacs-tools
 ;; URL: https://github.com/BHFock/repo-grep
+;;
+;; This file is free software; you can redistribute it and/or modify it under
+;; the terms of the BSD-3-Clause License.
+;;
+;; Installation instructions, keybindings, and customisation examples are
+;; provided in the README and tutorial.
 
-;; Install - add to .emacs or .emacs.d/init.el:
-;;   (add-to-list 'load-path "PATH_TO_FOLDER_CONTAINING repo_grep.el")
-;;   (autoload 'repo-grep       "repo-grep")
-;;   (autoload 'repo-grep-multi "repo-grep")
-;;   (global-set-key [f12]   'repo-grep)
-;;   (global-set-key [C-f12] 'repo-grep-multi)
-;;
-;; Advanced configuration - exclude files ending ".log" and "~" from search
-;;   (global-set-key [f12] (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
-;;   (global-set-key [C-f12] (lambda () (interactive) (repo-grep-multi :exclude-ext '(".log" "~"))))
-;;
-;; Advanced configuration - adjust default search term with optional left/right-regex:
-;;   ;; find variable assignments
-;;   (global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*=")))
-;;   (global-set-key [C-f10] (lambda () (interactive) (repo-grep-multi :right-regex ".*=")))
-;;   ;; find subroutine calls
-;;   (global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*")))
-;;
-;; Advanced configuration - case-sensitive or case-insensitive search
-;;   (setq repo-grep-case-sensitive t)  ;; Case-sensitive search
-;;   (setq repo-grep-case-sensitive nil) ;; Case-insensitive search
-;;
-;; Use:
-;;   M-x repo-grep or just hit F12
-;;   to search the string under the cursor
-;;
-;;   M-x repo-grep-multi or hit Ctrl+F12
-;;   to search across multiple repositories
-;;
-;;   Use F11 for your "assignment grep" and F10 for your "call grep".  
+;;; Commentary:
+;; repo-grep provides an interactive, project-wide search for both SVN and Git
+;; repositories, as well as standalone directories. See the README and the
+;; tutorial for usage examples and advanced configuration options.
+
+;;; Code:
 
 (defvar repo-grep-from-folder-above nil
   "If non-nil, grep from one folder level above the top folder.")
