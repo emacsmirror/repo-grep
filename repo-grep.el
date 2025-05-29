@@ -25,7 +25,6 @@
 (defvar repo-grep-case-sensitive nil
   "If non-nil, grep will be case-sensitive. If nil, grep will be case-insensitive.")
 
-;; Add autoload cookies for quicker loading.
 ;;;###autoload
 (defun repo-grep (&rest args)
   "REPO-GREP: Grep code from the top of an SVN/Git working copy or the current folder.
