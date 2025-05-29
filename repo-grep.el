@@ -33,11 +33,20 @@
 
 ;;; Code:
 
-(defvar repo-grep-from-folder-above nil
-  "If non-nil, grep from one folder level above the top folder.")
+(defgroup repo-grep nil
+  "Project-wide grep search from Emacs."
+  :group 'tools
+  :prefix "repo-grep-")
 
-(defvar repo-grep-case-sensitive nil
-  "If non-nil, grep will be case-sensitive. If nil, grep will be case-insensitive.")
+(defcustom repo-grep-from-folder-above nil
+  "If non-nil, grep from one folder level above the top folder."
+  :type 'boolean
+  :group 'repo-grep)
+
+(defcustom repo-grep-case-sensitive nil
+  "If non-nil, grep will be case-sensitive. If nil, grep will be case-insensitive."
+  :type 'boolean
+  :group 'repo-grep)
 
 ;;;###autoload
 (defun repo-grep (&rest args)
