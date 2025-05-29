@@ -1,4 +1,4 @@
-;;; repo-grep.el --- Instant project-wide search -*- lexical-binding: t; -*-
+;;; repo-grep.el --- Project-wide grep search -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
 ;; Version: 1.x
