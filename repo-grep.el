@@ -71,7 +71,8 @@ Returns a string that can be appended to the grep command."
 
 (defun repo-grep-find-folder ()
   "Determine the appropriate folder to run grep in.
-Tries SVN first, falls back to PWD, and then overrides with Git if found."
+Tries SVN first, falls back to PWD, and then overrides with Git if found.
+Returns the folder as a string, trimmed of extra whitespace."
   (let ((folder (string-trim
                  (shell-command-to-string
                   "svn info | grep 'Working Copy Root Path' | awk {'print $5'}"))))
