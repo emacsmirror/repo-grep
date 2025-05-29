@@ -51,8 +51,8 @@ Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right
          (search-string (or (read-string (concat "grep for ("
                                                  (concat (or left-regex)
                                                          (thing-at-point 'symbol)
-                                                         (or right-regex) "): ")
-                                                 )) default-term))
+                                                         (or right-regex) "): ")))
+                            default-term))
          (search-string (if (equal search-string "") default-term search-string))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
