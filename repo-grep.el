@@ -1,4 +1,4 @@
-;;; repo-grep.el --- Instant project-wide search for Emacs
+;;; repo-grep.el --- Instant project-wide search for Emacs -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
 ;; Version: 1.0
