@@ -1,7 +1,7 @@
 ;;; repo-grep.el --- Instant project-wide search for Emacs -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
-;; Version: 1.0
+;; Version: 1.x
 ;; License: BSD-3-Clause
 ;; Keywords: search, grep, emacs-tools
 ;; URL: https://github.com/BHFock/repo-grep
@@ -56,6 +56,7 @@ Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right
          (search-string (if (equal search-string "") default-term search-string))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
+         ;; Build file pattern for grep
          (files (repo-grep-build-file-pattern exclude-ext))
          (case-flag (if repo-grep-case-sensitive "" "-i")))
     (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files))))
@@ -98,6 +99,7 @@ Tries SVN first, falls back to PWD, and then overrides with Git if found."
                        "git rev-parse --show-toplevel") 0 -1)))
       (if (not (string-match-p (regexp-quote "fatal: Not a git repository") gitfolder))
           (setq folder gitfolder)))
+    ;; If requested, go one folder level above.
     (if repo-grep-from-folder-above
         (setq folder (concat folder "/..")))
     folder))
