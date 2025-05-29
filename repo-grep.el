@@ -9,14 +9,27 @@
 ;;
 ;; This file is free software; you can redistribute it and/or modify it under
 ;; the terms of the BSD-3-Clause License.
-;;
-;; Installation instructions, keybindings, and customisation examples are
-;; provided in the README and tutorial.
 
 ;;; Commentary:
 ;; repo-grep provides an interactive, project-wide search for both SVN and Git
-;; repositories, as well as standalone directories. See the README and the
-;; tutorial for usage examples and advanced configuration options.
+;; repositories, as well as standalone directories. It integrates seamlessly
+;; into Emacs and enables recursive grep searches with a single keystroke.
+;;
+;; The default search term is the symbol under the cursor, which can be
+;; interactively edited. Optional keyword arguments allow for regex-based
+;; prefix/suffix matching and file extension exclusions.
+;;
+;; The companion command `repo-grep-multi` enables recursive search across
+;; multiple repositories or folders located in the same parent directory.
+;;
+;; Features include:
+;; - Automatic detection of Git or SVN project roots
+;; - Regex support for advanced search patterns
+;; - Optional case sensitivity and file exclusion
+;; - Clickable grep results in a dedicated buffer
+;;
+;; For installation, configuration, and usage examples, see the README and
+;; the tutorial at https://github.com/BHFock/repo-grep.
 
 ;;; Code:
 
