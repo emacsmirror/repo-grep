@@ -1,9 +1,10 @@
-;;; repo-grep.el --- Instant project-wide search for Emacs -*- lexical-binding: t; -*-
+;;; repo-grep.el --- Instant project-wide search -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
 ;; Version: 1.x
 ;; License: BSD-3-Clause
-;; Keywords: search, grep, emacs-tools
+;; Keywords: tools, search, convenience
+;; Package-Requires: ((emacs "24.4"))
 ;; URL: https://github.com/BHFock/repo-grep
 ;;
 ;; This file is free software; you can redistribute it and/or modify it under
