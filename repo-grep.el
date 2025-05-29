@@ -30,7 +30,7 @@
   "REPO-GREP: Grep code from the top of an SVN/Git working copy or the current folder.
 Accepts additional keyword arguments for customization."
   (interactive)
-  (apply 'repo-grep-internal args))
+  (apply #'repo-grep-internal args))
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
@@ -38,7 +38,7 @@ Accepts additional keyword arguments for customization."
 Accepts additional keyword arguments for customization."
   (interactive)
   (let ((repo-grep-from-folder-above t))
-    (apply 'repo-grep-internal args)))
+    (apply #'repo-grep-internal args)))
 
 (defun repo-grep-internal (&rest args)
   "Internal function to perform the grep.
