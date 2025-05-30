@@ -93,13 +93,13 @@ Returns a string that can be appended to the grep command."
 
 (defun repo-grep-find-folder ()
   "Determine the appropriate folder to run grep in.
-Tries SVN first, falls back to PWD, and then overrides with Git if found.
+Tries SVN first, falls back to the current directory, and then uses Git if found.
 Returns the folder as a string, trimmed of extra whitespace."
   (let ((folder (string-trim
                  (shell-command-to-string
                   "svn info | grep 'Working Copy Root Path' | awk {'print $5'}"))))
-    ;; SVN - if svn info did not work because you use it in a new not yet added subdirectory
-    ;; try to do it 1-3 levels above
+    ;; SVN - if svn info did not work because you use it in a new, not yet added subdirectory,
+    ;; try to do it 1-3 levels above.
     (if (string-match-p (regexp-quote "svn: warning: W155010") folder)
         (setq folder (string-trim
                       (shell-command-to-string
@@ -112,11 +112,11 @@ Returns the folder as a string, trimmed of extra whitespace."
         (setq folder (string-trim
                       (shell-command-to-string
                        "svn info ../../.. | grep 'Working Copy Root Path' | awk {'print $5'}"))))
-    ;; PWD - no svn working directory, search current directory (and subdirs)
+    ;; PWD - if no SVN working directory is found, try the current directory.
     (if (string-match-p (regexp-quote "svn: E155007") folder)
         (setq folder (string-trim
                       (shell-command-to-string "pwd"))))
-    ;; GIT - Detect top level from git if in git repository (overwrites svn and pwd)
+    ;; GIT - detect the top-level directory from Git (overwrites SVN and pwd if found).
     (let ((gitfolder (string-trim
                       (shell-command-to-string
                        "git rev-parse --show-toplevel"))))
