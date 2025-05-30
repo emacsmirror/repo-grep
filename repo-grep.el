@@ -51,14 +51,14 @@
 ;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
-Accepts keyword arguments for customization."
+Accepts keyword arguments for customisation."
   (interactive)
   (apply #'repo-grep--internal args))
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
   "Run a recursive grep across multiple repositories or folders in the same parent directory.
-Accepts keyword arguments for customization."
+Accepts keyword arguments for customisation."
   (interactive)
   (let ((repo-grep-from-folder-above t))
     (apply #'repo-grep--internal args)))
