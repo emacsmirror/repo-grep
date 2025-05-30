@@ -68,23 +68,35 @@ Accepts additional keyword arguments for customization."
 Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right-regex."
   (let* ((exclude-ext (plist-get args :exclude-ext))
          (left-regex  (plist-get args :left-regex))
-         (right-regex (plist-get args :right-regex))
-         (symbol-at-point (thing-at-point 'symbol t))
-         (symbol-at-point (or symbol-at-point ""))
-         (default-term (format "\"%s\"" symbol-at-point))
-         (prompt (concat "grep for ("
-                         (or left-regex "")
-                         symbol-at-point
-                         (or right-regex "")
-                         "): "))
-         (input (read-string prompt))
-         (search-string (if (string= input "") default-term input))
-         (search-string (concat (or left-regex "") search-string (or right-regex "")))
-         (folder (repo-grep--find-folder))
-         ;; Build file pattern for grep
-         (files (repo-grep--build-file-pattern exclude-ext))
-         (case-flag (if repo-grep-case-sensitive "" "-i")))
-    (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files))))
+         (right-regex (plist-get args :right-regex)))
+
+    ;; Ensure arguments are valid
+    (when (and left-regex (not (stringp left-regex)))
+      (error "LEFT-REGEX must be a string"))
+    (when (and right-regex (not (stringp right-regex)))
+      (error "RIGHT-REGEX must be a string"))
+
+    (let* ((symbol-at-point (thing-at-point 'symbol t))
+           (symbol-at-point (or symbol-at-point ""))
+           (default-term (format "\"%s\"" symbol-at-point))
+           (prompt (concat "grep for ("
+                           (or left-regex "")
+                           symbol-at-point
+                           (or right-regex "")
+                           "): "))
+           (input (read-string prompt))
+           (search-string (if (string= input "") default-term input))
+           (search-string (concat (or left-regex "") search-string (or right-regex "")))
+           (folder (repo-grep--find-folder))
+           ;; Build file pattern for grep
+           (files (repo-grep--build-file-pattern exclude-ext))
+           (case-flag (if repo-grep-case-sensitive "" "-i")))
+
+      ;; Ensure we have a valid folder before executing grep
+      (unless (and folder (not (string-empty-p folder)))
+        (error "Could not determine project root."))
+
+      (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files)))))
 
 (defun repo-grep--build-file-pattern (exclude-ext)
   "Build the file pattern for grep based on the list of exclusion extensions provided in EXCLUDE-EXT.
