@@ -69,13 +69,16 @@ Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right
   (let* ((exclude-ext (plist-get args :exclude-ext))
          (left-regex  (plist-get args :left-regex))
          (right-regex (plist-get args :right-regex))
-         (default-term (format "\"%s\"" (thing-at-point 'symbol)))
-         (search-string (or (read-string (concat "grep for ("
-                                                 (concat (or left-regex)
-                                                         (thing-at-point 'symbol)
-                                                         (or right-regex) "): ")))
-                            default-term))
-         (search-string (if (equal search-string "") default-term search-string))
+         (symbol-at-point (thing-at-point 'symbol t))
+         (symbol-at-point (or symbol-at-point ""))
+         (default-term (format "\"%s\"" symbol-at-point))
+         (prompt (concat "grep for ("
+                         (or left-regex "")
+                         symbol-at-point
+                         (or right-regex "")
+                         "): "))
+         (input (read-string prompt))
+         (search-string (if (string= input "") default-term input))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
          (folder (repo-grep-find-folder))
          ;; Build file pattern for grep
