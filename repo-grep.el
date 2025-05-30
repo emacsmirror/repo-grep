@@ -75,6 +75,8 @@ Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right
       (error "LEFT-REGEX must be a string"))
     (when (and right-regex (not (stringp right-regex)))
       (error "RIGHT-REGEX must be a string"))
+    (when (and exclude-ext (not (listp exclude-ext)))
+      (error "EXCLUDE-EXT must be a list of strings"))
 
     (let* ((symbol-at-point (thing-at-point 'symbol t))
            (symbol-at-point (or symbol-at-point ""))
