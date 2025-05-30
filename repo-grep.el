@@ -140,6 +140,11 @@ Returns the folder as a string, trimmed of extra whitespace."
     ;; If requested, go one folder level above.
     (if repo-grep-from-folder-above
         (setq folder (concat folder "/..")))
+
+    ;; Ensure we have a valid folder before returning.
+    (unless (and folder (not (string-empty-p folder)))
+      (error "Could not determine root folder."))
+
     folder))
 
 (provide 'repo-grep)
