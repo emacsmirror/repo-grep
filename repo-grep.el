@@ -39,38 +39,38 @@
   :prefix "repo-grep-")
 
 (defcustom repo-grep-from-folder-above nil
-  "If non-nil, grep from one folder level above the top folder."
+  "If non-nil, search from the parent directory of the detected project root."
   :type 'boolean
   :group 'repo-grep)
 
 (defcustom repo-grep-case-sensitive nil
-  "If non-nil, grep will be case-sensitive. If nil, grep will be case-insensitive."
+  "If non-nil, perform case-sensitive searches."
   :type 'boolean
   :group 'repo-grep)
 
 ;;;###autoload
 (defun repo-grep (&rest args)
-  "REPO-GREP: Grep code from the top of an SVN/Git working copy or the current folder.
-Accepts additional keyword arguments for customization."
+  "Run a project-wide grep search from the detected repository root.
+Accepts keyword arguments for customization."
   (interactive)
   (apply #'repo-grep--internal args))
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
-  "REPO-GREP-MULTI: Grep code from one folder level above the top folder.
-Accepts additional keyword arguments for customization."
+  "Run a recursive grep across multiple repositories or folders in the same parent directory.
+Accepts keyword arguments for customization."
   (interactive)
   (let ((repo-grep-from-folder-above t))
     (apply #'repo-grep--internal args)))
 
 (defun repo-grep--internal (&rest args)
-  "Internal function to perform the grep.
-Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right-regex."
+  "Perform a recursive grep search with optional keyword arguments.
+Handles custom exclusions, regex-based matching, and project root detection."
   (let* ((exclude-ext (plist-get args :exclude-ext))
          (left-regex  (plist-get args :left-regex))
          (right-regex (plist-get args :right-regex)))
 
-    ;; Ensure arguments are valid
+    ;; Validate arguments
     (when (and left-regex (not (stringp left-regex)))
       (error "LEFT-REGEX must be a string"))
     (when (and right-regex (not (stringp right-regex)))
@@ -90,19 +90,18 @@ Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right
            (search-string (if (string= input "") default-term input))
            (search-string (concat (or left-regex "") search-string (or right-regex "")))
            (folder (repo-grep--find-folder))
-           ;; Build file pattern for grep
            (files (repo-grep--build-file-pattern exclude-ext))
            (case-flag (if repo-grep-case-sensitive "" "-i")))
 
-      ;; Ensure we have a valid folder before executing grep
+      ;; Ensure a valid folder before executing grep
       (unless (and folder (not (string-empty-p folder)))
         (error "Could not determine project root."))
 
       (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files)))))
 
 (defun repo-grep--build-file-pattern (exclude-ext)
-  "Build the file pattern for grep based on the list of exclusion extensions provided in EXCLUDE-EXT.
-Returns a string that can be appended to the grep command."
+  "Construct a file pattern for grep, excluding extensions listed in EXCLUDE-EXT.
+If EXCLUDE-EXT is nil, all files are included."
   (let ((exclude-pattern (if exclude-ext
                              (mapconcat (lambda (ext) (format "--exclude=*%s" ext)) exclude-ext " ")
                            "")))
@@ -133,17 +132,19 @@ Returns the folder as a string, trimmed of extra whitespace."
     (if (string-match-p (regexp-quote "svn: E155007") folder)
         (setq folder (string-trim
                       (shell-command-to-string "pwd"))))
-    ;; GIT - detect the top-level directory from Git (overwrites SVN and pwd if found).
+
+    ;; Prefer Git repo root if available
     (let ((gitfolder (string-trim
                       (shell-command-to-string
                        "git rev-parse --show-toplevel"))))
       (if (not (string-match-p (regexp-quote "fatal: Not a git repository") gitfolder))
           (setq folder gitfolder)))
-    ;; If requested, go one folder level above.
+
+    ;; If requested, adjust to one folder level above
     (if repo-grep-from-folder-above
         (setq folder (concat folder "/..")))
 
-    ;; Ensure we have a valid folder before returning.
+    ;; Validate repository detection before returning
     (unless (and folder (not (string-empty-p folder)))
       (error "Could not determine root folder."))
 
