@@ -53,7 +53,7 @@
   "REPO-GREP: Grep code from the top of an SVN/Git working copy or the current folder.
 Accepts additional keyword arguments for customization."
   (interactive)
-  (apply #'repo-grep-internal args))
+  (apply #'repo-grep--internal args))
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
@@ -61,9 +61,9 @@ Accepts additional keyword arguments for customization."
 Accepts additional keyword arguments for customization."
   (interactive)
   (let ((repo-grep-from-folder-above t))
-    (apply #'repo-grep-internal args)))
+    (apply #'repo-grep--internal args)))
 
-(defun repo-grep-internal (&rest args)
+(defun repo-grep--internal (&rest args)
   "Internal function to perform the grep.
 Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right-regex."
   (let* ((exclude-ext (plist-get args :exclude-ext))
@@ -80,13 +80,13 @@ Handles optional keyword arguments such as :exclude-ext, :left-regex, and :right
          (input (read-string prompt))
          (search-string (if (string= input "") default-term input))
          (search-string (concat (or left-regex "") search-string (or right-regex "")))
-         (folder (repo-grep-find-folder))
+         (folder (repo-grep--find-folder))
          ;; Build file pattern for grep
-         (files (repo-grep-build-file-pattern exclude-ext))
+         (files (repo-grep--build-file-pattern exclude-ext))
          (case-flag (if repo-grep-case-sensitive "" "-i")))
     (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files))))
 
-(defun repo-grep-build-file-pattern (exclude-ext)
+(defun repo-grep--build-file-pattern (exclude-ext)
   "Build the file pattern for grep based on the list of exclusion extensions provided in EXCLUDE-EXT.
 Returns a string that can be appended to the grep command."
   (let ((exclude-pattern (if exclude-ext
@@ -94,7 +94,7 @@ Returns a string that can be appended to the grep command."
                            "")))
     (concat "*" " " exclude-pattern)))
 
-(defun repo-grep-find-folder ()
+(defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
 Tries SVN first, falls back to the current directory, and then uses Git if found.
 Returns the folder as a string, trimmed of extra whitespace."
