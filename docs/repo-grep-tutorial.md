@@ -182,4 +182,4 @@ To restore the default (case-insensitive):
 * Refactor consistently
 * Navigate large projects efficiently — all without leaving Emacs.
 
-By combining one-keystroke convenience, version control awareness, and regex power *repo-grep* brings intuitive, project-wide search to your fingertips.
+By combining one-keystroke convenience, version control awareness, and regex power *repo-grep* brings intuitive, project-wide search and code navigation to your fingertips.
