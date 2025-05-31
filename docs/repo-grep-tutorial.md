@@ -2,45 +2,18 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases can be difficult — especially when working across disconnected tools. *Repo-grep* brings project-wide search directly into Emacs, eliminating the need to jump into the terminal or external tools. It’s fast, flexible, and designed to fit naturally into your Emacs workflow.
+Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
 
-### Why repo-grep?
+### Key features:
 
-*Repo-grep* is designed to enhance developer productivity by providing instant, seamless search with minimal setup—helping engineers work more efficiently, navigate large codebases with ease, and stay focused on writing high-quality code. Core features include:
+- **One-keystroke search:** Instantly grep for the symbol under your cursor — with minimal prompts and no setup.
+- **Smart project root detection:** Automatically locates your Git or SVN root; falls back to the current directory if needed.
+- **Multi-repo search:** Scan all sibling repos with `repo-grep-multi`.
+- **Searches all files:** All files under the root are searched, including those not tracked by version control.
+- **Regex support:** Add prefix/suffix patterns to fine-tune matches.
+- **Custom file exclusions and case sensitivity:** Tailor results to your workflow.
 
-- **Instant search with one keystroke:**   
-  Press a key (like `F12`) and instantly search for the symbol under your cursor — no prompts, no friction.
-
-- **Automatic project root detection:**  
-  *Repo-grep* automatically locates your project root using Git or SVN. For larger setups with multiple repositories, use *repo-grep-multi* to search all of them from a shared parent directory.
-
-- **Comprehensive file search:**  
-  All files under the root — including those not tracked by version control — are scanned recursively.
-
-- **Powerful regex support:**  
-  Use regular expressions for advanced, precise search patterns.
-
-- **Customisable patterns, file exclusion, and case sensitivity:**  
-  Easily refine your search with regex prefixes and suffixes, exclude specific file types (like `.log` files or backups), and toggle between case-sensitive and case-insensitive searches.
-
-### Automatic folder selection
-
-One of *repo-grep*'s key features is its ability to intelligently determine the search scope based on the repository type:
-
-* **SVN:** If you're in an SVN working copy, *repo-grep* searches the entire SVN directory structure by default.
-* **Git:** For Git repositories, it uses `git rev-parse --show-toplevel` to find the root and searches all files from there.
-* **No VCS:** If no Git or SVN metadata is found, it simply searches from the current directory down — useful for standalone folders.
-
-### How repo-grep works
-
-Under the hood, *repo-grep* uses standard grep, but wraps it in an Emacs-friendly workflow. With a single command, you can:
-
-* Search for the word under your cursor or type a custom pattern.
-* Perform multi-repo searches with *repo-grep-multi*.
-* Use regular expressions to refine your search.
-* Automatically locate the right folder, even in complex setups.
-
-This tutorial will walk you through installation, configuration, and key use cases so you can make *repo-grep* a seamless part of your Emacs setup
+*Repo-grep* keeps you focused inside Emacs — no context switching, no distractions.
 
 ## 2. Installation & setup
 
