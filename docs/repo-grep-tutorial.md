@@ -105,7 +105,7 @@ If your projects are structured as multiple repositories under a common folder, 
 
 Now pressing `Ctrl + F12` will search through all folders under the parent directory — no need to manually navigate or run multiple searches.
 
-### Regex prefixes and suffixes
+### Customise match context with regex prefixes and suffixes
 
 You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These let you “wrap” the search term in regex — useful for targeting things like assignments, function calls, or declarations.
 
