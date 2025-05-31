@@ -83,6 +83,8 @@ Once confirmed, *repo-grep* locates the appropriate search root:
 * If you're in an SVN checkout, it uses the SVN structure.
 * Otherwise, it defaults to the current directory.
 
+Regardless of how the root is detected, *repo-grep* searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, or legacy code alongside source files.
+
 ### Reviewing results
 
 Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. This makes it easy to quickly inspect multiple matches across your project.
