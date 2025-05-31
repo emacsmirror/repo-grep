@@ -107,7 +107,9 @@ Now pressing `Ctrl + F12` will search through all folders under the parent direc
 
 You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These let you “wrap” the search term in regex — useful for targeting things like assignments, function calls, or declarations.
 
-#### Example 1: Match variable assignments
+#### Example 1: Match variable assignments (symbol on the left-hand side)
+
+To find where a variable is being assigned a value — and not just used in a calculation — you can append an equals sign using `:right-regex`.
 
 ```elisp
 (global-set-key [f11]
@@ -115,10 +117,16 @@ You can customise searches to match specific code patterns using `:left-regex` o
     (repo-grep :right-regex ".*=")))
 ```
 
-This searches for lines where the symbol is followed by an equals sign — useful for finding assignments like:
+This searches for cases where the symbol appears to the left of an equals sign. For example, if your cursor is on `gravity_at_sea_level`, this pattern would match:
 
 ```
 gravity_at_sea_level = 9.81
+```
+
+But it would not match if the variable is only used on the right-hand side:
+
+```
+weight = mass * gravity_at_sea_level
 ```
 
 #### Example 2: Match subroutine calls
