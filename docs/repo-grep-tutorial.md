@@ -58,18 +58,17 @@ No additional dependencies like `ripgrep` or `projectile` are required. This mak
 
 #### Clone the repository
 
-Open a terminal and run:
+Run the following command in your terminal:
 
 ```
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
-This clones the latest version of *repo-grep* to your system. You can place it anywhere, but a common location is `~/.emacs.d/lisp/`
-
+You can place it in any directory of your choice, but ensure you update your Emacs configuration accordingly.
 
 #### Load repo-grep in Emacs
 
-Add the following line to your Emacs configuration file (init.el or .emacs):
+Edit your Emacs configuration file (`~/.emacs` or `~/.emacs.d/init.el`) and add:
 
 ```elisp
 ;; Add repo-grep to your Emacs load path
@@ -80,33 +79,18 @@ Add the following line to your Emacs configuration file (init.el or .emacs):
 (autoload 'repo-grep-multi "repo-grep")
 ```
 
-Replace `/path/to/repo-grep/` with the actual path where you cloned the repository.
+Make sure `~/repo-grep` matches the actual path where you cloned the repository.
 
-#### Defining keybindings
+#### Define keybindings
 
-One of *repo-grep*'s core features is the ability to search the string under the cursor with a **single keystroke**, making it extremely fast and efficient.
-
-##### Primary keybinding: one-keystroke search
-
-To bind *repo-grep* to the `F12` key for instant search of the symbol at point:
+To enable instant searching, bind the functions to convenient keys:
 
 ```elisp
-(global-set-key [f12] 'repo-grep)
+(global-set-key [f12] 'repo-grep)         ;; Single-repository search
+(global-set-key [C-f12] 'repo-grep-multi) ;; Multi-repository search
 ```
 
-##### Multi-repository search keybinding
-
-To bind multi-repository search to `Ctrl + F12`:
-
-```elisp
-(global-set-key [C-f12] 'repo-grep-multi)
-```
-
-This allows you to search across multiple repositories under a shared parent folder.
-
-##### Reloading keybindings
-
-After saving these changes, reload your Emacs config or restart Emacs for the keybindings to take effect. You're now ready to start searching with *repo-grep* using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
+Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with *repo-grep* using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
 
 ## 3. Basic usage
 
