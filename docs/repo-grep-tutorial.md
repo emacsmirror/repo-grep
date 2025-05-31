@@ -67,7 +67,7 @@ Once you've saved these changes, reload your Emacs configuration or restart Emac
 
 ## 3. Basic usage
 
-### Triggering the search
+### Starting a search from the cursor position
 
 To start a search, place your cursor (point) over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *Repo-grep* will automatically detect the symbol under the cursor and use it as the default search term.
 
