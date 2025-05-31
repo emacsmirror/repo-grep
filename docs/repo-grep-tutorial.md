@@ -173,8 +173,6 @@ To restore the default (case-insensitive):
 (setq repo-grep-case-sensitive nil)
 ```
 
-Each of these features can be customised in your Emacs config to fit your workflow — from targeted regex searches to ignoring unwanted files.
-
 ## 5. Summary
 
 *Repo-grep* is a versatile Emacs tool that enhances how you:
