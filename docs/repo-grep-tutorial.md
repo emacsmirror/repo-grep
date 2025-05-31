@@ -107,7 +107,7 @@ Now pressing `Ctrl + F12` will search through all folders under the parent direc
 
 ### Customise match context with regex prefixes and suffixes
 
-You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These let you “wrap” the search term in regex — useful for targeting things like assignments, function calls, or declarations.
+You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These options allow you to match a symbol only when it appears in a specific context — such as the left-hand side of an assignment or in a subroutine call. You can do this by prepending or appending regular expression fragments to your search term.
 
 #### Example 1: Match variable assignments (symbol on the left-hand side)
 
