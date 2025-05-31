@@ -91,10 +91,9 @@ With just one keystroke, *repo-grep* turns symbol lookup into a fast, interactiv
 
 ## 4. Advanced features
 
-
 ### Multi-repository search
 
-If your projects are structured as multiple repositories under a common folder, *repo-grep-multi* can search them all in one go. If you have multiple repositories in the same parent directory (e.g., `~/projects/repo1`, `~/projects/repo2`), *repo-grep-multi* will search across all repositories under `~/projects`.
+If your projects are structured as multiple repositories under a common folder, *repo-grep-multi* can search them all in one go. If you have multiple repositories in the same parent directory (e.g., `~/projects/repo1`, `~/projects/repo2`), *repo-grep-multi* will search across all repositories under `~/projects`. Internally, this is done by setting a flag that tells *repo-grep* to move up one folder level from the detected Git or SVN root. This makes multi-repo searches automatic and context-aware.
 
 #### Example: Bind to `Ctrl + F12`
 
@@ -102,7 +101,7 @@ If your projects are structured as multiple repositories under a common folder, 
 (global-set-key [C-f12] 'repo-grep-multi)
 ```
 
-Now pressing `Ctrl + F12` triggers a recursive search across all sibling directories — no manual navigation needed.
+Now pressing `Ctrl + F12` will search through all folders under the parent directory — no need to manually navigate or run multiple searches.
 
 ### Regex prefixes and suffixes
 
