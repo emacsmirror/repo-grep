@@ -48,7 +48,7 @@ This tutorial will walk you through installation, configuration, and key use cas
 
 Before installing *repo-grep*, make sure the following tools are available:
 
-- **Emacs**: Version 26 or newer recommended.
+- **Emacs**: Version 24.4 or newer recommended.
 - **Git or SVN** (optional): Enables automatic project root detection.
 - **awk**: Used internally for text parsing; usually preinstalled on Unix-based systems (Linux, macOS).
 
