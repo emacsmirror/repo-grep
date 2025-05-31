@@ -129,7 +129,11 @@ But it would not match if the variable is only used on the right-hand side:
 weight = mass * gravity_at_sea_level
 ```
 
-#### Example 2: Match subroutine calls
+#### Example 2: Build an interactive call tree (subroutine calls)
+
+If you're exploring a large Fortran or procedural codebase, you might want to trace which routines call a given subroutine — essentially building a lightweight, interactive call tree.
+
+You can do this using a prefix regex that matches subroutine call sites, e.g., lines starting with `CALL`. This allows you to quickly jump to all points where a subroutine is invoked.
 
 ```elisp
 (global-set-key [f10]
@@ -137,7 +141,7 @@ weight = mass * gravity_at_sea_level
     (repo-grep :left-regex "CALL.*")))
 ```
 
-This matches lines where the symbol is preceded by CALL, e.g. to understand the call tree of a Fortran programme.
+With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
 
 ### Exclude unwanted file types
 
