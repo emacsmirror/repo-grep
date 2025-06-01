@@ -105,17 +105,13 @@ Handles custom exclusions, regex-based matching, and project root detection."
                     " ")
          'grep-mode)))))
 
-(defun repo-grep--shell-escape (string)
-  "Escape STRING for safe use in shell commands"
-  (shell-quote-argument string))
-
 (defun repo-grep--build-file-pattern (exclude-ext)
   "Construct a file pattern for grep, excluding extensions listed in EXCLUDE-EXT.
 If EXCLUDE-EXT is nil, all files are included."
   (let ((exclude-pattern (if exclude-ext
                              (mapconcat (lambda (ext)
                                           (format "--exclude=*%s"
-                                                  (repo-grep--shell-escape ext)))
+                                                  ext))
                                         exclude-ext " ")
                            "")))
     (concat "*" " " exclude-pattern)))
