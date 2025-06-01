@@ -88,9 +88,11 @@ Handles custom exclusions, regex-based matching, and project root detection."
                            symbol-at-point
                            (or right-regex "")
                            "): "))
-           (input (read-string prompt))
-           (search-string (if (string= input "") default-term input))
-           (search-string (concat (or left-regex "") search-string (or right-regex "")))
+           (input (read-string prompt nil nil symbol-at-point))
+           (search-term (if (string-empty-p input)
+                            default-term
+                          (shell-quote-argument input)))
+           (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
            (files (repo-grep--build-file-pattern exclude-ext))
            (case-flag (if repo-grep-case-sensitive "" "-i")))
@@ -102,7 +104,7 @@ Handles custom exclusions, regex-based matching, and project root detection."
       (let ((default-directory folder))
         (compilation-start
          (mapconcat #'identity
-                    (append (list "grep" "--color" "-nr" case-flag search-string)
+                    (append (list "grep" "--color" "-nr" case-flag search-pattern)
                             (split-string files))
                     " ")
          'grep-mode)))))
