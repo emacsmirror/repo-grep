@@ -104,7 +104,7 @@ Handles custom exclusions, regex-based matching, and project root detection."
                     files)))))
 
 (defun repo-grep--shell-escape (string)
-  "Escape STRING for safe in shell commands"
+  "Escape STRING for safe use in shell commands"
   (shell-quote-argument string))
 
 (defun repo-grep--build-file-pattern (exclude-ext)
