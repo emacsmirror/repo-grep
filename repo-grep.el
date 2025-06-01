@@ -97,65 +97,34 @@ Handles custom exclusions, regex-based matching, and project root detection."
       (unless (and folder (not (string-empty-p folder)))
         (error "Could not determine project root."))
 
-      (grep (format "cd %s && grep --color -nr %s %s %s"
-                    (repo-grep--shell-escape folder)
-                    case-flag
-                    (repo-grep--shell-escape search-string)
-                    files)))))
-
-(defun repo-grep--shell-escape (string)
-  "Escape STRING for safe use in shell commands"
-  (shell-quote-argument string))
+      (let ((default-directory folder))
+        (compilation-start
+         (mapconcat #'identity
+                    (append (list "grep" "--color" "-nr" case-flag search-string)
+                            (split-string files))
+                    " ")
+         'grep-mode)))))
 
 (defun repo-grep--build-file-pattern (exclude-ext)
   "Construct a file pattern for grep, excluding extensions listed in EXCLUDE-EXT.
 If EXCLUDE-EXT is nil, all files are included."
   (let ((exclude-pattern (if exclude-ext
-                             (mapconcat (lambda (ext) (format "--exclude=*%s" ext)) exclude-ext " ")
+                             (mapconcat (lambda (ext)
+                                          (format "--exclude=*%s"
+                                                  ext))
+                                        exclude-ext " ")
                            "")))
     (concat "*" " " exclude-pattern)))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
-Tries SVN first, falls back to the current directory, and then uses Git if found.
-Returns the folder as a string, trimmed of extra whitespace."
-  (let ((folder (string-trim
-                 (shell-command-to-string
-                  "svn info | grep 'Working Copy Root Path' | awk {'print $5'}"))))
-    ;; SVN - if svn info did not work because you use it in a new, not yet added subdirectory,
-    ;; try to do it 1-3 levels above.
-    (if (string-match-p (regexp-quote "svn: warning: W155010") folder)
-        (setq folder (string-trim
-                      (shell-command-to-string
-                       "svn info .. | grep 'Working Copy Root Path' | awk {'print $5'}"))))
-    (if (string-match-p (regexp-quote "svn: warning: W155010") folder)
-        (setq folder (string-trim
-                      (shell-command-to-string
-                       "svn info ../.. | grep 'Working Copy Root Path' | awk {'print $5'}"))))
-    (if (string-match-p (regexp-quote "svn: warning: W155010") folder)
-        (setq folder (string-trim
-                      (shell-command-to-string
-                       "svn info ../../.. | grep 'Working Copy Root Path' | awk {'print $5'}"))))
-    ;; PWD - if no SVN working directory is found, try the current directory.
-    (if (string-match-p (regexp-quote "svn: E155007") folder)
-        (setq folder (string-trim
-                      (shell-command-to-string "pwd"))))
-
-    ;; Prefer Git repo root if available
-    (let ((gitfolder (string-trim
-                      (shell-command-to-string
-                       "git rev-parse --show-toplevel"))))
-      (if (not (string-match-p (regexp-quote "fatal: Not a git repository") gitfolder))
-          (setq folder gitfolder)))
-
-    ;; If requested, adjust to one folder level above
-    (if repo-grep-from-folder-above
-        (setq folder (concat folder "/..")))
-
-    ;; Validate repository detection before returning
-    (unless (and folder (not (string-empty-p folder)))
-      (error "Could not determine root folder."))
-
+Uses Emacs' built-in VCS detection and falls back to `default-directory`."
+  (let ((folder (or (vc-root-dir)
+                    default-directory)))
+    (when repo-grep-from-folder-above
+      (setq folder (expand-file-name ".." folder)))
+    (unless (and folder (file-directory-p folder))
+      (error "Could not determine a valid project root folder."))
     folder))
 
 (provide 'repo-grep)
