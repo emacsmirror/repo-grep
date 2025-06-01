@@ -81,20 +81,17 @@ Handles custom exclusions, regex-based matching, and project root detection."
     ;; Extract symbol under cursor or use fallback
     (let* ((symbol-at-point (thing-at-point 'symbol t))
            (symbol-at-point (or symbol-at-point ""))
-           ;; Escape symbol unless user enters a custom regex
-           (default-term (shell-quote-argument symbol-at-point))
+           (default-term symbol-at-point) ;; DO NOT quote yet
            (prompt (concat "grep for ("
                            (or left-regex "")
                            symbol-at-point
                            (or right-regex "")
                            "): "))
            (input (read-string prompt nil nil symbol-at-point))
-           (search-term (if (string-empty-p input)
-                            default-term
-                          (shell-quote-argument input)))
+           (search-term (if (string-empty-p input) default-term input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
-           (files (repo-grep--build-file-pattern exclude-ext))
+           (files (split-string (repo-grep--build-file-pattern exclude-ext)))
            (case-flag (if repo-grep-case-sensitive "" "-i")))
 
       ;; Ensure a valid folder before executing grep
@@ -103,9 +100,10 @@ Handles custom exclusions, regex-based matching, and project root detection."
 
       (let ((default-directory folder))
         (compilation-start
+         ;; quote only the search pattern (not the file globs)
          (mapconcat #'identity
-                    (append (list "grep" "--color" "-nr" case-flag search-pattern)
-                            (split-string files))
+                    (append (list "grep" "--color" "-nr" case-flag (shell-quote-argument search-pattern))
+                            files)
                     " ")
          'grep-mode)))))
 
