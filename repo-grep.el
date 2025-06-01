@@ -97,11 +97,13 @@ Handles custom exclusions, regex-based matching, and project root detection."
       (unless (and folder (not (string-empty-p folder)))
         (error "Could not determine project root."))
 
-      (grep (format "cd %s && grep --color -nr %s %s %s"
-                    (repo-grep--shell-escape folder)
-                    case-flag
-                    (repo-grep--shell-escape search-string)
-                    files)))))
+      (let ((default-directory folder))
+        (compilation-start
+         (mapconcat #'identity
+                    (append (list "grep" "--color" "-nr" case-flag search-string)
+                            (split-string files))
+                    " ")
+         'grep-mode)))))
 
 (defun repo-grep--shell-escape (string)
   "Escape STRING for safe use in shell commands"
