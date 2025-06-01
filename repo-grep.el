@@ -88,7 +88,8 @@ Handles custom exclusions, regex-based matching, and project root detection."
                            (or right-regex "")
                            "): "))
            (input (read-string prompt nil nil symbol-at-point))
-           (search-term (if (string-empty-p input) default-term input))
+           (sanitised-input (repo-grep--sanitise-input input))
+           (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
            (files (split-string (repo-grep--build-file-pattern exclude-ext)))
@@ -128,6 +129,10 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
     (unless (and folder (file-directory-p folder))
       (error "Could not determine a valid project root folder."))
     folder))
+
+(defun repo-grep--sanitise-input (input)
+  "Sanitise INPUT by removing potentially dangerous shell characters."
+  (replace-regexp-in-string "[`$&|;<>]" "" input))
 
 (provide 'repo-grep)
 
