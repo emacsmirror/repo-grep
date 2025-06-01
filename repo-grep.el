@@ -97,7 +97,15 @@ Handles custom exclusions, regex-based matching, and project root detection."
       (unless (and folder (not (string-empty-p folder)))
         (error "Could not determine project root."))
 
-      (grep (format "cd %s && grep --color -nr %s %s %s" folder case-flag search-string files)))))
+      (grep (format "cd %s && grep --color -nr %s %s %s"
+                    (repo-grep--shell-escape folder)
+                    case-flag
+                    (repo-grep--shell-escape search-string)
+                    files)))))
+
+(defun repo-grep--shell-escape (string)
+  "Escape STRING for safe use in shell commands"
+  (shell-quote-argument string))
 
 (defun repo-grep--build-file-pattern (exclude-ext)
   "Construct a file pattern for grep, excluding extensions listed in EXCLUDE-EXT.
