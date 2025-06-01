@@ -78,9 +78,11 @@ Handles custom exclusions, regex-based matching, and project root detection."
     (when (and exclude-ext (not (listp exclude-ext)))
       (error "EXCLUDE-EXT must be a list of strings"))
 
+    ;; Extract symbol under cursor or use fallback
     (let* ((symbol-at-point (thing-at-point 'symbol t))
            (symbol-at-point (or symbol-at-point ""))
-           (default-term (format "\"%s\"" symbol-at-point))
+           ;; Escape symbol unless user enters a custom regex
+           (default-term (shell-quote-argument symbol-at-point))
            (prompt (concat "grep for ("
                            (or left-regex "")
                            symbol-at-point
