@@ -111,7 +111,10 @@ Handles custom exclusions, regex-based matching, and project root detection."
   "Construct a file pattern for grep, excluding extensions listed in EXCLUDE-EXT.
 If EXCLUDE-EXT is nil, all files are included."
   (let ((exclude-pattern (if exclude-ext
-                             (mapconcat (lambda (ext) (format "--exclude=*%s" ext)) exclude-ext " ")
+                             (mapconcat (lambda (ext)
+                                          (format "--exclude=*%s"
+                                                  (repo-grep--shell-escape ext)))
+                                        exclude-ext " ")
                            "")))
     (concat "*" " " exclude-pattern)))
 
