@@ -78,19 +78,21 @@ Handles custom exclusions, regex-based matching, and project root detection."
     (when (and exclude-ext (not (listp exclude-ext)))
       (error "EXCLUDE-EXT must be a list of strings"))
 
+    ;; Extract symbol under cursor or use fallback
     (let* ((symbol-at-point (thing-at-point 'symbol t))
            (symbol-at-point (or symbol-at-point ""))
-           (default-term (format "\"%s\"" symbol-at-point))
+           (default-term symbol-at-point) ;; DO NOT quote yet
            (prompt (concat "grep for ("
                            (or left-regex "")
                            symbol-at-point
                            (or right-regex "")
                            "): "))
-           (input (read-string prompt))
-           (search-string (if (string= input "") default-term input))
-           (search-string (concat (or left-regex "") search-string (or right-regex "")))
+           (input (read-string prompt nil nil symbol-at-point))
+           (sanitised-input (repo-grep--sanitise-input input))
+           (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
+           (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
-           (files (repo-grep--build-file-pattern exclude-ext))
+           (files (split-string (repo-grep--build-file-pattern exclude-ext)))
            (case-flag (if repo-grep-case-sensitive "" "-i")))
 
       ;; Ensure a valid folder before executing grep
@@ -99,9 +101,10 @@ Handles custom exclusions, regex-based matching, and project root detection."
 
       (let ((default-directory folder))
         (compilation-start
+         ;; quote only the search pattern (not the file globs)
          (mapconcat #'identity
-                    (append (list "grep" "--color" "-nr" case-flag search-string)
-                            (split-string files))
+                    (append (list "grep" "--color" "-nr" case-flag (shell-quote-argument search-pattern))
+                            files)
                     " ")
          'grep-mode)))))
 
@@ -126,6 +129,10 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
     (unless (and folder (file-directory-p folder))
       (error "Could not determine a valid project root folder."))
     folder))
+
+(defun repo-grep--sanitise-input (input)
+  "Sanitise INPUT by removing potentially dangerous shell characters."
+  (replace-regexp-in-string "[`$&|;<>]" "" input))
 
 (provide 'repo-grep)
 
