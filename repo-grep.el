@@ -131,11 +131,12 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
   (replace-regexp-in-string "[`$&|;<>]" "" input))
 
 (defun repo-grep--sanitise-regex (regex)
-  "Sanitise REGEX by removing dangerous shell characters, allowing useful regex syntax."
+  "Validate REGEX contains only safe characters for shell execution."
   (when (and regex (not (stringp regex)))
     (error "REGEX must be a string or nil"))
-  (when regex
-    (replace-regexp-in-string "[`&;|<>]" "" regex)))
+  (when (and regex (string-match-p "[`$&;|<>\"'\\\\]" regex))
+    (error "Regex contains potentially dangerous characters: %s" regex))
+  regex)
 
 (defun repo-grep--sanitise-ext (ext)
   "Ensure EXT only contains safe characters for shell globbing."
