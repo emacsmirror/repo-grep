@@ -67,14 +67,10 @@ Accepts keyword arguments for customisation."
   "Perform a recursive grep search with optional keyword arguments.
 Handles custom exclusions, regex-based matching, and project root detection."
   (let* ((exclude-ext (plist-get args :exclude-ext))
-         (left-regex  (plist-get args :left-regex))
-         (right-regex (plist-get args :right-regex)))
+         (left-regex  (repo-grep--sanitise-regex (plist-get args :left-regex)))
+         (right-regex (repo-grep--sanitise-regex (plist-get args :right-regex))))
 
     ;; Validate arguments
-    (when (and left-regex (not (stringp left-regex)))
-      (error "LEFT-REGEX must be a string"))
-    (when (and right-regex (not (stringp right-regex)))
-      (error "RIGHT-REGEX must be a string"))
     (when (and exclude-ext (not (listp exclude-ext)))
       (error "EXCLUDE-EXT must be a list of strings"))
 
@@ -114,7 +110,7 @@ If EXCLUDE-EXT is nil, all files are included."
   (let ((exclude-pattern (if exclude-ext
                              (mapconcat (lambda (ext)
                                           (format "--exclude=*%s"
-                                                  ext))
+                                                  (repo-grep--sanitise-ext ext)))
                                         exclude-ext " ")
                            "")))
     (concat "*" " " exclude-pattern)))
@@ -131,8 +127,24 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
     folder))
 
 (defun repo-grep--sanitise-input (input)
-  "Sanitise INPUT by removing potentially dangerous shell characters."
-  (replace-regexp-in-string "[`$&|;<>]" "" input))
+  "Validate INPUT for shell safety while allowing common programming characters."
+  (when (string-match-p "[`&;|<>\"'\\]" input)
+    (error "Search input contains potentially dangerous characters: %s" input))
+  input)
+
+(defun repo-grep--sanitise-regex (regex)
+  "Validate REGEX contains only safe characters for shell execution."
+  (when (and regex (not (stringp regex)))
+    (error "REGEX must be a string or nil"))
+  (when (and regex (string-match-p "[`$&;|<>\"'\\\\]" regex))
+    (error "Regex contains potentially dangerous characters: %s" regex))
+  regex)
+
+(defun repo-grep--sanitise-ext (ext)
+  "Ensure EXT only contains safe characters for shell globbing."
+  (if (string-match-p "[^A-Za-z0-9._~-]" ext)
+      (error "Unsafe character in file extension: %s" ext)
+    ext))
 
 (provide 'repo-grep)
 
