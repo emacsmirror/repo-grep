@@ -1,7 +1,7 @@
 ;;; repo-grep.el --- Project-wide grep search -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
-;; Version: 1.2.1
+;; Version: 1.2.2
 ;; License: BSD-3-Clause
 ;; Keywords: tools, search, convenience
 ;; Package-Requires: ((emacs "24.4"))
