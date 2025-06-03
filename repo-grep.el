@@ -114,7 +114,7 @@ If EXCLUDE-EXT is nil, all files are included."
   (let ((exclude-pattern (if exclude-ext
                              (mapconcat (lambda (ext)
                                           (format "--exclude=*%s"
-                                                  ext))
+                                                  (repo-grep--sanitise-ext ext)))
                                         exclude-ext " ")
                            "")))
     (concat "*" " " exclude-pattern)))
@@ -133,6 +133,10 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
 (defun repo-grep--sanitise-input (input)
   "Sanitise INPUT by removing potentially dangerous shell characters."
   (replace-regexp-in-string "[`$&|;<>]" "" input))
+
+(defun repo-grep--sanitise-ext (ext)
+  "Sanitise EXT by removing potentially dangerous shell characters."
+  (replace-regexp-in-string "[`$&|;<>]" "" ext))
 
 (provide 'repo-grep)
 
