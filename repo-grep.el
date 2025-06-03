@@ -127,8 +127,10 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
     folder))
 
 (defun repo-grep--sanitise-input (input)
-  "Sanitise INPUT by removing potentially dangerous shell characters."
-  (replace-regexp-in-string "[`$&|;<>]" "" input))
+  "Validate INPUT for shell safety while allowing common programming characters."
+  (when (string-match-p "[`&;|<>\"'\\]" input)
+    (error "Search input contains potentially dangerous characters: %s" input))
+  input)
 
 (defun repo-grep--sanitise-regex (regex)
   "Validate REGEX contains only safe characters for shell execution."
