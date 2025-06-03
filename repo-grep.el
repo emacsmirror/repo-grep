@@ -135,8 +135,10 @@ Uses Emacs' built-in VCS detection and falls back to `default-directory`."
   (replace-regexp-in-string "[`$&|;<>]" "" input))
 
 (defun repo-grep--sanitise-ext (ext)
-  "Sanitise EXT by removing potentially dangerous shell characters."
-  (replace-regexp-in-string "[`$&|;<>]" "" ext))
+  "Ensure EXT only contains safe characters for shell globbing."
+  (if (string-match-p "[^A-Za-z0-9._~-]" ext)
+      (error "Unsafe character in file extension: %s" ext)
+    ext))
 
 (provide 'repo-grep)
 
