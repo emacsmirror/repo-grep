@@ -1,5 +1,12 @@
 # repo-grep tutorial
 
+## Table of Contents
+1. [Introduction to repo-grep](#1-introduction-to-repo-grep)
+2. [Installation & setup](#2-installation--setup)
+3. [Basic usage](#3-basic-usage)
+4. [Advanced features](#4-advanced-features)
+5. [Summary](#5-summary)
+
 ## 1. Introduction to repo-grep
 
 Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
