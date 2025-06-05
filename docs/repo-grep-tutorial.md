@@ -161,7 +161,9 @@ This ensures that temporary or irrelevant files don’t clutter your search outp
 
 ### Toggle case sensitivity
 
-By default, *repo-grep* performs case-insensitive searches — which is often useful in general-purpose code scanning. If you want to enforce case-sensitive matching:
+By default, *repo-grep* performs case-insensitive searches, which is often useful for general-purpose code scanning. If you want to enforce case-sensitive matching, you have two options:
+
+#### Option 1: Set it in your configuration
 
 ```elisp
 (setq repo-grep-case-sensitive t)
@@ -172,6 +174,16 @@ To restore the default (case-insensitive):
 ```elisp
 (setq repo-grep-case-sensitive nil)
 ```
+
+#### Option 2: Toggle it interactively
+
+You can also toggle case sensitivity at any time using the built-in interactive command:
+
+```elisp
+M-x repo-grep-set-case-sensitivity
+```
+
+This will prompt you to choose between ON and OFF, and update the setting accordingly — no need to edit your config or restart Emacs.
 
 ## 5. Summary
 
