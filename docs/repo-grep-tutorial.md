@@ -19,13 +19,12 @@ Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* 
 
 ### Prerequisites
 
-Before installing *repo-grep*, make sure the following tools are available:
+Before installing *repo-grep*, make sure the following is available:
 
-- **Emacs**: Version 24.4 or newer recommended.
-- **Git or SVN** (optional): Enables automatic project root detection.
-- **awk**: Used internally for text parsing; usually preinstalled on Unix-based systems (Linux, macOS).
+- **Emacs**: Version 24.4 or newer is required.
+- **Git or SVN** (optional): Enables automatic project root detection if available.
 
-No additional dependencies like `ripgrep` or `projectile` are required. This makes setup simple.
+No additional tools or packages are required. Repo-grep is self-contained and does not depend on external utilities. This makes setup simple.
 
 ### Installing repo-grep
 
