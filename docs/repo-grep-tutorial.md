@@ -68,7 +68,7 @@ Once you've saved these changes, reload your Emacs configuration or restart Emac
 
 ### Starting a search from the cursor position
 
-To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *Repo-grep* will automatically detect the symbol under the cursor and use it as the default search term.
+To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *Repo-grep* will automatically detect the symbol under the cursor and use it as the default search term. This detection is powered by Emacs’ built-in `thing-at-point`. This works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
 
 ### Interactive query
 
@@ -78,7 +78,7 @@ You'll be prompted in the minibuffer with the detected symbol pre-filled. You ca
 
 Once confirmed, *repo-grep* locates the appropriate folder to search from:
 
-* If you're in a Git ropository or SVN working copy, it uses Emacs' built-in VCS root detection.
+* If you're in a Git repository or SVN working copy, it uses Emacs' built-in VCS root detection.
 * If no VCS root is found, it defaults to the current directory.
 * If repo-grep-subfolder is set, the search is restricted to that subfolder under the root.
 * If repo-grep-from-folder-above is non-nil (as in repo-grep-multi), the search starts from the parent directory of the detected root.
@@ -146,6 +146,8 @@ M-x repo-grep-set-subfolder-from-dired
 ```
 
 This makes it easy to narrow your search to exactly the part of the codebase you care about — without touching the rest.
+
+Note: `repo-grep-subfolder` is ignored when using *repo-grep-multi*, since multi-repo search always starts from the parent directory of the detected root.
 
 ### Exclude unwanted file types
 
