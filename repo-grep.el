@@ -80,6 +80,20 @@ Ignored when using `repo-grep-multi`."
   :group 'repo-grep)
 
 ;;;###autoload
+(defun repo-grep-set-case-sensitivity ()
+  "Interactively set `repo-grep-case-sensitive` to ON or OFF."
+  (interactive)
+  (let* ((options '(("ON" . t) ("OFF" . nil)))
+         (current (if repo-grep-case-sensitive "ON" "OFF"))
+         (choice (completing-read
+                  (format "Case-sensitive search is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-case-sensitive (cdr (assoc choice options)))
+    (message "Case-sensitive search is now %s"
+             (if repo-grep-case-sensitive "ENABLED" "DISABLED"))))
+
+;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
 Accepts keyword arguments for customisation."
