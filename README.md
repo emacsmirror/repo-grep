@@ -33,6 +33,23 @@ Change to case-sensitive search
 ```elisp
 (setq repo-grep-case-sensitive t) 
 ```
+Or toggle it interactively
+
+```elisp
+M-x repo-grep-set-case-sensitivity
+```
+
+Restrict search to a subfolder
+
+```elisp
+M-x repo-grep-set-subfolder
+```
+
+Or select the subfolder from a Dired buffer
+
+```elisp
+M-x repo-grep-set-subfolder-from-dired
+```
 
 Exclude files ending ```.log``` and ```~``` from the search
 
