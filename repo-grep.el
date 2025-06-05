@@ -25,6 +25,7 @@
 ;; Features include:
 ;; - Automatic detection of Git or SVN project roots
 ;; - Optional restriction to a specific subfolder within the project root
+;; - Interactive subfolder selection via prompt or Dired
 ;; - Regex support for advanced search patterns
 ;; - Optional case sensitivity and file exclusion
 ;; - Clickable grep results in a dedicated buffer
@@ -50,6 +51,28 @@ Ignored when using `repo-grep-multi`."
   :type '(choice (const :tag "None" nil)
                  (string :tag "Subfolder name"))
   :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-subfolder ()
+  "Interactively set `repo-grep-subfolder to start search from."
+  (interactive)
+  (let* ((root (or (vc-root-dir) default-directory))
+         (selected-dir (read-directory-name "Select subfolder: " root nil t)))
+    (setq repo-grep-subfolder (file-relative-name selected-dir root))
+    (message "Search restricted to: %s" repo-grep-subfolder)))
+
+;;;###autoload
+(defun repo-grep-set-subfolder-from-dired ()
+  "Set `repo-grep-subfolder` from the current directory in Dired."
+  (interactive)
+  (unless (derived-mode-p 'dired-mode)
+    (error "This command must be run from a Dired buffer"))
+  (let* ((root (or (vc-root-dir) default-directory))
+         (dir (dired-get-file-for-visit)))
+    (unless (file-directory-p dir)
+      (error "Selected item is not a directory"))
+    (setq repo-grep-subfolder (file-relative-name dir root))
+    (message "Search restricted to: %s" repo-grep-subfolder)))
 
 (defcustom repo-grep-case-sensitive nil
   "If non-nil, perform case-sensitive searches."
