@@ -24,6 +24,8 @@
 ;;
 ;; Features include:
 ;; - Automatic detection of Git or SVN project roots
+;; - Optional restriction to a specific subfolder within the project root
+;; - Interactive subfolder selection via prompt or Dired
 ;; - Regex support for advanced search patterns
 ;; - Optional case sensitivity and file exclusion
 ;; - Clickable grep results in a dedicated buffer
@@ -43,10 +45,53 @@
   :type 'boolean
   :group 'repo-grep)
 
+(defcustom repo-grep-subfolder nil
+  "Optional subfolder under the project root to start the search from.
+Ignored when using `repo-grep-multi`."
+  :type '(choice (const :tag "None" nil)
+                 (string :tag "Subfolder name"))
+  :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-subfolder ()
+  "Interactively set `repo-grep-subfolder to start search from."
+  (interactive)
+  (let* ((root (or (vc-root-dir) default-directory))
+         (selected-dir (read-directory-name "Select subfolder: " root nil t)))
+    (setq repo-grep-subfolder (file-relative-name selected-dir root))
+    (message "Search restricted to: %s" repo-grep-subfolder)))
+
+;;;###autoload
+(defun repo-grep-set-subfolder-from-dired ()
+  "Set `repo-grep-subfolder` from the current directory in Dired."
+  (interactive)
+  (unless (derived-mode-p 'dired-mode)
+    (error "This command must be run from a Dired buffer"))
+  (let* ((root (or (vc-root-dir) default-directory))
+         (dir (dired-get-file-for-visit)))
+    (unless (file-directory-p dir)
+      (error "Selected item is not a directory"))
+    (setq repo-grep-subfolder (file-relative-name dir root))
+    (message "Search restricted to: %s" repo-grep-subfolder)))
+
 (defcustom repo-grep-case-sensitive nil
   "If non-nil, perform case-sensitive searches."
   :type 'boolean
   :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-case-sensitivity ()
+  "Interactively set `repo-grep-case-sensitive` to ON or OFF."
+  (interactive)
+  (let* ((options '(("ON" . t) ("OFF" . nil)))
+         (current (if repo-grep-case-sensitive "ON" "OFF"))
+         (choice (completing-read
+                  (format "Case-sensitive search is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-case-sensitive (cdr (assoc choice options)))
+    (message "Case-sensitive search is now %s"
+             (if repo-grep-case-sensitive "ENABLED" "DISABLED"))))
 
 ;;;###autoload
 (defun repo-grep (&rest args)
@@ -117,11 +162,17 @@ If EXCLUDE-EXT is nil, all files are included."
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
-Uses Emacs' built-in VCS detection and falls back to `default-directory`."
+Uses Emacs' built-in VCS detection and falls back to `default-directory`.
+If `repo-grep-subfolder` is set and valid, append it to the root."
   (let ((folder (or (vc-root-dir)
                     default-directory)))
     (when repo-grep-from-folder-above
       (setq folder (expand-file-name ".." folder)))
+    (when (and repo-grep-subfolder (not repo-grep-from-folder-above))
+      (let ((sub (expand-file-name repo-grep-subfolder folder)))
+        (if (file-directory-p sub)
+            (setq folder sub)
+          (error "Subfolder '%s' does not exist under project root" repo-grep-subfolder))))
     (unless (and folder (file-directory-p folder))
       (error "Could not determine a valid project root folder."))
     folder))
