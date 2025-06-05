@@ -147,46 +147,6 @@ M-x repo-grep-set-subfolder-from-dired
 
 This makes it easy to narrow your search to exactly the part of the codebase you care about — without touching the rest.
 
-### Customise match context with regex prefixes and suffixes
-
-You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These options allow you to match a symbol only when it appears in a specific context — such as the left-hand side of an assignment or in a subroutine call. You can do this by prepending or appending regular expression fragments to your search term.
-
-#### Example 1: Match variable assignments (symbol on the left-hand side)
-
-To find where a variable is being assigned a value — and not just used in a calculation — you can append an equals sign using `:right-regex`.
-
-```elisp
-(global-set-key [f11]
-  (lambda () (interactive)
-    (repo-grep :right-regex ".*=")))
-```
-
-This searches for cases where the symbol appears to the left of an equals sign. For example, if your cursor is on `gravity_at_sea_level`, this pattern would match:
-
-```
-gravity_at_sea_level = 9.81
-```
-
-But it would not match if the variable is only used on the right-hand side:
-
-```
-weight = mass * gravity_at_sea_level
-```
-
-#### Example 2: Build an interactive call tree (subroutine calls)
-
-If you're exploring a large Fortran or procedural codebase, you might want to trace which routines call a given subroutine — essentially building a lightweight, interactive call tree.
-
-You can do this using a prefix regex that matches subroutine call sites, e.g., lines starting with `CALL`. This allows you to quickly jump to all points where a subroutine is invoked.
-
-```elisp
-(global-set-key [f10]
-  (lambda () (interactive)
-    (repo-grep :left-regex "CALL.*")))
-```
-
-With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
-
 ### Exclude unwanted file types
 
 To keep your results clean, you can tell *repo-grep* to ignore specific file extensions — such as logs, compiled outputs, or Emacs backups.
@@ -226,6 +186,46 @@ M-x repo-grep-set-case-sensitivity
 ```
 
 This will prompt you to choose between ON and OFF, and update the setting accordingly — no need to edit your config or restart Emacs.
+
+### Customise match context with regex prefixes and suffixes
+
+You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These options allow you to match a symbol only when it appears in a specific context — such as the left-hand side of an assignment or in a subroutine call. You can do this by prepending or appending regular expression fragments to your search term.
+
+#### Example 1: Match variable assignments (symbol on the left-hand side)
+
+To find where a variable is being assigned a value — and not just used in a calculation — you can append an equals sign using `:right-regex`.
+
+```elisp
+(global-set-key [f11]
+  (lambda () (interactive)
+    (repo-grep :right-regex ".*=")))
+```
+
+This searches for cases where the symbol appears to the left of an equals sign. For example, if your cursor is on `gravity_at_sea_level`, this pattern would match:
+
+```
+gravity_at_sea_level = 9.81
+```
+
+But it would not match if the variable is only used on the right-hand side:
+
+```
+weight = mass * gravity_at_sea_level
+```
+
+#### Example 2: Build an interactive call tree (subroutine calls)
+
+If you're exploring a large Fortran or procedural codebase, you might want to trace which routines call a given subroutine — essentially building a lightweight, interactive call tree.
+
+You can do this using a prefix regex that matches subroutine call sites, e.g., lines starting with `CALL`. This allows you to quickly jump to all points where a subroutine is invoked.
+
+```elisp
+(global-set-key [f10]
+  (lambda () (interactive)
+    (repo-grep :left-regex "CALL.*")))
+```
+
+With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
 
 ## 5. Summary
 
