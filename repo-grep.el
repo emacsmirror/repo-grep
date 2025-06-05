@@ -96,14 +96,42 @@ Ignored when using `repo-grep-multi`."
 ;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
-Accepts keyword arguments for customisation."
+
+This command performs a recursive grep search starting from the
+project root (Git, SVN, or current directory). The default search
+term is the symbol under the cursor, which can be edited
+interactively.
+
+Optional keyword arguments in ARGS:
+  :exclude-ext   List of file extensions to exclude (e.g., '(\".log\" \".tmp\")).
+  :left-regex    Regex pattern to prepend to the search term.
+  :right-regex   Regex pattern to append to the search term.
+
+Search respects `repo-grep-case-sensitive` and can be scoped to
+a subfolder via `repo-grep-subfolder`.
+
+Results are displayed in a dedicated grep buffer with clickable links."
   (interactive)
   (apply #'repo-grep--internal args))
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
   "Run a recursive grep across multiple repositories or folders in the same parent directory.
-Accepts keyword arguments for customisation."
+
+This command performs a recursive grep search across all sibling
+directories under the parent of the current project root. It is
+useful for searching across multiple related repositories or
+projects at once.
+
+Optional keyword arguments in ARGS:
+  :exclude-ext   List of file extensions to exclude (e.g., '(\".log\" \".tmp\")).
+  :left-regex    Regex pattern to prepend to the search term.
+  :right-regex   Regex pattern to append to the search term.
+
+Search respects `repo-grep-case-sensitive` and ignores
+`repo-grep-subfolder` since the search spans multiple roots.
+
+Results are displayed in a dedicated grep buffer with clickable links."
   (interactive)
   (let ((repo-grep-from-folder-above t))
     (apply #'repo-grep--internal args)))
