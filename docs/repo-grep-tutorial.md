@@ -105,6 +105,48 @@ If your projects are structured as multiple repositories under a common folder, 
 
 Now pressing `Ctrl + F12` will search through all folders under the parent directory — no need to manually navigate or run multiple searches.
 
+
+### Restrict search to a specific subfolder
+
+Sometimes you don’t want to search your entire project — just a focused part of it. That’s where `repo-grep-subfolder` comes in.
+
+You can use this setting to limit your search to a specific subdirectory under the project root. This is especially useful when your project has a typical structure like:
+
+```
+project-root/
+├── src/
+├── test/
+└── build/
+```
+
+Let’s say you only want to search inside `src/` and ignore everything in `test/` and `build/`. You can do that by setting:
+
+```elisp
+(setq repo-grep-subfolder "src")
+```
+
+Now, all searches will be scoped to `project-root/src/` — and nothing outside it. This also works for nested subdirectories. For example, if you want to search only within `src/physics/` and ignore `src/io/`, just set:
+
+```elisp
+(setq repo-grep-subfolder "src/physics")
+```
+
+You can set this manually in your config, or interactively using:
+
+```elisp
+M-x repo-grep-set-subfolder
+```
+
+This will prompt you to select a subfolder from your project root.
+
+Alternatively, if you're already browsing in Dired, you can set the subfolder directly from there:
+
+```elisp
+M-x repo-grep-set-subfolder-from-dired
+```
+
+This makes it easy to narrow your search to exactly the part of the codebase you care about — without touching the rest.
+
 ### Customise match context with regex prefixes and suffixes
 
 You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These options allow you to match a symbol only when it appears in a specific context — such as the left-hand side of an assignment or in a subroutine call. You can do this by prepending or appending regular expression fragments to your search term.
