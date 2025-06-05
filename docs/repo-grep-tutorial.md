@@ -81,7 +81,7 @@ Once confirmed, *repo-grep* locates the appropriate folder to search from:
 * If you're in a Git repository or SVN working copy, it uses Emacs' built-in VCS root detection.
 * If no VCS root is found, it defaults to the current directory.
 * If repo-grep-subfolder is set, the search is restricted to that subfolder under the root.
-* If repo-grep-from-folder-above is non-nil (as in repo-grep-multi), the search starts from the parent directory of the detected root.
+* If repo-grep-from-folder-above is non-nil (as in *repo-grep-multi*), the search starts from the parent directory of the detected root.
 
 Regardless of how the root is detected, *repo-grep* searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, or legacy code alongside source files.
 
