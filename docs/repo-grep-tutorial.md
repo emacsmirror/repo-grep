@@ -197,6 +197,39 @@ M-x repo-grep-set-case-sensitivity
 
 This will prompt you to choose between ON and OFF, and update the setting accordingly — no need to edit your config or restart Emacs.
 
+
+### Search binary files
+
+By default, *repo-grep* is configured to skip binary files, preventing matches inside compiled objects, images, and other non-text content. This keeps your search results clean and focused on source code.
+
+If you want to include binary files in your search — for example, when debugging binary logs or examining non-ASCII data — you can control this behavior using the `repo-grep-ignore-binary` setting.
+
+#### Option 1: Set it in your configuration
+
+To include binary files in searches:
+
+```elisp
+(setq repo-grep-ignore-binary nil)
+```
+
+To skip binary files (default behavior):
+
+```elisp
+(setq repo-grep-ignore-binary t)
+```
+
+When enabled, this setting adds `--binary-files=without-match` to the grep command, which tells grep to ignore binary content entirely.
+
+#### Option 2: Toggle it interactively
+
+You can also change this setting on the fly without editing your config:
+
+```elisp
+M-x repo-grep-set-ignore-binary
+```
+
+You'll be prompted to choose whether to search binary files (OFF) or skip them (ON). Your choice takes effect immediately and applies to the next search you perform.
+
 ### Customise match context with regex prefixes and suffixes
 
 You can customise searches to match specific code patterns using `:left-regex` or `:right-regex`. These options allow you to match a symbol only when it appears in a specific context — such as the left-hand side of an assignment or in a subroutine call. You can do this by prepending or appending regular expression fragments to your search term.
