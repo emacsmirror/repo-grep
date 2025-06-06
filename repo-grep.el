@@ -55,7 +55,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-subfolder ()
-  "Interactively set `repo-grep-subfolder to start search from."
+  "Interactively set `repo-grep-subfolder` to start search from."
   (interactive)
   (let* ((root (or (vc-root-dir) default-directory))
          (selected-dir (read-directory-name "Select subfolder: " root nil t)))
