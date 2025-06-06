@@ -4,7 +4,8 @@
 ;; Version: 1.3.0
 ;; License: BSD-3-Clause
 ;; Keywords: tools, search, convenience
-;; Package-Requires: ((emacs "24.4"))
+
+;; Package-Requires: ((emacs "25.1"))
 ;; URL: https://github.com/BHFock/repo-grep
 ;;
 ;; This file is free software; you can redistribute it and/or modify it under
@@ -12,11 +13,11 @@
 
 ;;; Commentary:
 ;; repo-grep provides an interactive, project-wide search for both SVN and Git
-;; repositories, as well as standalone directories. It integrates seamlessly
+;; repositories, as well as standalone directories.  It integrates seamlessly
 ;; into Emacs and enables recursive grep searches with a single keystroke.
 ;;
 ;; The default search term is the symbol under the cursor, which can be
-;; interactively edited. Optional keyword arguments allow for regex-based
+;; interactively edited.  Optional keyword arguments allow for regex-based
 ;; prefix/suffix matching and file extension exclusions.
 ;;
 ;; The companion command `repo-grep-multi` enables recursive search across
@@ -98,7 +99,7 @@ Ignored when using `repo-grep-multi`."
   "Run a project-wide grep search from the detected repository root.
 
 This command performs a recursive grep search starting from the
-project root (Git, SVN, or current directory). The default search
+project root (Git, SVN, or current directory).  The default search
 term is the symbol under the cursor, which can be edited
 interactively.
 
@@ -119,7 +120,7 @@ Results are displayed in a dedicated grep buffer with clickable links."
   "Run a recursive grep across multiple repositories or folders in the same parent directory.
 
 This command performs a recursive grep search across all sibling
-directories under the parent of the current project root. It is
+directories under the parent of the current project root.  It is
 useful for searching across multiple related repositories or
 projects at once.
 
@@ -138,7 +139,12 @@ Results are displayed in a dedicated grep buffer with clickable links."
 
 (defun repo-grep--internal (&rest args)
   "Perform a recursive grep search with optional keyword arguments.
-Handles custom exclusions, regex-based matching, and project root detection."
+Handles custom exclusions, regex-based matching, and project root detection.
+
+Optional keyword arguments in ARGS:
+  :exclude-ext   List of file extensions to exclude.
+  :left-regex    Regex pattern to prepend to the search term.
+  :right-regex   Regex pattern to append to the search term."
   (let* ((exclude-ext (plist-get args :exclude-ext))
          (left-regex  (repo-grep--sanitise-regex (plist-get args :left-regex)))
          (right-regex (repo-grep--sanitise-regex (plist-get args :right-regex))))
@@ -166,7 +172,7 @@ Handles custom exclusions, regex-based matching, and project root detection."
 
       ;; Ensure a valid folder before executing grep
       (unless (and folder (not (string-empty-p folder)))
-        (error "Could not determine project root."))
+        (error "Could not determine project root"))
 
       (let ((default-directory folder))
         (compilation-start
@@ -202,7 +208,7 @@ If `repo-grep-subfolder` is set and valid, append it to the root."
             (setq folder sub)
           (error "Subfolder '%s' does not exist under project root" repo-grep-subfolder))))
     (unless (and folder (file-directory-p folder))
-      (error "Could not determine a valid project root folder."))
+      (error "Could not determine a valid project root folder"))
     folder))
 
 (defun repo-grep--sanitise-input (input)

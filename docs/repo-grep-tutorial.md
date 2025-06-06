@@ -28,7 +28,7 @@ Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* 
 
 Before installing *repo-grep*, make sure the following is available:
 
-- **Emacs**: Version 24.4 or newer is required.
+- **Emacs**: Version 25.1 or newer is required.
 - **Grep**: *Repo-grep* executes shell-based grep commands to perform searches.
 - **Git or SVN** (optional): Enables automatic project root detection if available.
 
