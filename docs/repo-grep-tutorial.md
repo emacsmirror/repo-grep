@@ -16,7 +16,7 @@ Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* 
 - **One-keystroke search:** Instantly grep for the symbol under your cursor — with minimal prompts and no setup.
 - **Smart project root detection:** Automatically locates your Git or SVN root; falls back to the current directory if needed.
 - **Multi-repo search:** Scan all sibling repos with `repo-grep-multi`.
-- **Searches all files:** All non-binary files under the root are searched, including those not tracked by version control.
+- **Searches all files:** Non-binary files are searched by default, even if untracked by version control.
 - **Optional binary file search:** Skip binary files by default, or include them when needed.
 - **Regex support:** Add prefix/suffix patterns to fine-tune matches.
 - **Custom file exclusions and case sensitivity:** Tailor results to your workflow.
@@ -229,7 +229,7 @@ You can also change this setting on the fly without editing your config:
 M-x repo-grep-set-ignore-binary
 ```
 
-You'll be prompted to choose whether to search binary files (OFF) or skip them (ON). Your choice takes effect immediately and applies to the next search you perform.
+You'll be prompted to choose whether to skip binary files (ON, default) or include them (OFF). Your choice takes effect immediately and applies to the next search you perform.
 
 ### Customise match context with regex prefixes and suffixes
 
