@@ -95,7 +95,7 @@ Regardless of how the root is detected, *repo-grep* searches all files within th
 
 ### Reviewing results
 
-Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. This makes it easy to quickly inspect multiple matches across your project.
+Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. You can also navigate between matches using `n` (next) and `p` (previous) within the grep buffer, making it easy to browse through results without using the mouse or switching windows.
 
 With just one keystroke, *repo-grep* turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
 
