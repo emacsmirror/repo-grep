@@ -94,6 +94,25 @@ Ignored when using `repo-grep-multi`."
     (message "Case-sensitive search is now %s"
              (if repo-grep-case-sensitive "ENABLED" "DISABLED"))))
 
+(defcustom repo-grep-ignore-binary t
+  "If non-nil, grep will ignore binary files using '--binary-files=without-match'."
+  :type 'boolean
+  :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-ignore-binary ()
+  "Interactively set `repo-grep-ignore-binary` to ON or OFF."
+  (interactive)
+  (let* ((options '(("ON" . t) ("OFF" . nil)))
+         (current (if repo-grep-ignore-binary "ON" "OFF"))
+         (choice (completing-read
+                  (format "Ignore binary files is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-ignore-binary (cdr (assoc choice options)))
+    (message "Ignore binary files is now %s"
+             (if repo-grep-ignore-binary "ENABLED" "DISABLED"))))
+
 ;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
@@ -168,7 +187,8 @@ Optional keyword arguments in ARGS:
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
            (files (split-string (repo-grep--build-file-pattern exclude-ext)))
-           (case-flag (if repo-grep-case-sensitive "" "-i")))
+           (case-flag (if repo-grep-case-sensitive "" "-i"))
+           (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
 
       ;; Ensure a valid folder before executing grep
       (unless (and folder (not (string-empty-p folder)))
@@ -178,7 +198,10 @@ Optional keyword arguments in ARGS:
         (compilation-start
          ;; quote only the search pattern (not the file globs)
          (mapconcat #'identity
-                    (append (list "grep" "--color" "-nr" case-flag (shell-quote-argument search-pattern))
+                    (append (list "grep" "--color" "-nr"
+                                  case-flag
+                                  binary-flag
+                                  (shell-quote-argument search-pattern))
                             files)
                     " ")
          'grep-mode)))))
