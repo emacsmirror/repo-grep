@@ -213,22 +213,21 @@ Optional keyword arguments in ARGS:
          'grep-mode)))))
 
 (defun repo-grep--build-file-pattern (include-ext exclude-ext)
-  "Construct a file pattern for grep, including and excluding extensions.
-INCLUDE-EXT and EXCLUDE-EXT should be lists of strings like '.el' or '.py'."
-  (let ((include-pattern (if include-ext
-                             (mapconcat (lambda (ext)
-                                          (format "--include=*%s"
-                                                  (repo-grep--sanitise-ext ext)))
-                                        include-ext " ")
-                           "*"))
-        (exclude-pattern (if exclude-ext
-                             (mapconcat (lambda (ext)
-                                          (format "--exclude=*%s"
-                                                  (repo-grep--sanitise-ext ext)))
-                                        exclude-ext " ")
-                           "")))
-    (string-join (list include-pattern exclude-pattern) " ")))
-
+  "Construct a file pattern for grep, including and excluding extensions."
+  (let ((parts '()))
+    ;; Add include patterns
+    (when include-ext
+      (dolist (ext include-ext)
+        (push (format "--include=*%s" (repo-grep--sanitise-ext ext)) parts)))
+    ;; Add exclude patterns
+    (when exclude-ext
+      (dolist (ext exclude-ext)
+        (push (format "--exclude=*%s" (repo-grep--sanitise-ext ext)) parts)))
+    ;; Add wildcard only if no includes specified
+    (unless include-ext
+      (push "*" parts))
+    ;; Join with spaces
+    (mapconcat #'identity (nreverse parts) " ")))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
