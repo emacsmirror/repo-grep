@@ -26,7 +26,7 @@ Add the following to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el
 
 You may clone it to a different location — just update the `load-path` accordingly.
 
-## Customisation 
+## Configuration
 
 Change to case-sensitive search
 
