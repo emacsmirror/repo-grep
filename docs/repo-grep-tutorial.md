@@ -172,6 +172,22 @@ To keep your results clean, you can tell *repo-grep* to ignore specific file ext
 
 This ensures that temporary or irrelevant files don’t clutter your search output.
 
+
+
+### Include only specific file types
+
+To narrow your search to certain file types — like just Fortran source files — use the `:include-ext` keyword.
+
+#### Example: Search only `.f90` and `.F90` files
+
+```elisp
+(global-set-key [f8]
+  (lambda () (interactive)
+    (repo-grep :include-ext '(".f90" ".F90"))))
+```
+
+This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or `.log`. If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
+
 ### Toggle case sensitivity
 
 By default, *repo-grep* performs case-insensitive searches, which is often useful for general-purpose code scanning. If you want to enforce case-sensitive matching, you have two options:
