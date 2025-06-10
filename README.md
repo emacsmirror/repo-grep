@@ -8,13 +8,13 @@ For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial
 
 ## Install
 
-Download the code
+Clone the repository:
 
 ```
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
-Add the following to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`):
+Add this to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`):
 
 ```elisp
 (add-to-list 'load-path "~/repo-grep")
@@ -24,54 +24,39 @@ Add the following to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el
 (global-set-key [C-f12] 'repo-grep-multi)
 ```
 
-You may clone it to a different location — just update the `load-path` accordingly.
+## Features & Customisation
 
-## Configuration
+Customise `repo-grep` to fit your workflow:
 
-Change to case-sensitive search
+### Case sensitivity
+  
+Toggle with `M-x repo-grep-set-case-sensitivity` or set directly: `(setq repo-grep-case-sensitive t)`
 
-```elisp
-(setq repo-grep-case-sensitive t) 
-```
-Or toggle it interactively
+### Restrict to subfolder
+  
+Interactively with `M-x repo-grep-set-subfolder` or directly: `(setq repo-grep-subfolder "src")`
 
-```elisp
-M-x repo-grep-set-case-sensitivity
-```
+### File type filters
+  
+Exclude extensions: `:exclude-ext '(".log" "~")`
+Include only specific types: `:include-ext '(".f90" ".F90")`
 
-Restrict search to a subfolder
+### Binary file search
+  
+Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set: `(setq repo-grep-ignore-binary nil)`
 
-```elisp
-M-x repo-grep-set-subfolder
-```
+### Context-aware search using regex
+  
+Right-hand side matches: `:right-regex ".*="` or subroutine calls (Fortran): `:left-regex "CALL.*(.*"`
 
-Or select the subfolder from a Dired buffer
+Define custom keybindings for specialised searches as needed.
 
-```elisp
-M-x repo-grep-set-subfolder-from-dired
-```
+## Usage
 
-Exclude files ending ```.log``` and ```~``` from the search
-
-```elisp
-(global-set-key [f12] (lambda () (interactive) (repo-grep :exclude-ext '(".log" "~"))))
-```
-
-Modify your default search term (string under cursor) with suffixes to find variable assignments
-
-```elisp
-;; assignment grep
-(global-set-key [f11] (lambda () (interactive) (repo-grep :right-regex ".*="))) 
-```
-
-or prefixes, e.g. to search for subroutine calls 
-
-```elisp
-;; call grep
-(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))))
-```
-
-## Use
-Once you have completed the installation above you can open your cloned (or checked out) code, position the cursor over a term of interest in Emacs, press the F12 key, and confirm the default search term by pressing enter. Press "ctrl F12" to search across multiple repositories in the same directory. To modify the search term, type in your new search term before pressing enter or customise the default search term as demonstrated above.
+1. Open a file in your project.
+2. Place the cursor over a symbol.
+3. Press `F12` to search the current repo.
+Or `Ctrl + F12` to search across all sibling repos.
+Edit the suggested term or press `Enter` to accept it. Results appear in a clickable `*grep*` buffer.
 
 Enjoy!
