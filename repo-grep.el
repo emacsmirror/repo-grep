@@ -124,6 +124,7 @@ interactively.
 
 Optional keyword arguments in ARGS:
   :exclude-ext   List of file extensions to exclude (e.g., '(\".log\" \".tmp\")).
+  :include-ext   List of file extensions to include (e.g., '(\".el\" \".py\")).
   :left-regex    Regex pattern to prepend to the search term.
   :right-regex   Regex pattern to append to the search term.
 
@@ -145,6 +146,7 @@ projects at once.
 
 Optional keyword arguments in ARGS:
   :exclude-ext   List of file extensions to exclude (e.g., '(\".log\" \".tmp\")).
+  :include-ext   List of file extensions to include (e.g., '(\".el\" \".py\")).
   :left-regex    Regex pattern to prepend to the search term.
   :right-regex   Regex pattern to append to the search term.
 
@@ -162,15 +164,19 @@ Handles custom exclusions, regex-based matching, and project root detection.
 
 Optional keyword arguments in ARGS:
   :exclude-ext   List of file extensions to exclude.
+  :include-ext   List of file extensions to include.
   :left-regex    Regex pattern to prepend to the search term.
   :right-regex   Regex pattern to append to the search term."
   (let* ((exclude-ext (plist-get args :exclude-ext))
+         (include-ext (plist-get args :include-ext))
          (left-regex  (repo-grep--sanitise-regex (plist-get args :left-regex)))
          (right-regex (repo-grep--sanitise-regex (plist-get args :right-regex))))
 
     ;; Validate arguments
     (when (and exclude-ext (not (listp exclude-ext)))
       (error "EXCLUDE-EXT must be a list of strings"))
+    (when (and include-ext (not (listp include-ext)))
+      (error "INCLUDE-EXT must be a list of strings"))
 
     ;; Extract symbol under cursor or use fallback
     (let* ((symbol-at-point (thing-at-point 'symbol t))
@@ -186,7 +192,7 @@ Optional keyword arguments in ARGS:
            (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
-           (files (split-string (repo-grep--build-file-pattern exclude-ext)))
+           (files (split-string (repo-grep--build-file-pattern include-ext exclude-ext)))
            (case-flag (if repo-grep-case-sensitive "" "-i"))
            (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
 
@@ -206,16 +212,22 @@ Optional keyword arguments in ARGS:
                     " ")
          'grep-mode)))))
 
-(defun repo-grep--build-file-pattern (exclude-ext)
-  "Construct a file pattern for grep, excluding extensions listed in EXCLUDE-EXT.
-If EXCLUDE-EXT is nil, all files are included."
-  (let ((exclude-pattern (if exclude-ext
-                             (mapconcat (lambda (ext)
-                                          (format "--exclude=*%s"
-                                                  (repo-grep--sanitise-ext ext)))
-                                        exclude-ext " ")
-                           "")))
-    (concat "*" " " exclude-pattern)))
+(defun repo-grep--build-file-pattern (include-ext exclude-ext)
+  "Construct a file pattern for grep, including and excluding extensions."
+  (let ((parts '()))
+    ;; Add include patterns
+    (when include-ext
+      (dolist (ext include-ext)
+        (push (format "--include=*%s" (repo-grep--sanitise-ext ext)) parts)))
+    ;; Add exclude patterns
+    (when exclude-ext
+      (dolist (ext exclude-ext)
+        (push (format "--exclude=*%s" (repo-grep--sanitise-ext ext)) parts)))
+    ;; Add wildcard only if no includes specified
+    (unless include-ext
+      (push "*" parts))
+    ;; Join with spaces
+    (mapconcat #'identity (nreverse parts) " ")))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.

@@ -14,7 +14,7 @@ Download the code
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
-Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to include 
+Add the following to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`):
 
 ```elisp
 (add-to-list 'load-path "~/repo-grep")
@@ -24,9 +24,9 @@ Adjust your Emacs configuration file `~/.emacs` or `~/.emacs.d/init.el` to inclu
 (global-set-key [C-f12] 'repo-grep-multi)
 ```
 
-You can change `~/repo-grep` to any folder you prefer, just update the load-path accordingly.
+You may clone it to a different location — just update the `load-path` accordingly.
 
-## Customisation 
+## Configuration
 
 Change to case-sensitive search
 
@@ -68,7 +68,7 @@ or prefixes, e.g. to search for subroutine calls
 
 ```elisp
 ;; call grep
-(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))) 
+(global-set-key [f10] (lambda () (interactive) (repo-grep :left-regex "CALL.*(.*"))))
 ```
 
 ## Use

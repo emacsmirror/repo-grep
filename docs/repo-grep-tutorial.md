@@ -13,7 +13,7 @@ Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* 
 
 ### Key features:
 
-- **One-keystroke search:** Instantly grep for the symbol under your cursor — with minimal prompts and no setup.
+- **One-keystroke search:** Instantly grep for the symbol under your cursor — with minimal prompts and no setup required.
 - **Smart project root detection:** Automatically locates your Git or SVN root; falls back to the current directory if needed.
 - **Multi-repo search:** Scan all sibling repos with `repo-grep-multi`.
 - **Searches all files:** Non-binary files are searched by default, even if untracked by version control.
@@ -45,7 +45,7 @@ Run the following command in your terminal:
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
-You can place it in any directory of your choice, but ensure you update your Emacs configuration accordingly.
+You may use a different folder, but be sure to update your Emacs configuration accordingly.
 
 #### Load repo-grep in Emacs
 
@@ -134,7 +134,7 @@ Let’s say you only want to search inside `src/` and ignore everything in `test
 (setq repo-grep-subfolder "src")
 ```
 
-Now, all searches will be scoped to `project-root/src/` — and nothing outside it. This also works for nested subdirectories. For example, if you want to search only within `src/physics/` and ignore `src/io/`, just set:
+Now, all searches will be scoped to `project-root/src/` — and nothing outside it. It also works for nested subdirectories. For example, if you want to search only within `src/physics/` and ignore `src/io/`, just set:
 
 ```elisp
 (setq repo-grep-subfolder "src/physics")
@@ -172,6 +172,22 @@ To keep your results clean, you can tell *repo-grep* to ignore specific file ext
 
 This ensures that temporary or irrelevant files don’t clutter your search output.
 
+
+
+### Include only specific file types
+
+To narrow your search to certain file types — like just Fortran source files — use the `:include-ext` keyword.
+
+#### Example: Search only `.f90` and `.F90` files
+
+```elisp
+(global-set-key [f8]
+  (lambda () (interactive)
+    (repo-grep :include-ext '(".f90" ".F90"))))
+```
+
+This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or `.log`. If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
+
 ### Toggle case sensitivity
 
 By default, *repo-grep* performs case-insensitive searches, which is often useful for general-purpose code scanning. If you want to enforce case-sensitive matching, you have two options:
@@ -196,8 +212,7 @@ You can also toggle case sensitivity at any time using the built-in interactive 
 M-x repo-grep-set-case-sensitivity
 ```
 
-This will prompt you to choose between ON and OFF, and update the setting accordingly — no need to edit your config or restart Emacs.
-
+You will be prompted to choose between ON and OFF. The setting is updated immediately — no need to edit your configuration or restart Emacs.
 
 ### Search binary files
 
