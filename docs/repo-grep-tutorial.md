@@ -186,7 +186,9 @@ To narrow your search to certain file types â€” like just Fortran source files â
     (repo-grep :include-ext '(".f90" ".F90"))))
 ```
 
-This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or `.log`. If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
+This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or `.log`.
+
+If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
 
 ### Toggle case sensitivity
 
