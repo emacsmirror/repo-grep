@@ -6,7 +6,6 @@
 
 For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
 
-
 ## Why use repo-grep?
 
 - Works out of the box — no extra packages required
@@ -75,7 +74,7 @@ Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set:
 Narrow results by matching context around the search term:
 
 ```elisp
-(setq repo-grep-left-regex "CALL.*(.*")  ;; Fortran subroutine calls
+(setq repo-grep-left-regex "CALL.*(")  ;; Fortran subroutine calls
 (setq repo-grep-right-regex ".*=")        ;; assignment expressions
 ```
 
