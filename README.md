@@ -74,8 +74,8 @@ Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set:
 Narrow results by matching context around the search term:
 
 ```elisp
-(setq repo-grep-left-regex "CALL.*(")  ;; Fortran subroutine calls
-(setq repo-grep-right-regex ".*=")        ;; assignment expressions
+(setq repo-grep-left-regex "CALL.*(")    ;; Fortran subroutine calls
+(setq repo-grep-right-regex ".*=")       ;; assignment expressions
 ```
 
 Define custom keybindings for specialised searches as needed.
