@@ -46,8 +46,13 @@ Include only specific types: `:include-ext '(".f90" ".F90")`
 Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set: `(setq repo-grep-ignore-binary nil)`
 
 ### Context-aware search using regex
-  
-Right-hand side matches: `:right-regex ".*="` or subroutine calls (Fortran): `:left-regex "CALL.*(.*"`
+
+Narrow results by matching context around the search term:
+
+```elisp
+(setq repo-grep-left-regex "CALL.*(.*")   ;; search for Fortran subroutine calls
+(setq repo-grep-right-regex ".*=")        ;; search for assignment expressions
+```
 
 Define custom keybindings for specialised searches as needed.
 
