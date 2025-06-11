@@ -1,10 +1,24 @@
 # repo-grep
 
-**repo-grep** offers a recursive grep through the folder structure of your cloned Git repository or your SVN working copy in Emacs. It uses the string under the current cursor as the default search term, which you can modify interactively. The search term can include a regular expression, and you can configure regex patterns as a prefix or suffix to further refine the search.
+**repo-grep** offers a recursive grep through the folder structure of your cloned Git repository or your SVN working copy in Emacs. It uses the symbol under the cursor as the default search term, which you can edit interactively. The search term can include a regular expression, and you can configure regex patterns as a prefix or suffix to further refine the search.
 
-**repo-grep-multi** provides a recursive grep across multiple repositories or folders that reside in the same directory as the repository where the search is initiated.
+**repo-grep-multi** provides a recursive grep across multiple repositories or folders located in the same parent directory.
 
 For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
+
+
+## Why use repo-grep?
+
+- Works out of the box — no extra packages required
+- Grep from the cursor with one keystroke
+- Supports multi-repo search and regex context
+- Lightweight, version-control aware, and highly configurable
+
+## Dependencies
+
+- Emacs ≥ 25.1  
+- `grep` (available on Unix-like systems)  
+- Optional: Git or SVN for root detection
 
 ## Install
 
@@ -30,11 +44,18 @@ Customise `repo-grep` to fit your workflow:
 
 ### Case sensitivity
   
-Toggle with `M-x repo-grep-set-case-sensitivity` or set directly: `(setq repo-grep-case-sensitive t)`
+Toggle with `M-x repo-grep-set-case-sensitivity` or set directly: 
+```elisp
+(setq repo-grep-case-sensitive t)
+```
 
 ### Restrict to subfolder
   
-Interactively with `M-x repo-grep-set-subfolder` or directly: `(setq repo-grep-subfolder "src")`
+Interactively with `M-x repo-grep-set-subfolder` or set directly: 
+
+```elisp
+(setq repo-grep-subfolder "src")
+```
 
 ### File type filters
   
@@ -43,15 +64,19 @@ Include only specific types: `:include-ext '(".f90" ".F90")`
 
 ### Binary file search
   
-Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set: `(setq repo-grep-ignore-binary nil)`
+Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set:
+
+```elisp
+(setq repo-grep-ignore-binary nil)
+```
 
 ### Context-aware search using regex
 
 Narrow results by matching context around the search term:
 
 ```elisp
-(setq repo-grep-left-regex "CALL.*(.*")   ;; search for Fortran subroutine calls
-(setq repo-grep-right-regex ".*=")        ;; search for assignment expressions
+(setq repo-grep-left-regex "CALL.*(.*")  ;; Fortran subroutine calls
+(setq repo-grep-right-regex ".*=")        ;; assignment expressions
 ```
 
 Define custom keybindings for specialised searches as needed.
