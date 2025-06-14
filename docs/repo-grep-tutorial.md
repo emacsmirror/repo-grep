@@ -81,7 +81,7 @@ To start a search, place your cursor over a symbol — such as a variable, funct
 
 ### Interactive query
 
-You'll be prompted in the minibuffer with the detected symbol pre-filled. You can press `Enter` to search as-is, or edit the term before confirming. This prompt supports regular expressions, so you can write more flexible patterns — for example `variable.*=` to match lines where a variable is assigned.
+You'll be prompted in the minibuffer with the detected symbol pre-filled. Press `Enter` to search as-is, or edit the term before confirming. This prompt supports regular expressions, so you can write more flexible patterns — for example `variable.*=` to match lines where a variable is assigned.
 
 ### Executing the search
 
