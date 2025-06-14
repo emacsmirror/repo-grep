@@ -7,7 +7,7 @@
 ## Why use repo-grep?
 
 - Recursive search from the project root — Git, SVN, or any directory
-- One-keystroke grep from the symbol under cursor
+- One-keystroke search using the symbol under the cursor
 - Optional regex context and file-type filters
 - Multi-repo search from a shared parent folder
 - No setup or project configuration required
