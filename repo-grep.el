@@ -12,24 +12,23 @@
 ;; the terms of the BSD-3-Clause License.
 
 ;;; Commentary:
-;; repo-grep provides an interactive, project-wide search for both SVN and Git
-;; repositories, as well as standalone directories.  It integrates seamlessly
-;; into Emacs and enables recursive grep searches with a single keystroke.
+;; repo-grep provides interactive, recursive grep-based search for Git and SVN
+;; repositories, as well as arbitrary directories. It integrates into Emacs and
+;; allows project-wide text searches with minimal setup.
 ;;
-;; The default search term is the symbol under the cursor, which can be
-;; interactively edited.  Optional keyword arguments allow for regex-based
-;; prefix/suffix matching and file extension exclusions.
+;; The default search term is the symbol under the cursor, which can be interactively
+;; edited before execution. Optional keyword arguments support regex-based
+;; prefix/suffix matching and file extension filtering.
 ;;
-;; The companion command `repo-grep-multi` enables recursive search across
-;; multiple repositories or folders located in the same parent directory.
+;; The companion command `repo-grep-multi` performs recursive searches across
+;; multiple repositories or directories located under the same parent folder.
 ;;
 ;; Features include:
-;; - Automatic detection of Git or SVN project roots
-;; - Optional restriction to a specific subfolder within the project root
-;; - Interactive subfolder selection via prompt or Dired
-;; - Regex support for advanced search patterns
-;; - Optional case sensitivity and file exclusion
-;; - Clickable grep results in a dedicated buffer
+;; - VCS-aware project root detection (Git or SVN)
+;; - Optional restriction to a subdirectory within the project
+;; - Case sensitivity and binary file handling options
+;; - Customisable include/exclude file patterns
+;; - Clickable results in a standard `*grep*` buffer
 ;;
 ;; For installation, configuration, and usage examples, see the README and
 ;; the tutorial at https://github.com/BHFock/repo-grep.
