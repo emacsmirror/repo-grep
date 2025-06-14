@@ -4,8 +4,9 @@
 1. [Introduction to repo-grep](#1-introduction-to-repo-grep)
 2. [Installation & setup](#2-installation--setup)
 3. [Basic usage](#3-basic-usage)
-4. [Advanced features](#4-advanced-features)
-5. [Summary](#5-summary)
+4. [Scope Control](#4-scope-control)
+5. [File Filtering](#5-file-filtering)
+6. [Search Behavior](#6-search-behavior)
 
 ## 1. Introduction to repo-grep
 
@@ -100,7 +101,7 @@ Search results appear in a dedicated `*grep*` buffer. Each result is a clickable
 
 With just one keystroke, *repo-grep* turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
 
-## 4. Advanced features
+## 4. Scope Control
 
 ### Multi-repository search
 
@@ -158,6 +159,8 @@ This makes it easy to narrow your search to exactly the part of the codebase you
 
 Note: `repo-grep-subfolder` is ignored when using *repo-grep-multi*, since multi-repo search always starts from the parent directory of the detected root.
 
+## 5. File Filtering
+
 ### Exclude unwanted file types
 
 To keep your results clean, you can tell *repo-grep* to ignore specific file extensions — such as logs, compiled outputs, or Emacs backups.
@@ -171,8 +174,6 @@ To keep your results clean, you can tell *repo-grep* to ignore specific file ext
 ```
 
 This ensures that temporary or irrelevant files don’t clutter your search output.
-
-
 
 ### Include only specific file types
 
@@ -189,6 +190,8 @@ To narrow your search to certain file types — like just Fortran source files �
 This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or `.log`.
 
 If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
+
+## 6. Search Behavior
 
 ### Toggle case sensitivity
 
@@ -287,14 +290,3 @@ You can do this using a prefix regex that matches subroutine call sites, e.g., l
 ```
 
 With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
-
-## 5. Summary
-
-*Repo-grep* is a versatile Emacs tool that enhances how you:
-
-* Explore unfamiliar codebases
-* Debug across multiple files
-* Refactor consistently
-* Navigate large projects efficiently — all without leaving Emacs.
-
-By combining one-keystroke convenience, version control awareness, and regex power, *repo-grep* brings intuitive, project-wide search and code navigation to your fingertips.
