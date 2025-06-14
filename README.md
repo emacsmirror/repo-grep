@@ -88,3 +88,5 @@ Define custom keybindings for specialised searches as needed.
 3. Press `F12` to search the current repo.
 Or `Ctrl + F12` to search across all sibling repos.
 Edit the suggested term or press `Enter` to accept it. Results appear in a clickable `*grep*` buffer.
+
+If you find repo-grep helpful, a ⭐ helps others discover it too.
