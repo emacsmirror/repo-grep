@@ -54,7 +54,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-subfolder ()
-  "Interactively set `repo-grep-subfolder` to start search from."
+  "Interactively set `repo-grep-subfolder` to a subdirectory under the project root."
   (interactive)
   (let* ((root (or (vc-root-dir) default-directory))
          (selected-dir (read-directory-name "Select subfolder: " root nil t)))
@@ -63,7 +63,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-subfolder-from-dired ()
-  "Set `repo-grep-subfolder` from the current directory in Dired."
+  "Set `repo-grep-subfolder` based on the current directory in a Dired buffer."
   (interactive)
   (unless (derived-mode-p 'dired-mode)
     (error "This command must be run from a Dired buffer"))
@@ -81,7 +81,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-case-sensitivity ()
-  "Interactively set `repo-grep-case-sensitive` to ON or OFF."
+  "Interactively toggle `repo-grep-case-sensitive` between ON and OFF."
   (interactive)
   (let* ((options '(("ON" . t) ("OFF" . nil)))
          (current (if repo-grep-case-sensitive "ON" "OFF"))
@@ -100,7 +100,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-ignore-binary ()
-  "Interactively set `repo-grep-ignore-binary` to ON or OFF."
+  "Interactively toggle `repo-grep-ignore-binary` between ON and OFF."
   (interactive)
   (let* ((options '(("ON" . t) ("OFF" . nil)))
          (current (if repo-grep-ignore-binary "ON" "OFF"))
@@ -136,7 +136,7 @@ Results are displayed in a dedicated grep buffer with clickable links."
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
-  "Run a recursive grep across multiple repositories or folders in the same parent directory.
+  "Recursively grep across sibling repositories or directories under a common parent folder.
 
 This command performs a recursive grep search across all sibling
 directories under the parent of the current project root.  It is
