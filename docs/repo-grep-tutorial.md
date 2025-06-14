@@ -9,7 +9,7 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases doesn’t have to be slow or fragmented. *Repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
+Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *Repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
 
 ### Key features:
 
@@ -77,7 +77,7 @@ Once you've saved these changes, reload your Emacs configuration or restart Emac
 
 ### Starting a search from the cursor position
 
-To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *Repo-grep* will automatically detect the symbol under the cursor and use it as the default search term. This detection is powered by Emacs’ built-in `thing-at-point`. This works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
+To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *Repo-grep* will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
 
 ### Interactive query
 
@@ -297,4 +297,4 @@ With this setup, place your cursor over the name of a subroutine, press F10, and
 * Refactor consistently
 * Navigate large projects efficiently — all without leaving Emacs.
 
-By combining one-keystroke convenience, version control awareness, and regex power *repo-grep* brings intuitive, project-wide search and code navigation to your fingertips.
+By combining one-keystroke convenience, version control awareness, and regex power, *repo-grep* brings intuitive, project-wide search and code navigation to your fingertips.
