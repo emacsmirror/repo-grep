@@ -8,10 +8,11 @@ For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial
 
 ## Why use repo-grep?
 
-- Works out of the box — no extra packages required
-- Grep from the cursor with one keystroke
-- Supports multi-repo search and regex context
-- Lightweight, version-control aware, and highly configurable
+- Recursive search from the project root — Git, SVN, or any directory
+- One-keystroke grep from the symbol under cursor
+- Optional regex context and file-type filters
+- Multi-repo search from a shared parent folder
+- No setup or project configuration required
 
 ## Dependencies
 
