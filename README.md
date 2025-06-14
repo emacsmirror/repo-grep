@@ -4,8 +4,6 @@
 
 **repo-grep-multi** provides a recursive grep across multiple repositories or folders located in the same parent directory.
 
-For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
-
 ## Why use repo-grep?
 
 - Recursive search from the project root — Git, SVN, or any directory
@@ -20,15 +18,15 @@ For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial
 - `grep` (available on Unix-like systems)  
 - Optional: Git or SVN for root detection
 
-## Install
+## Quickstart
 
-Clone the repository:
+### 1. Clone the repository
 
 ```
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 ```
 
-Add this to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`):
+### 2. Add this to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`)
 
 ```elisp
 (add-to-list 'load-path "~/repo-grep")
@@ -38,7 +36,17 @@ Add this to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`):
 (global-set-key [C-f12] 'repo-grep-multi)
 ```
 
-## Features & Customisation
+### 3. Open any file and start searching
+
+- Place the cursor over a symbol (e.g., variable or function name)
+- Press `F12` to search the current repository
+- Press `Ctrl + F12` to search across sibling repositories
+- Edit the suggested term or press `Enter` to accept
+- Browse results in the clickable `*grep*` buffer
+
+You can edit the search term using regex patterns for more precise results. For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
+
+## Advanced Usage & Customisation
 
 Customise `repo-grep` to fit your workflow:
 
@@ -80,13 +88,3 @@ Narrow results by matching context around the search term:
 ```
 
 Define custom keybindings for specialised searches as needed.
-
-## Usage
-
-1. Open a file in your project.
-2. Place the cursor over a symbol.
-3. Press `F12` to search the current repo.
-Or `Ctrl + F12` to search across all sibling repos.
-Edit the suggested term or press `Enter` to accept it. Results appear in a clickable `*grep*` buffer.
-
-If you find repo-grep helpful, a ⭐ helps others discover it too.
