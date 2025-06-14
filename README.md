@@ -88,3 +88,5 @@ Narrow results by matching context around the search term:
 ```
 
 Define custom keybindings for specialised searches as needed.
+
+If you find `repo-grep` useful, feel free to star the repo or recommend it to your colleagues.
