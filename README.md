@@ -71,8 +71,8 @@ Exclude extensions: `:exclude-ext '(".log" "~")`
 Include only specific types: `:include-ext '(".f90" ".F90")`
 
 ### Binary file search
-  
-Skip by default; toggle via `M-x repo-grep-set-ignore-binary` or set:
+
+Binary files are skipped by default; toggle this with `M-x repo-grep-set-ignore-binary` or set:
 
 ```elisp
 (setq repo-grep-ignore-binary nil)
