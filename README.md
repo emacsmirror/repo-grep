@@ -68,6 +68,7 @@ Interactively with `M-x repo-grep-set-subfolder` or set directly:
 ### File type filters
   
 Exclude extensions: `:exclude-ext '(".log" "~")`
+
 Include only specific types: `:include-ext '(".f90" ".F90")`
 
 ### Binary file search
