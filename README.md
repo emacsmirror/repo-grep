@@ -1,8 +1,12 @@
 # repo-grep
 
-**repo-grep** offers a recursive grep through the folder structure of your cloned Git repository or your SVN working copy in Emacs. It uses the symbol under the cursor as the default search term, which you can edit interactively. The search term can include a regular expression, and you can configure regex patterns as a prefix or suffix to further refine the search.
+## Recursive code search in Emacs
 
-**repo-grep-multi** provides a recursive grep across multiple repositories or folders located in the same parent directory.
+When working across large projects or multiple repositories, staying inside Emacs for navigation and discovery keeps your workflow efficient and uninterrupted.
+
+**repo-grep** runs a recursive grep through the folder structure of your Git repository, SVN working copy, or plain folder. It uses the symbol under the cursor as the default search term, which you can edit interactively. The search term can include a regular expression, and you can configure regex patterns as a prefix or suffix to further refine the search.
+
+**repo-grep-multi** extends this to a recursive grep across multiple repositories or folders located in the same parent directory.
 
 ## Why use repo-grep?
 
