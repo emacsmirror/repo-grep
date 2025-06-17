@@ -34,7 +34,7 @@ Before installing *repo-grep*, make sure the following is available:
 - **Grep**: *Repo-grep* executes shell-based grep commands to perform searches.
 - **Git or SVN** (optional): Enables automatic project root detection if available.
 
-No additional tools or packages are required. This makes setup simple.
+No additional tools or packages are required. This makes setup simple. *Repo-grep* uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
 
 ### Installing repo-grep
 
