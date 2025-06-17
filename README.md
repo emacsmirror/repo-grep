@@ -85,7 +85,7 @@ Example usage (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
 
 ### Binary file search
 
-Binary files are skipped by default; toggle this with `M-x repo-grep-set-ignore-binary` or set:
+Binary files are skipped by default. You can change this via `M-x repo-grep-set-ignore-binary` or set:
 
 ```elisp
 (setq repo-grep-ignore-binary nil)
