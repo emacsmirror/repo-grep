@@ -48,7 +48,7 @@ git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 - Edit the suggested term or press `Enter` to accept
 - Browse results in the clickable `*grep*` buffer
 
-You can edit the search term using regex patterns for more precise results. For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
+You can refine the search term with regular expressions for more precise results. For a more detailed guide on repo-grep’s features, see the [repo-grep tutorial](docs/repo-grep-tutorial.md).
 
 ## Advanced Usage & Customisation
 
@@ -76,7 +76,7 @@ Filter which files are searched by specifying extensions to include or exclude:
 Use `:exclude-ext` to ignore certain file types (e.g., logs, backups).
 Use `:include-ext` to restrict search to specific file types (e.g., .f90).
 
-Example usage, (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
+Example usage (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
 
 ```elisp
 (repo-grep :exclude-ext '(".log" "~"))
@@ -100,6 +100,6 @@ Narrow results by matching context around the search term:
 (setq repo-grep-right-regex ".*=")       ;; assignment expressions
 ```
 
-Define custom keybindings for specialised searches as needed.
+You can define custom keybindings to frequently used patterns or filters.
 
-If you find `repo-grep` useful, feel free to star the repo or recommend it to your colleagues.
+If you find `repo-grep` helpful, feel free to star the repository or recommend it to others who work with Emacs.
