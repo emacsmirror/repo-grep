@@ -70,10 +70,18 @@ Interactively with `M-x repo-grep-set-subfolder` or set directly:
 ```
 
 ### File type filters
-  
-Exclude extensions: `:exclude-ext '(".log" "~")`
 
-Include only specific types: `:include-ext '(".f90" ".F90")`
+Filter which files are searched by specifying extensions to include or exclude:
+
+Use `:exclude-ext` to ignore certain file types (e.g., logs, backups).
+Use `:include-ext` to restrict search to specific file types (e.g., .f90).
+
+Example usage, (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
+
+```elisp
+(repo-grep :exclude-ext '(".log" "~"))
+(repo-grep :include-ext '(".f90" ".F90"))
+```
 
 ### Binary file search
 
