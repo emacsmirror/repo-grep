@@ -102,4 +102,10 @@ Narrow results by matching context around the search term:
 
 You can define custom keybindings to frequently used patterns or filters.
 
+## Development status
+
+`repo-grep` is feature-complete for my needs. I don't plan to add new features or accept pull requests.
+
+Feel free to use, fork, or adapt it as needed.
+
 If you find `repo-grep` helpful, feel free to star the repository or recommend it to others who work with Emacs.
