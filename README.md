@@ -32,7 +32,7 @@ git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
 
 ### 2. Add this to your Emacs configuration (`~/.emacs` or `~/.emacs.d/init.el`)
 
-```elisp
+```
 (add-to-list 'load-path "~/repo-grep")
 (autoload 'repo-grep "repo-grep")
 (autoload 'repo-grep-multi "repo-grep")
@@ -57,7 +57,7 @@ Customise `repo-grep` to fit your workflow:
 ### Case sensitivity
   
 Toggle with `M-x repo-grep-set-case-sensitivity` or set directly: 
-```elisp
+```
 (setq repo-grep-case-sensitive t)
 ```
 
@@ -65,7 +65,7 @@ Toggle with `M-x repo-grep-set-case-sensitivity` or set directly:
   
 Interactively with `M-x repo-grep-set-subfolder` or set directly: 
 
-```elisp
+```
 (setq repo-grep-subfolder "src")
 ```
 
@@ -78,7 +78,7 @@ Use `:include-ext` to restrict search to specific file types (e.g., .f90).
 
 Example usage (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
 
-```elisp
+```
 (repo-grep :exclude-ext '(".log" "~"))
 (repo-grep :include-ext '(".f90" ".F90"))
 ```
@@ -87,7 +87,7 @@ Example usage (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
 
 Binary files are skipped by default. You can change this via `M-x repo-grep-set-ignore-binary` or set:
 
-```elisp
+```
 (setq repo-grep-ignore-binary nil)
 ```
 
@@ -95,7 +95,7 @@ Binary files are skipped by default. You can change this via `M-x repo-grep-set-
 
 Narrow results by matching context around the search term:
 
-```elisp
+```
 (setq repo-grep-left-regex "CALL.*(")    ;; Fortran subroutine calls
 (setq repo-grep-right-regex ".*=")       ;; assignment expressions
 ```
