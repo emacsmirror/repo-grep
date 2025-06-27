@@ -109,3 +109,7 @@ You can define custom keybindings to frequently used patterns or filters.
 Feel free to use, fork, or adapt it as needed.
 
 If you find `repo-grep` helpful, feel free to star the repository or recommend it to others who work with Emacs.
+
+## Security
+
+Only local operations are performed; no remote code execution or data transmission. Inputs to external commands are carefully sanitised to prevent shell injection. Please review the code before use and report any security concerns.
