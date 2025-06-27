@@ -112,4 +112,8 @@ If you find `repo-grep` helpful, feel free to star the repository or recommend i
 
 ## Security
 
-Only local operations are performed; no remote code execution or data transmission. Inputs to external commands are carefully sanitised to prevent shell injection. Please review the code before use and report any security concerns.
+Only local operations are performed; no remote code execution or data transmission.
+
+Inputs to external commands are carefully sanitised to prevent shell injection.
+
+Please review the code before use and report any security concerns.
