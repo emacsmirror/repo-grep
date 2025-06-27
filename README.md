@@ -104,16 +104,10 @@ You can define custom keybindings to frequently used patterns or filters.
 
 ## Development status
 
-`repo-grep` is feature-complete for my needs. I don't plan to add new features or accept pull requests.
+`repo-grep` is regarded as feature-complete. Further enhancements or pull requests are not planned at present, but the code is available to use, fork or adapt under the licence terms.
 
-Feel free to use, fork, or adapt it as needed.
-
-If you find `repo-grep` helpful, feel free to star the repository or recommend it to others who work with Emacs.
+If you find the package helpful, a star or a recommendation to other Emacs users is appreciated.
 
 ## Security
 
-Only local operations are performed; no remote code execution or data transmission.
-
-Inputs to external commands are carefully sanitised to prevent shell injection.
-
-Please review the code before use and report any security concerns.
+All operations are local; the package initiates no network connections and executes no remote code. Arguments passed to external commands are sanitised to mitigate shell-injection risks. Users are encouraged to review the source and report any security concerns via the issue tracker.
