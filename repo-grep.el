@@ -13,11 +13,11 @@
 
 ;;; Commentary:
 ;; repo-grep provides interactive, recursive grep-based search for Git and SVN
-;; repositories, as well as arbitrary directories. It integrates into Emacs and
+;; repositories, as well as arbitrary directories.  It integrates into Emacs and
 ;; allows project-wide text searches with minimal setup.
 ;;
 ;; The default search term is the symbol under the cursor, which can be interactively
-;; edited before execution. Optional keyword arguments support regex-based
+;; edited before execution.  Optional keyword arguments support regex-based
 ;; prefix/suffix matching and file extension filtering.
 ;;
 ;; The companion command `repo-grep-multi` performs recursive searches across
@@ -212,7 +212,10 @@ Optional keyword arguments in ARGS:
          'grep-mode)))))
 
 (defun repo-grep--build-file-pattern (include-ext exclude-ext)
-  "Construct a file pattern for grep, including and excluding extensions."
+  "Construct a file pattern for grep using INCLUDE-EXT and EXCLUDE-EXT.
+
+  INCLUDE-EXT   List of file extensions to include.
+  EXCLUDE-EXT   List of file extensions to exclude."
   (let ((parts '()))
     ;; Add include patterns
     (when include-ext
@@ -252,7 +255,7 @@ If `repo-grep-subfolder` is set and valid, append it to the root."
   input)
 
 (defun repo-grep--sanitise-regex (regex)
-  "Validate REGEX contains only safe characters for shell execution."
+  "Validate REGEX contain only safe characters for shell execution."
   (when (and regex (not (stringp regex)))
     (error "REGEX must be a string or nil"))
   (when (and regex (string-match-p "[`$&;|<>\"'\\\\]" regex))
@@ -260,7 +263,7 @@ If `repo-grep-subfolder` is set and valid, append it to the root."
   regex)
 
 (defun repo-grep--sanitise-ext (ext)
-  "Ensure EXT only contains safe characters for shell globbing."
+  "Ensure EXT only contain safe characters for shell globbing."
   (if (string-match-p "[^A-Za-z0-9._~-]" ext)
       (error "Unsafe character in file extension: %s" ext)
     ext))
