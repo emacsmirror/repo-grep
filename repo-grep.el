@@ -180,7 +180,7 @@ Optional keyword arguments in ARGS:
     ;; Extract symbol under cursor or use fallback
     (let* ((symbol-at-point (thing-at-point 'symbol t))
            (symbol-at-point (or symbol-at-point ""))
-           (default-term symbol-at-point) ;; DO NOT quote yet
+           (default-term symbol-at-point)
            (prompt (concat "grep for ("
                            (or left-regex "")
                            symbol-at-point
