@@ -49,7 +49,7 @@
 
 (defcustom repo-grep-subfolder nil
   "Optional subfolder under the project root to start the search from.
-Ignored when using `repo-grep-multi`."
+  Ignored when using `repo-grep-multi`."
   :type '(choice (const :tag "None" nil)
                  (string :tag "Subfolder name"))
   :group 'repo-grep)
@@ -119,8 +119,8 @@ Ignored when using `repo-grep-multi`."
   "Run a project-wide grep search from the detected repository root.
 
 This command performs a recursive grep search starting from the
-project root (Git, SVN, or current directory).  The default search
-term is the symbol under the cursor, which can be edited
+project root (Git, SVN, or current directory).
+The default search term is the symbol under the cursor, which can be edited
 interactively.
 
 Optional keyword arguments in ARGS:
