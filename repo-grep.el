@@ -16,9 +16,9 @@
 ;; repositories, as well as arbitrary directories.  It integrates into Emacs and
 ;; allows project-wide text searches with minimal setup.
 ;;
-;; The default search term is the symbol under the cursor, which can be interactively
-;; edited before execution.  Optional keyword arguments support regex-based
-;; prefix/suffix matching and file extension filtering.
+;; The default search term is the symbol under the cursor, which can be
+;; interactively edited before execution.  Optional keyword arguments support
+;; regex-based prefix/suffix matching and file extension filtering.
 ;;
 ;; The companion command `repo-grep-multi` performs recursive searches across
 ;; multiple repositories or directories located under the same parent folder.
@@ -34,6 +34,8 @@
 ;; the tutorial at https://github.com/BHFock/repo-grep.
 
 ;;; Code:
+
+(require 'dired)
 
 (defgroup repo-grep nil
   "Project-wide grep search from Emacs."
@@ -54,7 +56,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-subfolder ()
-  "Interactively set `repo-grep-subfolder` to a subdirectory under the project root."
+  "Interactively set `repo-grep-subfolder`."
   (interactive)
   (let* ((root (or (vc-root-dir) default-directory))
          (selected-dir (read-directory-name "Select subfolder: " root nil t)))
@@ -117,15 +119,15 @@ Ignored when using `repo-grep-multi`."
   "Run a project-wide grep search from the detected repository root.
 
 This command performs a recursive grep search starting from the
-project root (Git, SVN, or current directory).  The default search
-term is the symbol under the cursor, which can be edited
+project root (Git, SVN, or current directory).
+The default search term is the symbol under the cursor, which can be edited
 interactively.
 
 Optional keyword arguments in ARGS:
-  :exclude-ext   List of file extensions to exclude (e.g., '(\".log\" \".tmp\")).
-  :include-ext   List of file extensions to include (e.g., '(\".el\" \".py\")).
-  :left-regex    Regex pattern to prepend to the search term.
-  :right-regex   Regex pattern to append to the search term.
+  :exclude-ext  List of file extensions to exclude (e.g., `(\".log\" \".tmp\")).
+  :include-ext  List of file extensions to include (e.g., `(\".el\" \".py\")).
+  :left-regex   Regex pattern to prepend to the search term.
+  :right-regex  Regex pattern to append to the search term.
 
 Search respects `repo-grep-case-sensitive` and can be scoped to
 a subfolder via `repo-grep-subfolder`.
@@ -136,7 +138,7 @@ Results are displayed in a dedicated grep buffer with clickable links."
 
 ;;;###autoload
 (defun repo-grep-multi (&rest args)
-  "Recursively grep across sibling repositories or directories under a common parent folder.
+  "Recursively grep across sibling repos/folders under a common parent folder.
 
 This command performs a recursive grep search across all sibling
 directories under the parent of the current project root.  It is
@@ -144,10 +146,10 @@ useful for searching across multiple related repositories or
 projects at once.
 
 Optional keyword arguments in ARGS:
-  :exclude-ext   List of file extensions to exclude (e.g., '(\".log\" \".tmp\")).
-  :include-ext   List of file extensions to include (e.g., '(\".el\" \".py\")).
-  :left-regex    Regex pattern to prepend to the search term.
-  :right-regex   Regex pattern to append to the search term.
+  :exclude-ext  List of file extensions to exclude (e.g., `(\".log\" \".tmp\")).
+  :include-ext  List of file extensions to include (e.g., `(\".el\" \".py\")).
+  :left-regex   Regex pattern to prepend to the search term.
+  :right-regex  Regex pattern to append to the search term.
 
 Search respects `repo-grep-case-sensitive` and ignores
 `repo-grep-subfolder` since the search spans multiple roots.
@@ -249,7 +251,7 @@ If `repo-grep-subfolder` is set and valid, append it to the root."
     folder))
 
 (defun repo-grep--sanitise-input (input)
-  "Validate INPUT for shell safety while allowing common programming characters."
+  "Validate INPUT for shell safety while allowing some programming characters."
   (when (string-match-p "[`&;|<>\"'\\]" input)
     (error "Search input contains potentially dangerous characters: %s" input))
   input)
