@@ -35,6 +35,8 @@
 
 ;;; Code:
 
+(require 'dired)
+
 (defgroup repo-grep nil
   "Project-wide grep search from Emacs."
   :group 'tools
