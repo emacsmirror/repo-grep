@@ -49,7 +49,7 @@
 
 (defcustom repo-grep-subfolder nil
   "Optional subfolder under the project root to start the search from.
-  Ignored when using `repo-grep-multi`."
+Ignored when using `repo-grep-multi`."
   :type '(choice (const :tag "None" nil)
                  (string :tag "Subfolder name"))
   :group 'repo-grep)
