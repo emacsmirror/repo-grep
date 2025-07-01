@@ -24,6 +24,8 @@ Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *Re
 
 *Repo-grep* keeps you focused inside Emacs — no context switching, no distractions.
 
+[⇧ Back to top](#table-of-contents)
+
 ## 2. Installation & setup
 
 ### Prerequisites
@@ -74,6 +76,8 @@ To enable instant searching, bind the functions to convenient keys:
 
 Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with *repo-grep* using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
 
+[⇧ Back to top](#table-of-contents)
+
 ## 3. Basic usage
 
 ### Starting a search from the cursor position
@@ -100,6 +104,8 @@ Regardless of how the root is detected, *repo-grep* searches all files within th
 Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. You can also navigate between matches using `n` (next) and `p` (previous) within the grep buffer, making it easy to browse through results without using the mouse or switching windows.
 
 With just one keystroke, *repo-grep* turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
+
+[⇧ Back to top](#table-of-contents)
 
 ## 4. Scope Control
 
@@ -161,6 +167,8 @@ This makes it easy to narrow your search to exactly the part of the codebase you
 
 Note: `repo-grep-subfolder` is ignored when using *repo-grep-multi*, since multi-repo search always starts from the parent directory of the detected root.
 
+[⇧ Back to top](#table-of-contents)
+
 ## 5. File Filtering
 
 ### Exclude unwanted file types
@@ -192,6 +200,8 @@ To narrow your search to certain file types — like just Fortran source files �
 This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or `.log`.
 
 If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
+
+[⇧ Back to top](#table-of-contents)
 
 ## 6. Search Behavior
 
@@ -292,3 +302,5 @@ You can do this using a prefix regex that matches subroutine call sites, e.g., l
 ```
 
 With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
+
+[⇧ Back to top](#table-of-contents)
