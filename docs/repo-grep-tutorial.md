@@ -6,7 +6,7 @@
 3. [Basic usage](#3-basic-usage)
 4. [Scope Control](#4-scope-control)
 5. [File Filtering](#5-file-filtering)
-6. [Search Behavior](#6-search-behavior)
+6. [Search Behaviour](#6-search-behaviour)
 
 ## 1. Introduction to repo-grep
 
@@ -22,9 +22,9 @@ Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *Re
 - **Regex support:** Add prefix/suffix patterns to fine-tune matches.
 - **Custom file exclusions and case sensitivity:** Tailor results to your workflow.
 
-*Repo-grep* keeps you focused inside Emacs — no context switching, no distractions.
+*Repo-grep* keeps you focused inside Emacs — no context-switching, no distractions.
 
-[⇧ Back to top](#table-of-contents)
+[Back to top ↑](#table-of-contents)
 
 ## 2. Installation & setup
 
@@ -76,7 +76,7 @@ To enable instant searching, bind the functions to convenient keys:
 
 Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with *repo-grep* using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
 
-[⇧ Back to top](#table-of-contents)
+[Back to top ↑](#table-of-contents)
 
 ## 3. Basic usage
 
@@ -97,7 +97,7 @@ Once confirmed, *repo-grep* locates the appropriate folder to search from:
 * If repo-grep-subfolder is set, the search is restricted to that subfolder under the root.
 * If repo-grep-from-folder-above is non-nil (as in *repo-grep-multi*), the search starts from the parent directory of the detected root.
 
-Regardless of how the root is detected, *repo-grep* searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, or legacy code alongside source files.
+Regardless of how the root is detected, *repo-grep* searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, and legacy code alongside source files.
 
 ### Reviewing results
 
@@ -105,7 +105,7 @@ Search results appear in a dedicated `*grep*` buffer. Each result is a clickable
 
 With just one keystroke, *repo-grep* turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
 
-[⇧ Back to top](#table-of-contents)
+[Back to top ↑](#table-of-contents)
 
 ## 4. Scope Control
 
@@ -167,7 +167,7 @@ This makes it easy to narrow your search to exactly the part of the codebase you
 
 Note: `repo-grep-subfolder` is ignored when using *repo-grep-multi*, since multi-repo search always starts from the parent directory of the detected root.
 
-[⇧ Back to top](#table-of-contents)
+[Back to top ↑](#table-of-contents)
 
 ## 5. File Filtering
 
@@ -201,9 +201,9 @@ This restricts results to Fortran files, ignoring others like `.txt`, `.md`, or 
 
 If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes precedence.
 
-[⇧ Back to top](#table-of-contents)
+[Back to top ↑](#table-of-contents)
 
-## 6. Search Behavior
+## 6. Search Behaviour
 
 ### Toggle case sensitivity
 
@@ -235,7 +235,7 @@ You will be prompted to choose between ON and OFF. The setting is updated immedi
 
 By default, *repo-grep* is configured to skip binary files, preventing matches inside compiled objects, images, and other non-text content. This keeps your search results clean and focused on source code.
 
-If you want to include binary files in your search — for example, when debugging binary logs or examining non-ASCII data — you can control this behavior using the `repo-grep-ignore-binary` setting.
+If you want to include binary files in your search — for example, when debugging binary logs or examining non-ASCII data — you can control this behaviour using the `repo-grep-ignore-binary` setting.
 
 #### Option 1: Set it in your configuration
 
@@ -245,7 +245,7 @@ To include binary files in searches:
 (setq repo-grep-ignore-binary nil)
 ```
 
-To skip binary files (default behavior):
+To skip binary files (default behaviour):
 
 ```elisp
 (setq repo-grep-ignore-binary t)
@@ -303,4 +303,4 @@ You can do this using a prefix regex that matches subroutine call sites, e.g., l
 
 With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
 
-[⇧ Back to top](#table-of-contents)
+[Back to top ↑](#table-of-contents)
