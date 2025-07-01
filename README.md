@@ -95,14 +95,23 @@ Binary files are skipped by default. You can change this via `M-x repo-grep-set-
 
 ### Context-aware search using regex
 
-Narrow results by matching context around the search term:
+Use regex fragments to match symbols in specific code contexts.
+
+#### Example: Subroutine calls
 
 ```
-(setq repo-grep-left-regex "CALL.*(")    ;; Fortran subroutine calls
-(setq repo-grep-right-regex ".*=")       ;; assignment expressions
+(repo-grep :left-regex "CALL.*(")
 ```
 
-You can define custom keybindings to frequently used patterns or filters.
+Matches lines like CALL my_subroutine(...).
+
+#### Example: Assignments
+
+```
+(repo-grep :right-regex ".*=")
+```
+
+Matches lines where the symbol appears on the left-hand side of an assignment. You can define custom keybindings to frequently used patterns or filters.
 
 ## Development status
 
