@@ -54,7 +54,7 @@ You can refine the search term with regular expressions for more precise results
 
 ## Advanced Usage & Customisation
 
-Customise `repo-grep` to fit your workflow:
+Customise repo-grep to fit your workflow:
 
 ### Case sensitivity
   
@@ -117,7 +117,7 @@ You can define custom keybindings to frequently used patterns or filters.
 
 ## Development status
 
-`repo-grep` is regarded as feature-complete. Further enhancements or pull requests are not planned at present, but the code is available to use, fork or adapt under the licence terms.
+repo-grep is regarded as feature-complete. Further enhancements or pull requests are not planned at present, but the code is available to use, fork or adapt under the licence terms.
 
 ## Security
 
