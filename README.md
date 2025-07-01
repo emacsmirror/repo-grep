@@ -111,7 +111,9 @@ Matches lines like CALL my_subroutine(...).
 (repo-grep :right-regex ".*=")
 ```
 
-Matches lines where the symbol appears on the left-hand side of an assignment. You can define custom keybindings to frequently used patterns or filters.
+Matches lines where the symbol appears on the left-hand side of an assignment.
+
+You can define custom keybindings to frequently used patterns or filters.
 
 ## Development status
 
