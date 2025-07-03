@@ -118,7 +118,7 @@ You can define custom keybindings to frequently used patterns or filters.
 
 ## Development status
 
-repo-grep is regarded as feature-complete. Further enhancements or pull requests are not planned at present, but the code is available to use, fork or adapt under the licence terms.
+repo-grep is considered feature-complete. It remains available for use, fork, or adaptation under the license terms. Further changes are not planned.
 
 ## Security
 
