@@ -16,7 +16,7 @@ When working across large projects or multiple repositories, staying inside Emac
 - One-keystroke search using the symbol under the cursor
 - Optional regex context and file-type filters
 - Multi-repo search from a shared parent folder
-- Search results appear in a persistent `*grep*` buffer for easy review and navigation
+- Search results appear in a persistent `*grep*` buffer for convenient review and navigation
 - No setup or project configuration required
 
 ## Dependencies
