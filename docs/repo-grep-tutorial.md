@@ -10,7 +10,7 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *Repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
+Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
 
 ### Key features:
 
@@ -22,7 +22,7 @@ Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *Re
 - **Regex support:** Add prefix/suffix patterns to fine-tune matches.
 - **Custom file exclusions and case sensitivity:** Tailor results to your workflow.
 
-*Repo-grep* keeps you focused inside Emacs — no context-switching, no distractions.
+*repo-grep* keeps you focused inside Emacs — no context-switching, no distractions.
 
 [Back to top ↑](#table-of-contents)
 
@@ -36,7 +36,7 @@ Before installing *repo-grep*, make sure the following is available:
 - **Grep**: *Repo-grep* executes shell-based grep commands to perform searches.
 - **Git or SVN** (optional): Enables automatic project root detection if available.
 
-No additional tools or packages are required. This makes setup simple. *Repo-grep* uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
+No additional tools or packages are required. This makes setup simple. *repo-grep* uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
 
 ### Installing repo-grep
 
