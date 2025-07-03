@@ -33,7 +33,7 @@ Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *re
 Before installing *repo-grep*, make sure the following is available:
 
 - **Emacs**: Version 25.1 or newer is required.
-- **Grep**: *Repo-grep* executes shell-based grep commands to perform searches.
+- **Grep**: *repo-grep* executes shell-based grep commands to perform searches.
 - **Git or SVN** (optional): Enables automatic project root detection if available.
 
 No additional tools or packages are required. This makes setup simple. *repo-grep* uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
@@ -82,7 +82,7 @@ Once you've saved these changes, reload your Emacs configuration or restart Emac
 
 ### Starting a search from the cursor position
 
-To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *Repo-grep* will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
+To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *repo-grep* will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
 
 ### Interactive query
 
