@@ -12,7 +12,7 @@
 ;; the terms of the BSD-3-Clause License.
 
 ;;; Commentary:
-;; ˋrepo-grepˋ provides interactive, recursive grep-based search for Git and SVN
+;; ˋrepo-grep' provides interactive, recursive grep-based search for Git and SVN
 ;; repositories, as well as arbitrary directories.  It integrates into Emacs and
 ;; allows project-wide text searches with minimal setup.
 ;;
@@ -20,7 +20,7 @@
 ;; interactively edited before execution.  Optional keyword arguments support
 ;; regex-based prefix/suffix matching and file extension filtering.
 ;;
-;; The companion command `repo-grep-multi` performs recursive searches across
+;; The companion command `repo-grep-multi' performs recursive searches across
 ;; multiple repositories or directories located under the same parent folder.
 ;;
 ;; Features include:
