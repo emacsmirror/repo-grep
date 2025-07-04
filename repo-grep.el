@@ -12,16 +12,14 @@
 ;; the terms of the BSD-3-Clause License.
 
 ;;; Commentary:
-;; ˋrepo-grep' provides interactive, recursive grep-based search for Git and SVN
-;; repositories, as well as arbitrary directories.  It integrates into Emacs and
-;; allows project-wide text searches with minimal setup.
+;; `repo-grep' runs a recursive grep through the folder structure of your Git
+;; repository, SVN working copy, or plain folder. It uses the symbol under the
+;; cursor as the default search term, which you can edit interactively. The
+;; search term can include a regular expression, and you can configure regex
+;; patterns as a prefix or suffix to further refine the search.
 ;;
-;; The default search term is the symbol under the cursor, which can be
-;; interactively edited before execution.  Optional keyword arguments support
-;; regex-based prefix/suffix matching and file extension filtering.
-;;
-;; The companion command `repo-grep-multi' performs recursive searches across
-;; multiple repositories or directories located under the same parent folder.
+;; The companion command `repo-grep-multi' extends this to a recursive grep
+;; across multiple repositories or folders located in the same parent directory.
 ;;
 ;; Features include:
 ;; - VCS-aware project root detection (Git or SVN)
