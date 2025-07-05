@@ -10,7 +10,7 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *repo-grep* brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
+Navigating large codebases in Emacs doesn’t have to be slow or fragmented. repo-grep brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
 
 ### Key features:
 
@@ -32,13 +32,13 @@ For a quick overview, installation instructions, and access to the source code, 
 
 ### Prerequisites
 
-Before installing *repo-grep*, make sure the following is available:
+Before installing repo-grep, make sure the following is available:
 
 - **Emacs**: Version 25.1 or newer is required.
-- **Grep**: *repo-grep* executes shell-based grep commands to perform searches.
+- **Grep**: repo-grep executes shell-based grep commands to perform searches.
 - **Git or SVN** (optional): Enables automatic project root detection if available.
 
-No additional tools or packages are required. This makes setup simple. *repo-grep* uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
+No additional tools or packages are required. This makes setup simple. repo-grep uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
 
 ### Installing repo-grep
 
@@ -76,7 +76,7 @@ To enable instant searching, bind the functions to convenient keys:
 (global-set-key [C-f12] 'repo-grep-multi) ;; Multi-repository search
 ```
 
-Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with *repo-grep* using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
+Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with repo-grep using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
 
 [Back to top ↑](#table-of-contents)
 
@@ -84,7 +84,7 @@ Once you've saved these changes, reload your Emacs configuration or restart Emac
 
 ### Starting a search from the cursor position
 
-To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). *repo-grep* will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
+To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). repo-grep will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
 
 ### Interactive query
 
@@ -99,7 +99,7 @@ Once confirmed, `repo-grep` locates the appropriate folder to search from:
 * If repo-grep-subfolder is set, the search is restricted to that subfolder under the root.
 * If repo-grep-from-folder-above is non-nil (as in `repo-grep-multi`), the search starts from the parent directory of the detected root.
 
-Regardless of how the root is detected, *repo-grep* searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, and legacy code alongside source files.
+Regardless of how the root is detected, repo-grep searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, and legacy code alongside source files.
 
 ### Reviewing results
 
