@@ -24,6 +24,8 @@ Navigating large codebases in Emacs doesn’t have to be slow or fragmented. *re
 
 *repo-grep* keeps you focused inside Emacs — no context-switching, no distractions.
 
+For a quick overview, installation instructions, and access to the source code, visit the *repo-grep* GitHub [repository](https://github.com/BHFock/repo-grep).
+
 [Back to top ↑](#table-of-contents)
 
 ## 2. Installation & setup
