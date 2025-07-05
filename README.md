@@ -122,4 +122,4 @@ repo-grep is considered feature-complete. It remains available for use, fork, or
 
 ## Security
 
-All operations are local; the package initiates no network connections and executes no remote code. Arguments passed to external commands are sanitised to mitigate shell-injection risks. Users are encouraged to review the source and report any security concerns via the issue tracker.
+repo-grep performs local, read-only searches using standard GNU grep and core Emacs functionality. It does not initiate network connections, execute remote code, or require elevated permissions. Inputs to shell commands are sanitised to reduce shell-injection risk.
