@@ -4,7 +4,7 @@
 
 ## Recursive code search in Emacs
 
-When working across large projects or multiple repositories, staying inside Emacs for navigation and discovery keeps your workflow efficient and uninterrupted.
+When working across large projects or multiple repositories, staying inside Emacs for navigation and code discovery keeps your workflow efficient and uninterrupted.
 
 **repo-grep** runs a recursive grep through the folder structure of your Git repository, SVN working copy, or plain folder. It uses the symbol under the cursor as the default search term, which you can edit interactively. The search term can include a regular expression, and you can configure regex patterns as a prefix or suffix to further refine the search.
 
