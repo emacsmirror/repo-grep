@@ -3,7 +3,7 @@
 ;; Author:  Bjoern Hendrik Fock
 ;; Version: 1.5.0
 ;; License: BSD-3-Clause
-;; Keywords: grep recursive multi-repo search navigation project
+;; Keywords: tools search grep convenience project
 ;; Package-Requires: ((emacs "25.1"))
 ;; URL: https://github.com/BHFock/repo-grep
 ;; SPDX-License-Identifier: BSD-3-Clause
