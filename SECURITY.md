@@ -20,4 +20,4 @@ If you discover a security vulnerability or have concerns related to `repo-grep`
 
 ## Updates and Releases 
 
-Users are encouraged to rely on tagged releases or specific commits to ensure supply-chain integrity. Reviewing the source code is recommended for users with security concerns.
+Users are encouraged to rely on tagged releases or specific commits to ensure supply-chain integrity. Reviewing the [source code](https://github.com/BHFock/repo-grep/blob/main/repo-grep.el) is recommended for users with security concerns.
