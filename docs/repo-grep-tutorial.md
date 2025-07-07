@@ -36,7 +36,6 @@ Before installing repo-grep, make sure the following is available:
 
 - **Emacs**: Version 25.1 or newer is required.
 - **Grep**: repo-grep executes shell-based grep commands to perform searches.
-- **Git or SVN** (optional): Enables automatic project root detection if available.
 
 No additional tools or packages are required. This makes setup simple. repo-grep uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
 
