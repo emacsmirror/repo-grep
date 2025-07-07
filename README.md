@@ -22,8 +22,7 @@ When working across large projects or multiple repositories, staying inside Emac
 ## Dependencies
 
 - Emacs ≥ 25.1  
-- `grep` (available on Unix-like systems)  
-- Optional: Git or SVN for root detection
+- `grep` (available on Unix-like systems)
 
 ## Quickstart
 
