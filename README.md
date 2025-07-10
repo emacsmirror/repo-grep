@@ -2,7 +2,7 @@
 
 [![Tutorial](https://img.shields.io/badge/Tutorial-View-blue)](https://github.com/BHFock/repo-grep/blob/main/docs/repo-grep-tutorial.md)
 
-## Recursive grep in Emacs – Search from project root using the symbol under the cursor
+## Recursive code search in Emacs – from project root, using the symbol under the cursor
 
 When working across large projects or multiple repositories, staying inside Emacs for navigation and code discovery keeps your workflow efficient and uninterrupted.
 
