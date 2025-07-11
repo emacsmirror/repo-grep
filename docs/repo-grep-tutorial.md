@@ -1,4 +1,4 @@
-# repo-grep tutorial
+# repo-grep Tutorial
 
 ## Table of Contents
 1. [Introduction to repo-grep](#1-introduction-to-repo-grep)
@@ -10,7 +10,7 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases in Emacs doesn’t have to be slow or fragmented. repo-grep brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
+Navigating large codebases in Emacs doesn’t have to be slow or fragmented. `repo-grep` brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
 
 ### Key features:
 
@@ -24,7 +24,7 @@ Navigating large codebases in Emacs doesn’t have to be slow or fragmented. rep
 
 `repo-grep` keeps you focused inside Emacs — no context-switching, no distractions.
 
-For a quick overview, installation instructions, and access to the source code, visit the repo-grep GitHub [repository](https://github.com/BHFock/repo-grep).
+For a quick overview, installation instructions, and access to the source code, visit the `repo-grep` GitHub [repository](https://github.com/BHFock/repo-grep).
 
 [Back to top ↑](#table-of-contents)
 
@@ -32,12 +32,12 @@ For a quick overview, installation instructions, and access to the source code, 
 
 ### Prerequisites
 
-Before installing repo-grep, make sure the following is available:
+Before installing `repo-grep`, make sure the following is available:
 
 - **Emacs**: Version 25.1 or newer is required.
-- **Grep**: repo-grep executes shell-based grep commands to perform searches.
+- **Grep**: `repo-grep` executes shell-based grep commands to perform searches.
 
-No additional tools or packages are required. This makes setup simple. repo-grep uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
+No additional tools or packages are required. This makes setup simple. `repo-grep` uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
 
 ### Installing repo-grep
 
@@ -75,7 +75,7 @@ To enable instant searching, bind the functions to convenient keys:
 (global-set-key [C-f12] 'repo-grep-multi) ;; Multi-repository search
 ```
 
-Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with repo-grep using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
+Once you've saved these changes, reload your Emacs configuration or restart Emacs to apply them. You're now ready to start searching with `repo-grep` using just a keystroke. Next, we’ll look at basic usage patterns and how to refine your searches.
 
 [Back to top ↑](#table-of-contents)
 
@@ -83,7 +83,7 @@ Once you've saved these changes, reload your Emacs configuration or restart Emac
 
 ### Starting a search from the cursor position
 
-To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). repo-grep will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
+To start a search, place your cursor over a symbol — such as a variable, function name, or keyword — and press `F12` (or run `M-x repo-grep`). `repo-grep` will automatically detect the symbol under the cursor and use it as the default search term. This uses Emacs’ built-in `thing-at-point`, which works best when your cursor is on a meaningful name in the code, like a variable or subroutine.
 
 ### Interactive query
 
@@ -98,13 +98,13 @@ Once confirmed, `repo-grep` locates the appropriate folder to search from:
 * If repo-grep-subfolder is set, the search is restricted to that subfolder under the root.
 * If repo-grep-from-folder-above is non-nil (as in `repo-grep-multi`), the search starts from the parent directory of the detected root.
 
-Regardless of how the root is detected, repo-grep searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, and legacy code alongside source files.
+Regardless of how the root is detected, `repo-grep` searches all files within that root — not just those tracked by version control. This makes it ideal for scanning generated files, uncommitted changes, and legacy code alongside source files.
 
 ### Reviewing results
 
-Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. You can also navigate between matches using `n` (next) and `p` (previous) within the grep buffer, making it easy to browse through results without using the mouse or switching windows.
+Search results appear in a dedicated `*grep*` buffer. Each result is a clickable link — click (or press `RET`) to jump directly to the matching line in its file. You can also navigate between matches using `n` (next) and `p` (previous) within the grep buffer, making it easy to browse through results without using the mouse or switching windows. `q` will quit the `*grep*` buffer if you want to return to your file quickly.
 
-With just one keystroke, repo-grep turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
+With just one keystroke, `repo-grep` turns symbol lookup into a fast, interactive process — no need to leave Emacs or set up project metadata.
 
 [Back to top ↑](#table-of-contents)
 
@@ -112,7 +112,7 @@ With just one keystroke, repo-grep turns symbol lookup into a fast, interactive 
 
 ### Multi-repository search
 
-If your projects are structured as multiple repositories or directories under a common parent folder, `repo-grep-multi` can search across all of them in one go. For example, if you have several sibling folders like `~/projects/repo1`, `~/projects/repo2`, and `~/projects/repo3`, repo-grep-multi will search across all subdirectories under `~/projects`.
+If your projects are structured as multiple repositories or directories under a common parent folder, `repo-grep-multi` can search across all of them in one go. For example, if you have several sibling folders like `~/projects/repo1`, `~/projects/repo2`, and `~/projects/repo3`, `repo-grep-multi` will search across all subdirectories under `~/projects`.
 
 Internally, it works by moving up one level from the detected Git or SVN root — effectively broadening the search scope. This makes multi-repo or multi-project searches automatic, flexible, and context-aware, without requiring any manual path configuration.
 
@@ -174,7 +174,7 @@ Note: `repo-grep-subfolder` is ignored when using `repo-grep-multi`, since multi
 
 ### Exclude unwanted file types
 
-To keep your results clean, you can tell repo-grep to ignore specific file extensions — such as logs, compiled outputs, or Emacs backups.
+To keep your results clean, you can tell `repo-grep` to ignore specific file extensions — such as logs, compiled outputs, or Emacs backups.
 
 #### Example: Exclude `.log` and `~` files
 
@@ -206,9 +206,9 @@ If both `:include-ext` and `:exclude-ext` are set, `:include-ext` takes preceden
 
 ## 6. Search Behaviour
 
-### Toggle case sensitivity
+### Case sensitivity (default: insensitive)
 
-By default, repo-grep performs case-insensitive searches, which is often useful for general-purpose code scanning. If you want to enforce case-sensitive matching, you have two options:
+By default, `repo-grep` performs case-insensitive searches, which is often useful for general-purpose code scanning. If you want to enforce case-sensitive matching, you have two options:
 
 #### Option 1: Set it in your configuration
 
@@ -232,9 +232,9 @@ M-x repo-grep-set-case-sensitivity
 
 You will be prompted to choose between ON and OFF. The setting is updated immediately — no need to edit your configuration or restart Emacs.
 
-### Search binary files
+### Binary file search (default: off)
 
-By default, repo-grep is configured to skip binary files, preventing matches inside compiled objects, images, and other non-text content. This keeps your search results clean and focused on source code.
+By default, `repo-grep` is configured to skip binary files, preventing matches inside compiled objects, images, and other non-text content. This keeps your search results clean and focused on source code.
 
 If you want to include binary files in your search — for example, when debugging binary logs or examining non-ASCII data — you can control this behaviour using the `repo-grep-ignore-binary` setting.
 
