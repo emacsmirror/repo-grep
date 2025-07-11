@@ -14,8 +14,8 @@ When working across large projects or multiple repositories, staying inside Emac
 
 - Recursive search from the project root — Git, SVN, or any directory
 - One-keystroke search using the symbol under the cursor
-- Optional regex context and file-type filters
 - Multi-repo search from a shared parent folder
+- Optional regex context and file-type filters
 - Search results appear in a persistent `*grep*` buffer for convenient review and navigation
 - No setup or project configuration required
 
