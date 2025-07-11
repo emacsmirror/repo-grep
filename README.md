@@ -2,21 +2,22 @@
 
 [![Tutorial](https://img.shields.io/badge/Tutorial-View-blue)](https://github.com/BHFock/repo-grep/blob/main/docs/repo-grep-tutorial.md)
 
-## Recursive code search in Emacs – from project root, using the symbol under the cursor
+## Recursive project-wide code search in Emacs using the symbol under the cursor
 
 When working across large projects or multiple repositories, staying inside Emacs for navigation and code discovery keeps your workflow efficient and uninterrupted.
 
 **repo-grep** runs a recursive grep through the folder structure of your Git repository, SVN working copy, or plain folder. It uses the symbol under the cursor as the default search term, which you can edit interactively. The search term can include a regular expression, and you can configure regex patterns as a prefix or suffix to further refine the search.
 
-**repo-grep-multi** extends this to a recursive grep across multiple repositories or folders located in the same parent directory.
+**repo-grep-multi** searches across all sibling folders under the parent directory of the current project. 
 
 ## Why use repo-grep instead of built-in grep/rgrep?
 
 - Recursive search from the project root — Git, SVN, or any directory
-- One-keystroke search using the symbol under the cursor
+- Instant search using the symbol under the cursor — editable before execution
 - Multi-repo search from a shared parent folder
 - Optional regex context and file-type filters
 - Search results appear in a persistent `*grep*` buffer for convenient review and navigation
+- Input is sanitised to prevent unsafe shell execution
 - No setup or project configuration required
 
 ## Dependencies
@@ -76,7 +77,7 @@ Interactively with `M-x repo-grep-set-subfolder` or set directly:
 Filter which files are searched by specifying extensions to include or exclude:
 
 Use `:exclude-ext` to ignore certain file types (e.g., logs, backups).
-Use `:include-ext` to restrict search to specific file types (e.g., .f90).
+Use `:include-ext` to restrict search to specific file types.
 
 Example usage (see the [tutorial](docs/repo-grep-tutorial.md) for more details):
 
@@ -115,7 +116,7 @@ Matches lines where the symbol appears on the left-hand side of an assignment.
 
 You can define custom keybindings to frequently used patterns or filters.
 
-## Development status
+## Project status
 
 repo-grep is considered feature-complete. It remains available for use, fork, or adaptation under the license terms. Further changes are not planned.
 
