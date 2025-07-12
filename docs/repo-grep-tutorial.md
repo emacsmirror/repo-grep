@@ -10,7 +10,7 @@
 
 ## 1. Introduction to repo-grep
 
-Navigating large codebases in Emacs doesn’t have to be slow or fragmented. `repo-grep` brings fast, project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
+Navigating large codebases in Emacs can be fast and seamless with `repo-grep`. It brings project-wide search directly into Emacs — eliminating the need to switch to a terminal or external tools.
 
 ### Key features:
 
@@ -230,7 +230,7 @@ You can also toggle case sensitivity at any time using the built-in interactive 
 M-x repo-grep-set-case-sensitivity
 ```
 
-You will be prompted to choose between ON and OFF. The setting is updated immediately — no need to edit your configuration or restart Emacs.
+You will be prompted to select between ON and OFF. The setting is updated immediately — no need to edit your configuration or restart Emacs.
 
 ### Binary file search (default: off)
 
