@@ -10,7 +10,7 @@ When working across large projects or multiple repositories, staying inside Emac
 
 **repo-grep-multi** searches across all sibling folders under the parent directory of the current project. 
 
-## Why use repo-grep instead of built-in grep/rgrep?
+## Why use repo-grep?
 
 - Recursive search from the project root — Git, SVN, or any directory
 - Instant search using the symbol under the cursor — editable before execution
