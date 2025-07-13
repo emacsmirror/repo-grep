@@ -123,3 +123,5 @@ repo-grep is considered feature-complete. It remains available for use, fork, or
 ## Security
 
 repo-grep performs local, read-only searches using standard grep and core Emacs functionality. It does not initiate network connections, execute remote code, or require elevated permissions. Inputs to shell commands are sanitised to reduce shell-injection risk.
+
+The package is available via [MELPA](https://melpa.org/#/repo-grep), which performs an initial manual review but builds updates automatically from the main branch. Users concerned about supply-chain integrity are encouraged to review the source and consider installing from a tagged release or known commit.
