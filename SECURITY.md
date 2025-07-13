@@ -21,3 +21,5 @@ If you discover a security vulnerability or have concerns related to `repo-grep`
 ## Updates and Releases 
 
 Users are encouraged to rely on tagged releases or specific commits to ensure supply-chain integrity. Reviewing the [source code](https://github.com/BHFock/repo-grep/blob/main/repo-grep.el) is recommended for users with security concerns.
+
+The package is also available via [MELPA](https://melpa.org/#/repo-grep), which performs an initial manual review but builds updates automatically from the main branch. Users concerned about supply-chain integrity may prefer to install from a tagged release or known commit.
