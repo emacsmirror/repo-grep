@@ -47,14 +47,14 @@
 
 (defcustom repo-grep-subfolder nil
   "Optional subfolder under the project root to start the search from.
-Ignored when using `repo-grep-multi`."
+Ignored when using `repo-grep-multi'."
   :type '(choice (const :tag "None" nil)
                  (string :tag "Subfolder name"))
   :group 'repo-grep)
 
 ;;;###autoload
 (defun repo-grep-set-subfolder ()
-  "Interactively set `repo-grep-subfolder`."
+  "Interactively set `repo-grep-subfolder'."
   (interactive)
   (let* ((root (or (vc-root-dir) default-directory))
          (selected-dir (read-directory-name "Select subfolder: " root nil t)))
@@ -81,7 +81,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-case-sensitivity ()
-  "Interactively toggle `repo-grep-case-sensitive` between ON and OFF."
+  "Interactively toggle `repo-grep-case-sensitive' between ON and OFF."
   (interactive)
   (let* ((options '(("ON" . t) ("OFF" . nil)))
          (current (if repo-grep-case-sensitive "ON" "OFF"))
@@ -100,7 +100,7 @@ Ignored when using `repo-grep-multi`."
 
 ;;;###autoload
 (defun repo-grep-set-ignore-binary ()
-  "Interactively toggle `repo-grep-ignore-binary` between ON and OFF."
+  "Interactively toggle `repo-grep-ignore-binary' between ON and OFF."
   (interactive)
   (let* ((options '(("ON" . t) ("OFF" . nil)))
          (current (if repo-grep-ignore-binary "ON" "OFF"))
@@ -127,8 +127,8 @@ Optional keyword arguments in ARGS:
   :left-regex   Regex pattern to prepend to the search term.
   :right-regex  Regex pattern to append to the search term.
 
-Search respects `repo-grep-case-sensitive` and can be scoped to
-a subfolder via `repo-grep-subfolder`.
+Search respects `repo-grep-case-sensitive' and can be scoped to
+a subfolder via `repo-grep-subfolder'.
 
 Results are displayed in a dedicated grep buffer with clickable links."
   (interactive)
@@ -149,8 +149,8 @@ Optional keyword arguments in ARGS:
   :left-regex   Regex pattern to prepend to the search term.
   :right-regex  Regex pattern to append to the search term.
 
-Search respects `repo-grep-case-sensitive` and ignores
-`repo-grep-subfolder` since the search spans multiple roots.
+Search respects `repo-grep-case-sensitive' and ignores
+`repo-grep-subfolder' since the search spans multiple roots.
 
 Results are displayed in a dedicated grep buffer with clickable links."
   (interactive)
@@ -233,8 +233,8 @@ Optional keyword arguments in ARGS:
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
-Uses Emacs' built-in VCS detection and falls back to `default-directory`.
-If `repo-grep-subfolder` is set and valid, append it to the root."
+Uses Emacs' built-in VCS detection and falls back to `default-directory'.
+If `repo-grep-subfolder' is set and valid, append it to the root."
   (let ((folder (or (vc-root-dir)
                     default-directory)))
     (when repo-grep-from-folder-above
