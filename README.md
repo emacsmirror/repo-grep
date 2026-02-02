@@ -1,6 +1,9 @@
 # repo-grep
 
 [![Tutorial](https://img.shields.io/badge/Tutorial-View-blue)](https://github.com/BHFock/repo-grep/blob/main/docs/repo-grep-tutorial.md)
+[![GitHub stars](https://img.shields.io/github/stars/BHFock/repo-grep?style=social)](https://github.com/BHFock/repo-grep/stargazers) 
+[![MELPA](https://img.shields.io/badge/MELPA-repo--grep-blue)](https://melpa.org/#/repo-grep)
+
 
 ## Recursive project-wide code search in Emacs
 
