@@ -1,7 +1,7 @@
 ;;; repo-grep.el --- Project-wide grep search -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
-;; Version: 1.5.2
+;; Version: 1.5.3
 ;; License: BSD-3-Clause
 ;; Keywords: tools search grep convenience project
 ;; Package-Requires: ((emacs "25.1"))
@@ -189,8 +189,6 @@ Optional keyword arguments in ARGS:
            (input (read-string prompt nil nil symbol-at-point))
            (sanitised-input (repo-grep--sanitise-input input))
            (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
-           ;; Strip leading hyphens to avoid grep interpreting them as options
-           (search-term (replace-regexp-in-string "^[-]+" "" search-term))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
            (files (split-string (repo-grep--build-file-pattern include-ext exclude-ext)))
@@ -208,6 +206,7 @@ Optional keyword arguments in ARGS:
                     (append (list "grep" "--color" "-nr"
                                   case-flag
                                   binary-flag
+                                  "--"
                                   (shell-quote-argument search-pattern))
                             files)
                     " ")
