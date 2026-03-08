@@ -112,6 +112,13 @@ Ignored when using `repo-grep-multi'."
     (message "Ignore binary files is now %s"
              (if repo-grep-ignore-binary "ENABLED" "DISABLED"))))
 
+(defcustom repo-grep-backend 'grep
+  "Search backend to use: either `grep' (default) or `rg' (ripgrep).
+ripgrep must be installed and available on PATH when using `rg'."
+  :type '(choice (const :tag "grep" grep)
+                 (const :tag "rg (ripgrep)" rg))
+  :group 'repo-grep)
+
 ;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
