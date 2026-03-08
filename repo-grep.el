@@ -120,6 +120,22 @@ ripgrep must be installed and available on PATH when using `rg'."
   :group 'repo-grep)
 
 ;;;###autoload
+(defun repo-grep-set-backend ()
+  "Interactively select the search backend for `repo-grep'.
+Choose between `grep' (default) and `rg' (ripgrep).
+ripgrep must be installed and available on PATH when selecting `rg'."
+  (interactive)
+  (let* ((options '(("grep" . grep) ("rg" . rg)))
+         (current (symbol-name repo-grep-backend))
+         (choice (completing-read
+                  (format "Search backend is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-backend (cdr (assoc choice options)))
+    (message "Search backend is now %s"
+             (symbol-name repo-grep-backend))))
+
+;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
 
