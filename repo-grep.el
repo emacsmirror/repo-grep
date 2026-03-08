@@ -228,6 +228,25 @@ The * wildcard is handled separately in `repo-grep--internal'."
               parts)))
     (nreverse parts)))
 
+(defun repo-grep--build-rg-globs (include-ext exclude-ext)
+  "Build a list of --glob flag strings for rg from INCLUDE-EXT and EXCLUDE-EXT.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
+Include patterns become --glob=*.ext, exclude patterns become --glob=!*.ext."
+  (let ((parts '()))
+    (when include-ext
+      (dolist (ext include-ext)
+        (push (format "--glob=%s"
+                      (shell-quote-argument
+                       (format "*.%s" (repo-grep--sanitise-ext ext))))
+              parts)))
+    (when exclude-ext
+      (dolist (ext exclude-ext)
+        (push (format "--glob=%s"
+                      (shell-quote-argument
+                       (format "!*.%s" (repo-grep--sanitise-ext ext))))
+              parts)))
+    (nreverse parts)))
+
 (defun repo-grep--build-grep-command (search-pattern include-ext exclude-ext)
   "Build the grep shell command string for SEARCH-PATTERN.
 INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings."
