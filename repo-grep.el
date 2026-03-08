@@ -269,17 +269,22 @@ INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings."
 (defun repo-grep--build-rg-command (search-pattern include-ext exclude-ext)
   "Build the rg shell command string for SEARCH-PATTERN.
 INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
+Colour is applied to matched text only, leaving filename and line number
+as plain text so that `grep-mode' can parse them as clickable links.
 Requires ripgrep (rg) to be installed and available on PATH."
   (unless (executable-find "rg")
     (error "ripgrep (rg) not found on PATH; install it or set `repo-grep-backend' to 'grep"))
-  (let ((globs     (repo-grep--build-rg-globs include-ext exclude-ext))
-        (case-flag (if repo-grep-case-sensitive nil "-i"))
+  (let ((globs      (repo-grep--build-rg-globs include-ext exclude-ext))
+        (case-flag  (when (not repo-grep-case-sensitive) "-i"))
         (binary-flag (when (not repo-grep-ignore-binary) "--binary")))
     (mapconcat #'identity
                (delq nil
-                     (append (list "rg" "--color=always" "--with-filename" "-n")
-                             (when case-flag    (list case-flag))
-                             (when binary-flag  (list binary-flag))
+                     (append (list "rg" "--color=always"
+                                   "--colors" "path:none"
+                                   "--colors" "line:none"
+                                   "--no-heading" "--with-filename" "-n")
+                             (when case-flag   (list case-flag))
+                             (when binary-flag (list binary-flag))
                              globs
                              (list "--"
                                    (shell-quote-argument search-pattern)
