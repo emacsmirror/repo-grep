@@ -264,6 +264,26 @@ INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings."
                        file-glob)
                " ")))
 
+(defun repo-grep--build-rg-command (search-pattern include-ext exclude-ext)
+  "Build the rg shell command string for SEARCH-PATTERN.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
+Requires ripgrep (rg) to be installed and available on PATH."
+  (unless (executable-find "rg")
+    (error "ripgrep (rg) not found on PATH; install it or set `repo-grep-backend' to 'grep"))
+  (let ((globs     (repo-grep--build-rg-globs include-ext exclude-ext))
+        (case-flag (if repo-grep-case-sensitive nil "-i"))
+        (binary-flag (when (not repo-grep-ignore-binary) "--binary")))
+    (mapconcat #'identity
+               (delq nil
+                     (append (list "rg" "--color=always" "--with-filename" "-n")
+                             (when case-flag    (list case-flag))
+                             (when binary-flag  (list binary-flag))
+                             globs
+                             (list "--"
+                                   (shell-quote-argument search-pattern)
+                                   ".")))
+               " ")))
+
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
 Uses Emacs' built-in VCS detection and falls back to `default-directory'.
