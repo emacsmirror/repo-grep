@@ -25,7 +25,7 @@ When working across large projects or multiple repositories, staying inside Emac
 
 ## Dependencies
 
-- Emacs ≥ 25.1  
+- Emacs ≥ 27.1
 - `grep` (available on Unix-like systems)
 - `rg` (optional — [ripgrep](https://github.com/BurntSushi/ripgrep), for the rg backend)
 

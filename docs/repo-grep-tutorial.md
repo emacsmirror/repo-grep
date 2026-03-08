@@ -34,7 +34,7 @@ For a quick overview, installation instructions, and access to the source code, 
 
 Before installing `repo-grep`, make sure the following is available:
 
-- **Emacs**: Version 25.1 or newer is required.
+- **Emacs**: Version 27.1 or newer is required.
 - **Grep**: `repo-grep` executes shell-based grep commands to perform searches.
 - **rg** (optional): If [ripgrep](https://github.com/BurntSushi/ripgrep) is installed, 
   you can use it as an alternative search backend for faster searches on large repositories.
