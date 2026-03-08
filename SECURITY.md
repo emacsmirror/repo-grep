@@ -16,7 +16,7 @@
 
 ## Reporting Security Issues 
 
-If you discover a security vulnerability or have concerns related to `repo-grep`, please report it by opening an issue on this GitHub repository. For sensitive disclosures, you may also contact the maintainer directly via GitHub. 
+If you notice something that might be a security issue, please report it privately using GitHub’s [security advisory form](../../security/advisories/new).
 
 ## Updates and Releases 
 
