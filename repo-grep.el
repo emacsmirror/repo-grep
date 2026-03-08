@@ -205,7 +205,9 @@ Optional keyword arguments in ARGS:
 
       (let ((default-directory folder))
         (compilation-start
-         (repo-grep--build-grep-command search-pattern include-ext exclude-ext)
+         (if (eq repo-grep-backend 'rg)
+             (repo-grep--build-rg-command search-pattern include-ext exclude-ext)
+           (repo-grep--build-grep-command search-pattern include-ext exclude-ext))
          'grep-mode)))))
 
 (defun repo-grep--build-file-flags (include-ext exclude-ext)
