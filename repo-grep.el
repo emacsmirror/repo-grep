@@ -198,12 +198,7 @@ Optional keyword arguments in ARGS:
            (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
-           ;; file-flags: the --include/--exclude flags (must come before --)
-           ;; file-glob:  the * wildcard (must come after --, only when no --include)
-           (file-flags (repo-grep--build-file-flags include-ext exclude-ext))
-           (file-glob  (unless include-ext '("*")))
-           (case-flag (if repo-grep-case-sensitive "" "-i"))
-           (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
+            )
 
       ;; Ensure a valid folder before executing grep
       (unless (and folder (not (string-empty-p folder)))
@@ -211,15 +206,7 @@ Optional keyword arguments in ARGS:
 
       (let ((default-directory folder))
         (compilation-start
-         (mapconcat #'identity
-                    (append (list "grep" "--color" "-nr"
-                                  case-flag
-                                  binary-flag)
-                            file-flags
-                            (list "--"
-                                  (shell-quote-argument search-pattern))
-                            file-glob)
-                    " ")
+         (repo-grep--build-grep-command search-pattern include-ext exclude-ext)
          'grep-mode)))))
 
 (defun repo-grep--build-file-flags (include-ext exclude-ext)
@@ -241,6 +228,23 @@ The * wildcard is handled separately in `repo-grep--internal'."
                (format "--exclude=*%s" (repo-grep--sanitise-ext ext)))
               parts)))
     (nreverse parts)))
+
+(defun repo-grep--build-grep-command (search-pattern include-ext exclude-ext)
+  "Build the grep shell command string for SEARCH-PATTERN.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings."
+  (let ((file-flags (repo-grep--build-file-flags include-ext exclude-ext))
+        (file-glob  (unless include-ext '("*")))
+        (case-flag  (if repo-grep-case-sensitive "" "-i"))
+        (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
+    (mapconcat #'identity
+               (append (list "grep" "--color" "-nr"
+                             case-flag
+                             binary-flag)
+                       file-flags
+                       (list "--"
+                             (shell-quote-argument search-pattern))
+                       file-glob)
+               " ")))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
