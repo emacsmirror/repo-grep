@@ -191,7 +191,10 @@ Optional keyword arguments in ARGS:
            (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
            (folder (repo-grep--find-folder))
-           (files (split-string (repo-grep--build-file-pattern include-ext exclude-ext)))
+           ;; file-flags: the --include/--exclude flags (must come before --)
+           ;; file-glob:  the * wildcard (must come after --, only when no --include)
+           (file-flags (repo-grep--build-file-flags include-ext exclude-ext))
+           (file-glob  (unless include-ext '("*")))
            (case-flag (if repo-grep-case-sensitive "" "-i"))
            (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
 
@@ -201,36 +204,36 @@ Optional keyword arguments in ARGS:
 
       (let ((default-directory folder))
         (compilation-start
-         ;; quote only the search pattern (not the file globs)
          (mapconcat #'identity
                     (append (list "grep" "--color" "-nr"
                                   case-flag
-                                  binary-flag
-                                  "--"
+                                  binary-flag)
+                            file-flags
+                            (list "--"
                                   (shell-quote-argument search-pattern))
-                            files)
+                            file-glob)
                     " ")
          'grep-mode)))))
 
-(defun repo-grep--build-file-pattern (include-ext exclude-ext)
-  "Construct a file pattern for grep using INCLUDE-EXT and EXCLUDE-EXT.
-
-  INCLUDE-EXT   List of file extensions to include.
-  EXCLUDE-EXT   List of file extensions to exclude."
+(defun repo-grep--build-file-flags (include-ext exclude-ext)
+  "Build a list of quoted --include and --exclude flag strings for grep.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
+Returns a list of shell-quoted flag strings, or nil if both are empty.
+The * wildcard is handled separately in `repo-grep--internal'."
   (let ((parts '()))
     ;; Add include patterns
     (when include-ext
       (dolist (ext include-ext)
-        (push (format "--include=*%s" (repo-grep--sanitise-ext ext)) parts)))
+        (push (shell-quote-argument
+               (format "--include=*%s" (repo-grep--sanitise-ext ext)))
+              parts)))
     ;; Add exclude patterns
     (when exclude-ext
       (dolist (ext exclude-ext)
-        (push (format "--exclude=*%s" (repo-grep--sanitise-ext ext)) parts)))
-    ;; Add wildcard only if no includes specified
-    (unless include-ext
-      (push "*" parts))
-    ;; Join with spaces
-    (mapconcat #'identity (nreverse parts) " ")))
+        (push (shell-quote-argument
+               (format "--exclude=*%s" (repo-grep--sanitise-ext ext)))
+              parts)))
+    (nreverse parts)))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
