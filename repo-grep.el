@@ -250,19 +250,20 @@ The * wildcard is handled separately in `repo-grep--internal'."
 (defun repo-grep--build-rg-globs (include-ext exclude-ext)
   "Build a list of --glob flag strings for rg from INCLUDE-EXT and EXCLUDE-EXT.
 INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
-Include patterns become --glob=*.ext, exclude patterns become --glob=!*.ext."
+Include patterns become --glob=*.ext, exclude patterns become --glob=!*.ext.
+Extensions are expected to include the leading dot (e.g. \".el\")."
   (let ((parts '()))
     (when include-ext
       (dolist (ext include-ext)
         (push (format "--glob=%s"
                       (shell-quote-argument
-                       (format "*.%s" (repo-grep--sanitise-ext ext))))
+                       (format "*%s" (repo-grep--sanitise-ext ext))))
               parts)))
     (when exclude-ext
       (dolist (ext exclude-ext)
         (push (format "--glob=%s"
                       (shell-quote-argument
-                       (format "!*.%s" (repo-grep--sanitise-ext ext))))
+                       (format "!*%s" (repo-grep--sanitise-ext ext))))
               parts)))
     (nreverse parts)))
 
@@ -293,6 +294,7 @@ Requires ripgrep (rg) to be installed and available on PATH."
     (error "ripgrep (rg) not found on PATH; install it or set `repo-grep-backend' to 'grep"))
   (let ((globs      (repo-grep--build-rg-globs include-ext exclude-ext))
         (case-flag  (when (not repo-grep-case-sensitive) "-i"))
+        ;; rg skips binary files by default; --binary overrides this when needed
         (binary-flag (when (not repo-grep-ignore-binary) "--binary")))
     (mapconcat #'identity
                (delq nil
