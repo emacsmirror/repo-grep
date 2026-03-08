@@ -27,6 +27,7 @@ When working across large projects or multiple repositories, staying inside Emac
 
 - Emacs ≥ 25.1  
 - `grep` (available on Unix-like systems)
+- `rg` (optional — [ripgrep](https://github.com/BurntSushi/ripgrep), for the rg backend)
 
 ## Quickstart
 
@@ -96,6 +97,18 @@ Binary files are skipped by default. You can change this via `M-x repo-grep-set-
 ```
 (setq repo-grep-ignore-binary nil)
 ```
+
+### Search backend
+
+repo-grep uses `grep` by default. If [ripgrep](https://github.com/BurntSushi/ripgrep) is installed,
+you can switch to it for faster searches on large repositories:
+
+```
+(setq repo-grep-backend 'rg)
+```
+
+Toggle interactively with `M-x repo-grep-set-backend`. The `grep` backend remains the default
+and no changes to your existing configuration are required.
 
 ### Context-aware search using regex
 

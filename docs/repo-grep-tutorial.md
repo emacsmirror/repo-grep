@@ -36,6 +36,8 @@ Before installing `repo-grep`, make sure the following is available:
 
 - **Emacs**: Version 25.1 or newer is required.
 - **Grep**: `repo-grep` executes shell-based grep commands to perform searches.
+- **rg** (optional): If [ripgrep](https://github.com/BurntSushi/ripgrep) is installed, 
+  you can use it as an alternative search backend for faster searches on large repositories.
 
 No additional tools or packages are required. This makes setup simple. `repo-grep` uses VCS roots to detect project directories and works independently of Emacs's built-in `project.el` package.
 
@@ -303,5 +305,31 @@ You can do this using a prefix regex that matches subroutine call sites, e.g., l
 ```
 
 With this setup, place your cursor over the name of a subroutine, press F10, and Emacs will list every line where it is called. Since results are clickable in the `*grep*` buffer, you can walk through each call site interactively — making it easy to understand control flow and dependencies, without any plugins or static analysis tools.
+
+### Search backend (default: grep)
+
+By default, `repo-grep` uses `grep`. If [ripgrep](https://github.com/BurntSushi/ripgrep)
+is installed, you can switch to it as the search backend.
+
+#### Option 1: Set it in your configuration
+
+```elisp
+(setq repo-grep-backend 'rg)
+```
+
+To restore the default:
+
+```elisp
+(setq repo-grep-backend 'grep)
+```
+
+#### Option 2: Toggle it interactively
+
+```elisp
+M-x repo-grep-set-backend
+```
+
+You will be prompted to select between `grep` and `rg`. The setting takes effect immediately.
+Both backends produce clickable results in the same `*grep*` buffer — the UX is identical.
 
 [Back to top ↑](#table-of-contents)

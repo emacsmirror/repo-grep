@@ -1,7 +1,7 @@
 ;;; repo-grep.el --- Project-wide grep search -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
-;; Version: 1.5.4
+;; Version: 1.6.0
 ;; License: BSD-3-Clause
 ;; Keywords: tools search grep convenience project
 ;; Package-Requires: ((emacs "25.1"))
@@ -12,13 +12,13 @@
 ;; the terms of the BSD-3-Clause License.
 
 ;;; Commentary:
-;; `repo-grep' runs a recursive grep through the folder structure of your Git
+;; `repo-grep' runs a recursive search through the folder structure of your Git
 ;; repository, SVN working copy, or plain folder. It uses the symbol under the
 ;; cursor as the default search term, which you can edit interactively. The
 ;; search term can include a regular expression, and you can configure regex
 ;; patterns as a prefix or suffix to further refine the search.
 ;;
-;; The companion command `repo-grep-multi' extends this to a recursive grep
+;; The companion command `repo-grep-multi' extends this to a recursive search
 ;; across multiple repositories or folders located in the same parent directory.
 ;;
 ;; Features include:
@@ -27,6 +27,7 @@
 ;; - Case sensitivity and binary file handling options
 ;; - Customisable include/exclude file patterns
 ;; - Clickable results in a standard *grep* buffer
+;; - Optional ripgrep (rg) backend for faster searches
 ;;
 ;; For installation, configuration, and usage examples, see the README and
 ;; the tutorial at https://github.com/BHFock/repo-grep.
@@ -112,6 +113,29 @@ Ignored when using `repo-grep-multi'."
     (message "Ignore binary files is now %s"
              (if repo-grep-ignore-binary "ENABLED" "DISABLED"))))
 
+(defcustom repo-grep-backend 'grep
+  "Search backend to use: either `grep' (default) or `rg' (ripgrep).
+ripgrep must be installed and available on PATH when using `rg'."
+  :type '(choice (const :tag "grep" grep)
+                 (const :tag "rg (ripgrep)" rg))
+  :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-backend ()
+  "Interactively select the search backend for `repo-grep'.
+Choose between `grep' (default) and `rg' (ripgrep).
+ripgrep must be installed and available on PATH when selecting `rg'."
+  (interactive)
+  (let* ((options '(("grep" . grep) ("rg" . rg)))
+         (current (symbol-name repo-grep-backend))
+         (choice (completing-read
+                  (format "Search backend is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-backend (cdr (assoc choice options)))
+    (message "Search backend is now %s"
+             (symbol-name repo-grep-backend))))
+
 ;;;###autoload
 (defun repo-grep (&rest args)
   "Run a project-wide grep search from the detected repository root.
@@ -190,13 +214,7 @@ Optional keyword arguments in ARGS:
            (sanitised-input (repo-grep--sanitise-input input))
            (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
-           (folder (repo-grep--find-folder))
-           ;; file-flags: the --include/--exclude flags (must come before --)
-           ;; file-glob:  the * wildcard (must come after --, only when no --include)
-           (file-flags (repo-grep--build-file-flags include-ext exclude-ext))
-           (file-glob  (unless include-ext '("*")))
-           (case-flag (if repo-grep-case-sensitive "" "-i"))
-           (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
+           (folder (repo-grep--find-folder)))
 
       ;; Ensure a valid folder before executing grep
       (unless (and folder (not (string-empty-p folder)))
@@ -204,15 +222,9 @@ Optional keyword arguments in ARGS:
 
       (let ((default-directory folder))
         (compilation-start
-         (mapconcat #'identity
-                    (append (list "grep" "--color" "-nr"
-                                  case-flag
-                                  binary-flag)
-                            file-flags
-                            (list "--"
-                                  (shell-quote-argument search-pattern))
-                            file-glob)
-                    " ")
+         (if (eq repo-grep-backend 'rg)
+             (repo-grep--build-rg-command search-pattern include-ext exclude-ext)
+           (repo-grep--build-grep-command search-pattern include-ext exclude-ext))
          'grep-mode)))))
 
 (defun repo-grep--build-file-flags (include-ext exclude-ext)
@@ -234,6 +246,69 @@ The * wildcard is handled separately in `repo-grep--internal'."
                (format "--exclude=*%s" (repo-grep--sanitise-ext ext)))
               parts)))
     (nreverse parts)))
+
+(defun repo-grep--build-rg-globs (include-ext exclude-ext)
+  "Build a list of --glob flag strings for rg from INCLUDE-EXT and EXCLUDE-EXT.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
+Include patterns become --glob=*.ext, exclude patterns become --glob=!*.ext.
+Extensions are expected to include the leading dot (e.g. \".el\")."
+  (let ((parts '()))
+    (when include-ext
+      (dolist (ext include-ext)
+        (push (format "--glob=%s"
+                      (shell-quote-argument
+                       (format "*%s" (repo-grep--sanitise-ext ext))))
+              parts)))
+    (when exclude-ext
+      (dolist (ext exclude-ext)
+        (push (format "--glob=%s"
+                      (shell-quote-argument
+                       (format "!*%s" (repo-grep--sanitise-ext ext))))
+              parts)))
+    (nreverse parts)))
+
+(defun repo-grep--build-grep-command (search-pattern include-ext exclude-ext)
+  "Build the grep shell command string for SEARCH-PATTERN.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings."
+  (let ((file-flags (repo-grep--build-file-flags include-ext exclude-ext))
+        (file-glob  (unless include-ext '("*")))
+        (case-flag  (if repo-grep-case-sensitive "" "-i"))
+        (binary-flag (if repo-grep-ignore-binary "--binary-files=without-match" "")))
+    (mapconcat #'identity
+               (append (list "grep" "--color" "-nr"
+                             case-flag
+                             binary-flag)
+                       file-flags
+                       (list "--"
+                             (shell-quote-argument search-pattern))
+                       file-glob)
+               " ")))
+
+(defun repo-grep--build-rg-command (search-pattern include-ext exclude-ext)
+  "Build the rg shell command string for SEARCH-PATTERN.
+INCLUDE-EXT and EXCLUDE-EXT are lists of file extension strings.
+Colour is applied to matched text only, leaving filename and line number
+as plain text so that `grep-mode' can parse them as clickable links.
+Requires ripgrep (rg) to be installed and available on PATH."
+  (unless (executable-find "rg")
+    (error "ripgrep (rg) not found on PATH; install it or set `repo-grep-backend' to 'grep"))
+  (let ((globs      (repo-grep--build-rg-globs include-ext exclude-ext))
+        (case-flag  (when (not repo-grep-case-sensitive) "-i"))
+        ;; rg skips binary files by default; --binary overrides this when needed
+        (binary-flag (when (not repo-grep-ignore-binary) "--binary")))
+    (mapconcat #'identity
+               (delq nil
+                     (append (list "rg" "--color=always"
+                                   "--colors" "path:none"
+                                   "--colors" "line:none"
+                                   "--no-heading" "--with-filename" "-n")
+                             (when case-flag   (list case-flag))
+                             (when binary-flag (list binary-flag))
+                             globs
+                             (list "--"
+                                   (shell-quote-argument search-pattern)
+                                   ".")))
+               " ")))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
