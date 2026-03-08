@@ -197,8 +197,7 @@ Optional keyword arguments in ARGS:
            (sanitised-input (repo-grep--sanitise-input input))
            (search-term (if (string-empty-p sanitised-input) default-term sanitised-input))
            (search-pattern (concat (or left-regex "") search-term (or right-regex "")))
-           (folder (repo-grep--find-folder))
-            )
+           (folder (repo-grep--find-folder)))
 
       ;; Ensure a valid folder before executing grep
       (unless (and folder (not (string-empty-p folder)))
