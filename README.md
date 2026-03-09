@@ -15,13 +15,14 @@ When working across large projects or multiple repositories, staying inside Emac
 
 ## Why use repo-grep?
 
-- Recursive search from the project root — Git, SVN, or any directory
-- Instant search using the symbol under the cursor — editable before execution
+- Recursive search from the project root (Git, SVN, or any directory)
+- Instant search using the symbol under the cursor
 - Multi-repo search from a shared parent folder
-- Optional regex context and file-type filters
-- Search results appear in a persistent `*grep*` buffer for convenient review and navigation
-- Input is sanitised to prevent unsafe shell execution
-- No setup or project configuration required
+- Regex context and file-type filters
+- Optional ripgrep backend (rg) for fast searches
+- Results in a persistent, clickable *grep* buffer
+- Sanitised input to avoid unsafe shell execution
+- No project configuration required
 
 ## Dependencies
 
