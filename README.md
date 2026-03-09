@@ -107,8 +107,7 @@ you can switch to it for faster searches on large repositories:
 (setq repo-grep-backend 'rg)
 ```
 
-Toggle interactively with `M-x repo-grep-set-backend`. The `grep` backend remains the default
-and no changes to your existing configuration are required.
+Toggle interactively with `M-x repo-grep-set-backend`.
 
 ### Context-aware search using regex
 
