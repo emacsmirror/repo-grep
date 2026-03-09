@@ -31,7 +31,7 @@ When working across large projects or multiple repositories, staying inside Emac
 
 ## Quickstart
 
-### 1. Clone the repository
+### 1. Clone the repository (or install via MELPA)
 
 ```
 git clone https://github.com/BHFock/repo-grep.git ~/repo-grep
