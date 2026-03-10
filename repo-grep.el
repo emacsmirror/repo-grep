@@ -113,24 +113,25 @@ Ignored when using `repo-grep-multi'."
     (message "Ignore binary files is now %s"
              (if repo-grep-ignore-binary "ENABLED" "DISABLED"))))
 
-(defcustom repo-grep-rg-no-ignore t
-  "If non-nil, pass --no-ignore to rg, overriding .gitignore and similar files."
+(defcustom repo-grep-rg-use-gitignore nil
+  "If non-nil, rg respects .gitignore and similar ignore files.
+When nil, passes --no-ignore to rg for complete search coverage."
   :type 'boolean
   :group 'repo-grep)
 
 ;;;###autoload
-(defun repo-grep-set-rg-no-ignore ()
-  "Interactively toggle `repo-grep-rg-no-ignore' between ON and OFF."
+(defun repo-grep-set-rg-use-gitignore ()
+  "Interactively toggle `repo-grep-rg-use-gitignore' between ON and OFF."
   (interactive)
   (let* ((options '(("ON" . t) ("OFF" . nil)))
-         (current (if repo-grep-rg-no-ignore "ON" "OFF"))
+         (current (if repo-grep-rg-use-gitignore "ON" "OFF"))
          (choice (completing-read
-                  (format "rg no-ignore is currently %s. Choose new value: " current)
+                  (format "Use .gitignore is currently %s. Choose new value: " current)
                   (mapcar #'car options)
                   nil t)))
-    (setq repo-grep-rg-no-ignore (cdr (assoc choice options)))
-    (message "rg no-ignore is now %s"
-             (if repo-grep-rg-no-ignore "ENABLED" "DISABLED"))))
+    (setq repo-grep-rg-use-gitignore (cdr (assoc choice options)))
+    (message "Use .gitignore is now %s"
+             (if repo-grep-rg-use-gitignore "ENABLED" "DISABLED"))))
 
 (defcustom repo-grep-backend 'grep
   "Search backend to use: either `grep' (default) or `rg' (ripgrep).
@@ -314,7 +315,7 @@ Requires ripgrep (rg) to be installed and available on PATH."
   (let ((globs         (repo-grep--build-rg-globs include-ext exclude-ext))
         (case-flag     (when (not repo-grep-case-sensitive) "-i"))
         (binary-flag   (when (not repo-grep-ignore-binary) "--binary"))
-        (no-ignore-flag (when repo-grep-rg-no-ignore "--no-ignore")))
+        (no-ignore-flag (when (not repo-grep-rg-use-gitignore) "--no-ignore")))
     (mapconcat #'identity
                (delq nil
                      (append (list "rg" "--color=always"
