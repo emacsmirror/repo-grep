@@ -1,7 +1,7 @@
 ;;; repo-grep.el --- Project-wide grep search -*- lexical-binding: t; -*-
 
 ;; Author:  Bjoern Hendrik Fock
-;; Version: 1.6.0
+;; Version: 1.7.0
 ;; License: BSD-3-Clause
 ;; Keywords: tools search grep convenience project
 ;; Package-Requires: ((emacs "27.1"))
@@ -28,6 +28,7 @@
 ;; - Customisable include/exclude file patterns
 ;; - Clickable results in a standard *grep* buffer
 ;; - Optional ripgrep (rg) backend for faster searches
+;; - Optional .gitignore bypass when using the rg backend
 ;;
 ;; For installation, configuration, and usage examples, see the README and
 ;; the tutorial at https://github.com/BHFock/repo-grep.
@@ -112,6 +113,26 @@ Ignored when using `repo-grep-multi'."
     (setq repo-grep-ignore-binary (cdr (assoc choice options)))
     (message "Ignore binary files is now %s"
              (if repo-grep-ignore-binary "ENABLED" "DISABLED"))))
+
+(defcustom repo-grep-rg-use-gitignore nil
+  "If non-nil, rg respects .gitignore and similar ignore files.
+When nil, passes --no-ignore to rg for complete search coverage."
+  :type 'boolean
+  :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-rg-use-gitignore ()
+  "Interactively toggle `repo-grep-rg-use-gitignore' between ON and OFF."
+  (interactive)
+  (let* ((options '(("ON" . t) ("OFF" . nil)))
+         (current (if repo-grep-rg-use-gitignore "ON" "OFF"))
+         (choice (completing-read
+                  (format "Use .gitignore is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-rg-use-gitignore (cdr (assoc choice options)))
+    (message "Use .gitignore is now %s"
+             (if repo-grep-rg-use-gitignore "ENABLED" "DISABLED"))))
 
 (defcustom repo-grep-backend 'grep
   "Search backend to use: either `grep' (default) or `rg' (ripgrep).
@@ -292,23 +313,24 @@ as plain text so that `grep-mode' can parse them as clickable links.
 Requires ripgrep (rg) to be installed and available on PATH."
   (unless (executable-find "rg")
     (error "ripgrep (rg) not found on PATH; install it or set `repo-grep-backend' to 'grep"))
-  (let ((globs      (repo-grep--build-rg-globs include-ext exclude-ext))
-        (case-flag  (when (not repo-grep-case-sensitive) "-i"))
-        ;; rg skips binary files by default; --binary overrides this when needed
-        (binary-flag (when (not repo-grep-ignore-binary) "--binary")))
+  (let ((globs         (repo-grep--build-rg-globs include-ext exclude-ext))
+        (case-flag     (when (not repo-grep-case-sensitive) "-i"))
+        (binary-flag   (when (not repo-grep-ignore-binary) "--binary"))
+        (no-ignore-flag (when (not repo-grep-rg-use-gitignore) "--no-ignore")))
     (mapconcat #'identity
                (delq nil
                      (append (list "rg" "--color=always"
                                    "--colors" "path:none"
                                    "--colors" "line:none"
                                    "--no-heading" "--with-filename" "-n")
-                             (when case-flag   (list case-flag))
-                             (when binary-flag (list binary-flag))
+                             (when case-flag      (list case-flag))
+                             (when binary-flag    (list binary-flag))
+                             (when no-ignore-flag (list no-ignore-flag))
                              globs
                              (list "--"
                                    (shell-quote-argument search-pattern)
                                    ".")))
-               " ")))
+               " " )))
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.

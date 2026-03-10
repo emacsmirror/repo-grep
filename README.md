@@ -110,6 +110,16 @@ you can switch to it for faster searches on large repositories:
 
 Toggle interactively with `M-x repo-grep-set-backend`.
 
+### ripgrep and .gitignore
+
+By default, repo-grep bypasses `.gitignore` when using the rg backend to ensure complete search coverage. To restore rg's default behaviour of respecting `.gitignore`:
+
+```
+(setq repo-grep-rg-use-gitignore t)
+```
+
+Toggle interactively with `M-x repo-grep-set-rg-use-gitignore`.
+
 ### Context-aware search using regex
 
 Use regex fragments to match symbols in specific code contexts.
@@ -131,10 +141,6 @@ Matches lines like CALL my_subroutine(...).
 Matches lines where the symbol appears on the left-hand side of an assignment.
 
 You can define custom keybindings to frequently used patterns or filters.
-
-## Project status
-
-repo-grep is considered feature-complete. It remains available for use, fork, or adaptation under the license terms. Further changes are not planned.
 
 ## Security
 
