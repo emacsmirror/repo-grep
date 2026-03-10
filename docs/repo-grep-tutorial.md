@@ -21,6 +21,7 @@ Navigating large codebases in Emacs can be fast and seamless with `repo-grep`. I
 - **Optional binary file search:** Skip binary files by default, or include them when needed.
 - **Regex support:** Add prefix/suffix patterns to fine-tune matches.
 - **Custom file exclusions and case sensitivity:** Tailor results to your workflow.
+- **ripgrep backend:** Optional rg backend for significantly faster searches on large repositories.
 
 `repo-grep` keeps you focused inside Emacs — no context-switching, no distractions.
 
