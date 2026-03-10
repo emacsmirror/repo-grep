@@ -331,7 +331,6 @@ Requires ripgrep (rg) to be installed and available on PATH."
                                    ".")))
                " " )))
 
-
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
 Uses Emacs' built-in VCS detection and falls back to `default-directory'.
