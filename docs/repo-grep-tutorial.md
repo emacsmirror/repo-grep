@@ -332,4 +332,29 @@ M-x repo-grep-set-backend
 You will be prompted to select between `grep` and `rg`. The setting takes effect immediately.
 Both backends produce clickable results in the same `*grep*` buffer — the UX is identical.
 
+### ripgrep and .gitignore (default: bypass)
+
+When using the rg backend, repo-grep bypasses `.gitignore` by default to ensure
+complete search coverage — matching the behaviour of the grep backend.
+
+If you want rg to respect `.gitignore` and similar ignore files:
+
+#### Option 1: Set it in your configuration
+```elisp
+(setq repo-grep-rg-use-gitignore t)
+```
+
+To restore the default (bypass .gitignore):
+```elisp
+(setq repo-grep-rg-use-gitignore nil)
+```
+
+#### Option 2: Toggle it interactively
+```elisp
+M-x repo-grep-set-rg-use-gitignore
+```
+
+You will be prompted to select between ON and OFF. This setting only applies
+when using the rg backend.
+
 [Back to top ↑](#table-of-contents)
