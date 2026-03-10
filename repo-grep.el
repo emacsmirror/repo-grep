@@ -113,6 +113,25 @@ Ignored when using `repo-grep-multi'."
     (message "Ignore binary files is now %s"
              (if repo-grep-ignore-binary "ENABLED" "DISABLED"))))
 
+(defcustom repo-grep-rg-no-ignore t
+  "If non-nil, pass --no-ignore to rg, overriding .gitignore and similar files."
+  :type 'boolean
+  :group 'repo-grep)
+
+;;;###autoload
+(defun repo-grep-set-rg-no-ignore ()
+  "Interactively toggle `repo-grep-rg-no-ignore' between ON and OFF."
+  (interactive)
+  (let* ((options '(("ON" . t) ("OFF" . nil)))
+         (current (if repo-grep-rg-no-ignore "ON" "OFF"))
+         (choice (completing-read
+                  (format "rg no-ignore is currently %s. Choose new value: " current)
+                  (mapcar #'car options)
+                  nil t)))
+    (setq repo-grep-rg-no-ignore (cdr (assoc choice options)))
+    (message "rg no-ignore is now %s"
+             (if repo-grep-rg-no-ignore "ENABLED" "DISABLED"))))
+
 (defcustom repo-grep-backend 'grep
   "Search backend to use: either `grep' (default) or `rg' (ripgrep).
 ripgrep must be installed and available on PATH when using `rg'."
@@ -292,23 +311,25 @@ as plain text so that `grep-mode' can parse them as clickable links.
 Requires ripgrep (rg) to be installed and available on PATH."
   (unless (executable-find "rg")
     (error "ripgrep (rg) not found on PATH; install it or set `repo-grep-backend' to 'grep"))
-  (let ((globs      (repo-grep--build-rg-globs include-ext exclude-ext))
-        (case-flag  (when (not repo-grep-case-sensitive) "-i"))
-        ;; rg skips binary files by default; --binary overrides this when needed
-        (binary-flag (when (not repo-grep-ignore-binary) "--binary")))
+  (let ((globs         (repo-grep--build-rg-globs include-ext exclude-ext))
+        (case-flag     (when (not repo-grep-case-sensitive) "-i"))
+        (binary-flag   (when (not repo-grep-ignore-binary) "--binary"))
+        (no-ignore-flag (when repo-grep-rg-no-ignore "--no-ignore")))
     (mapconcat #'identity
                (delq nil
                      (append (list "rg" "--color=always"
                                    "--colors" "path:none"
                                    "--colors" "line:none"
                                    "--no-heading" "--with-filename" "-n")
-                             (when case-flag   (list case-flag))
-                             (when binary-flag (list binary-flag))
+                             (when case-flag      (list case-flag))
+                             (when binary-flag    (list binary-flag))
+                             (when no-ignore-flag (list no-ignore-flag))
                              globs
                              (list "--"
                                    (shell-quote-argument search-pattern)
                                    ".")))
-               " ")))
+               " " )))
+
 
 (defun repo-grep--find-folder ()
   "Determine the appropriate folder to run grep in.
