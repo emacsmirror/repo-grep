@@ -4,7 +4,6 @@
 [![Story](https://img.shields.io/badge/Story-Origin-lightgrey)](docs/history.md)
 [![MELPA](https://melpa.org/packages/repo-grep-badge.svg)](https://melpa.org/#/repo-grep)
 [![MELPA Stable](https://stable.melpa.org/packages/repo-grep-badge.svg)](https://stable.melpa.org/#/repo-grep)
-[![GitHub stars](https://img.shields.io/github/stars/BHFock/repo-grep?style=social)](https://github.com/BHFock/repo-grep/stargazers)
 
 ## Search the symbol at point across repositories in Emacs
 
